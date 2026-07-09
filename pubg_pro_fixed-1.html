@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PUBG UC - KURDISTAN STORE</title>
+
+<style>
+  #topBtn{
+    display:none;
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:#00ff99;
+    color:#111;
+    font-size:24px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 0 15px rgba(0,255,153,.6);
+    transition:.3s;
+    z-index:999;
+}
+
+#topBtn:hover{
+    background:#00cc77;
+    transform:scale(1.1);
+}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+body{
+    background:#111;
+    color:white;
+}
+header{
+    background:#1f1f1f;
+    text-align:center;
+    padding:25px;
+}
+header h1{
+    color:#00ff99;
+}
+.container{
+    width:90%;
+    max-width:900px;
+    margin:30px auto;
+}
+.card{
+    background:#222;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:20px;
+    text-align:center;
+    box-shadow:0 0 10px rgba(0,255,153,.3);
+}
+.card h2{
+    color:#00ff99;
+}
+.price{
+    color:gold;
+    font-size:22px;
+    margin:15px 0;
+}
+button{
+    background:#00ff99;
+    color:black;
+    border:none;
+    padding:12px 30px;
+    border-radius:8px;
+    font-size:17px;
+    cursor:pointer;
+}
+button:hover{
+    background:#00cc77;
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="card">
+<h2>👤 Sign Up</h2>
+
+<input type="text" id="username" placeholder="Your Name"><br><br>
+
+<input type="email" id="email" placeholder="Email"><br><br>
+
+<input type="password" id="password" placeholder="Password"><br><br>
+
+<button onclick="signup()">Create Account</button>
+  <br><br>
+
+<button onclick="login()">Login</button>
+
+<p id="loginMsg"></p>
+
+<p id="signupMsg"></p>
+</div>
+
+
+<h3>Owners</h3>
+
+<p>👤 MUHAMAD MARIWAN AZEZ</p>
+<p>👤 BAREZ ABAS</p>
+<p>👤 AKAY PUBG</p>
+<p>👤 AHMAD CHOMANI</p>
+<h3>PUBG UC SHOP</h3>
+</header>
+<div id="welcome" style="display:none;color:#00ff99;font-size:22px;margin:10px;"></div>
+<button id="logoutBtn" onclick="logout()" style="display:none;margin-bottom:15px;">Logout</button>
+<img src="PUBG.JPG" alt="PUBG" style="width:100%;max-width:700px;border-radius:15px;display:block;margin:20px auto;">
+<h1>KURDISTAN STORE</h1>
+
+
+
+<div class="container">
+
+<div class="card">
+<h2>60 UC</h2>
+<p class="price">1500 IQD</p>
+<a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%2060%20UC">
+<button>BUY NOW</button>
+</a>
+</div>
+
+<div class="card">
+<h2>325 UC</h2>
+<p class="price">8000 IQD</p>
+<a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%20325%20UC">
+<button>BUY NOW</button>
+</a>
+</div>
+
+<div class="card">
+<h2>660 UC</h2>
+<p class="price">16000 IQD</p>
+<a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%20660%20UC">
+<button>BUY NOW</button>
+</a>
+</div>
+<div class="card">
+    <h2>1800 UC</h2>
+    <p class="price">40000 IQD</p>
+    <a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%201800%20UC">
+        <button>BUY NOW</button>
+    </a>
+</div>
+
+<div class="card">
+    <h2>3850 UC</h2>
+    <p class="price">85000 IQD</p>
+    <a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%203850%20UC">
+        <button>BUY NOW</button>
+    </a>
+</div>
+
+<div class="card">
+    <h2>🛒 Order Now</h2>
+
+    <input type="text" id="pubgId" placeholder="Your PUBG ID"><br><br>
+    <input type="text" id="orderName" placeholder="Your Name"><br><br>
+  <select id="ucAmount">
+    <option value="60 UC">60 UC - 1500 IQD</option>
+    <option value="325 UC">325 UC - 8000 IQD</option>
+    <option value="660 UC">660 UC - 16000 IQD</option>
+    <option value="1800 UC">1800 UC - 40000 IQD</option>
+    <option value="3850 UC">3850 UC - 85000 IQD</option>
+</select>
+<br><br>
+
+<button onclick="sendOrder()">SEND ORDER</button>
+</div>
+
+<div class="card">
+    <h2>💳 Payment Methods</h2>
+    <p>💳 Qi Card</p>
+    <p>💸 FastPay</p>
+    <p>🏦 FIB Bank</p>
+    <p>💵 Cash</p>
+</div>
+</div>   <!-- کۆتایی Payment Methods -->
+
+<!-- لێرە ئەم کۆدە دابنێ -->
+
+<div class="card">
+    <h2>🌐 Follow Us</h2>
+
+    <p>
+        <a href="https://www.facebook.com/share/1RaePme8hR/" target="_blank">
+            📘 Facebook Page
+        </a>
+    </p>
+
+    <p>
+        <a href="https://www.facebook.com/groups/314942885710513/?ref=share&mibextid=NSMWBT" target="_blank">
+            👥 Facebook Group
+        </a>
+    </p>
+</div>
+
+<div class="card">
+    <h2>About Us</h2>
+    <p>
+        KURDISTAN STORE is a PUBG UC shop.<br>
+        We provide fast and trusted UC delivery for PUBG players.
+    </p>
+</div>
+
+</div>
+  <div class="card">
+    <h2>⭐ Customer Reviews</h2>
+    <p>⭐⭐⭐⭐⭐ "Fast delivery!"</p>
+    <p>⭐⭐⭐⭐⭐ "Trusted seller."</p>
+</div>
+  <div class="card">
+    <h2>🟢 Status</h2>
+    <p style="color:#00ff99;">We are Online 24/7</p>
+</div>
+</div>
+
+<button id="topBtn" onclick="topFunction()">⬆</button>
+
+<script>
+function sendOrder() {
+    let pubgId = document.getElementById('pubgId').value;
+    let name = document.getElementById('orderName').value;
+let uc = document.getElementById("ucAmount").value;
+
+    let message =
+        "Hello, I want to order PUBG UC.%0A%0A" +
+        "PUBG ID: " + pubgId + "%0A" +
+        "Name: " + name + "%0A" +
+        "UC Amount: " + uc;
+if (pubgId == "" || name == "") {
+    alert("Please fill in all fields!");
+    return;
+}
+    window.open("https://wa.me/9647751513431?text=" + message, "_blank");
+}
+
+let topBtn = document.getElementById("topBtn");
+
+window.addEventListener("scroll", function () {
+    if (window.scrollY > 250) {
+        topBtn.style.display = "block";
+    } else {
+        topBtn.style.display = "none";
+    }
+});
+
+function topFunction() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+function signup(){
+
+let name=document.getElementById("username").value;
+let email=document.getElementById("email").value;
+let password=document.getElementById("password").value;
+
+if(name=="" || email=="" || password==""){
+alert("Please fill all fields");
+return;
+}
+
+localStorage.setItem("name",name);
+localStorage.setItem("email",email);
+localStorage.setItem("password",password);
+document.getElementById("signupMsg").innerHTML = "✅ Account Created Successfully";
+}
+  function login() {
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    let savedEmail = localStorage.getItem("email");
+    let savedPassword = localStorage.getItem("password");
+
+    if (email === savedEmail && password === savedPassword) {
+        localStorage.setItem("loggedIn","yes");let n=localStorage.getItem("name")||"User";document.getElementById("welcome").innerHTML="Welcome, "+n;document.getElementById("welcome").style.display="block";document.getElementById("logoutBtn").style.display="inline-block";document.querySelector(".card").style.display="none";document.getElementById("loginMsg").innerHTML="✅ Login Success";
+    } else {
+        document.getElementById("loginMsg").innerHTML = "❌ Email or Password is wrong";
+    }
+}
+
+function logout(){
+ localStorage.removeItem("loggedIn");
+ document.getElementById("welcome").style.display="none";
+ document.getElementById("logoutBtn").style.display="none";
+ document.querySelector(".card").style.display="block";
+ location.reload();
+}
+window.onload=function(){
+ if(localStorage.getItem("loggedIn")=="yes"){
+   let n=localStorage.getItem("name")||"User";
+   document.getElementById("welcome").innerHTML="Welcome, "+n;
+   document.getElementById("welcome").style.display="block";
+   document.getElementById("logoutBtn").style.display="inline-block";
+   document.querySelector(".card").style.display="none";
+ }
+}
+
+</script>
+</body>
+</html>
