@@ -955,5 +955,22 @@ document.querySelectorAll(".card").forEach(function(card){
 
 
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+ const logged=localStorage.getItem("loggedIn")==="yes";
+ function apply(){
+   document.querySelectorAll("body > *").forEach(el=>{
+      if(el.id==="welcome"||el.id==="logoutBtn"||el.tagName==="SCRIPT") return;
+      if(el.closest("#storeContent")) return;
+   });
+   if(!logged){
+      document.querySelectorAll("body > h1, body > .card").forEach(el=>el.style.display="none");
+   }
+ });
+ apply();
+});
+</script>
+
 </body>
 </html>
