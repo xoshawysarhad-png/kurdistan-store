@@ -288,7 +288,7 @@ document.getElementById("signupMsg").innerHTML = "✅ Account Created Successful
     let savedPassword = localStorage.getItem("password");
 
     if (email === savedEmail && password === savedPassword) {
-        localStorage.setItem("loggedIn","yes");let n=localStorage.getItem("name")||"User";document.getElementById("welcome").innerHTML="Welcome, "+n;document.getElementById("welcome").style.display="block";document.getElementById("logoutBtn").style.display="inline-block";document.querySelector(".card").style.display="none";document.getElementById("loginMsg").innerHTML="✅ Login Success";
+        localStorage.setItem("loggedIn","yes");let n=localStorage.getItem("name")||"User";document.getElementById("welcome").innerHTML="Welcome, "+n;document.getElementById("welcome").style.display="block";document.getElementById("logoutBtn").style.display="inline-block";document.getElementById("storeContent").style.display="block";document.querySelector(".card").style.display="none";document.getElementById("loginMsg").innerHTML="✅ Login Success";
     } else {
         document.getElementById("loginMsg").innerHTML = "❌ Email or Password is wrong";
     }
@@ -298,7 +298,7 @@ function logout(){
  localStorage.removeItem("loggedIn");
  document.getElementById("welcome").style.display="none";
  document.getElementById("logoutBtn").style.display="none";
- document.querySelector(".card").style.display="block";
+ document.getElementById("storeContent").style.display="none";document.querySelector(".card").style.display="block";
  location.reload();
 }
 window.onload=function(){
@@ -307,21 +307,11 @@ window.onload=function(){
    document.getElementById("welcome").innerHTML="Welcome, "+n;
    document.getElementById("welcome").style.display="block";
    document.getElementById("logoutBtn").style.display="inline-block";
-   document.querySelector(".card").style.display="none";
+   document.getElementById("storeContent").style.display="block";document.querySelector(".card").style.display="none";
  }
 }
 
 
-// Hide/show store
-const sc=document.getElementById("storeContent");
-const lb=document.querySelector(".card");
-function showStore(){if(sc)sc.style.display="block";}
-function hideStore(){if(sc)sc.style.display="none";}
-const oldLogin=login;
-login=function(){oldLogin(); if(localStorage.getItem("loggedIn")=="yes") showStore();}
-const oldLogout=logout;
-logout=function(){hideStore(); oldLogout();}
-window.addEventListener("load",()=>{if(localStorage.getItem("loggedIn")=="yes")showStore();else hideStore();});
 </script>
 </body>
 </html>
