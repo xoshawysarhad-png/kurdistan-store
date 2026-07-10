@@ -87,8 +87,6 @@ button:hover{
 <img src="banner.png" alt="PUBG UC Banner" style="width:100%;max-width:1200px;display:block;margin:0 auto 20px;">
 
 <header>
-
-<header>
 <div class="card">
 <h2>👤 Sign Up</h2>
 
@@ -124,7 +122,7 @@ button:hover{
 
 
 
-<div class="container">
+<div class="container"><div id="storeContent" style="display:none;">
 
 <div class="card">
 <h2>60 UC</h2>
@@ -229,6 +227,7 @@ button:hover{
 </div>
 </div>
 
+</div>
 <button id="topBtn" onclick="topFunction()">⬆</button>
 
 <script>
@@ -312,6 +311,17 @@ window.onload=function(){
  }
 }
 
+
+// Hide/show store
+const sc=document.getElementById("storeContent");
+const lb=document.querySelector(".card");
+function showStore(){if(sc)sc.style.display="block";}
+function hideStore(){if(sc)sc.style.display="none";}
+const oldLogin=login;
+login=function(){oldLogin(); if(localStorage.getItem("loggedIn")=="yes") showStore();}
+const oldLogout=logout;
+logout=function(){hideStore(); oldLogout();}
+window.addEventListener("load",()=>{if(localStorage.getItem("loggedIn")=="yes")showStore();else hideStore();});
 </script>
 </body>
 </html>
