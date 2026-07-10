@@ -934,7 +934,10 @@ function logout(){
  localStorage.removeItem("loggedIn");
  document.getElementById("welcome").style.display="none";
  document.getElementById("logoutBtn").style.display="none";
- document.getElementById("storeContent").style.display="none";document.querySelector(".card").style.display="block";
+ document.getElementById("storeContent").style.display="none";
+document.querySelectorAll(".card").forEach(function(card){
+    card.style.display="none";
+});
  location.reload();
 }
 window.onload=function(){
@@ -943,7 +946,10 @@ window.onload=function(){
    document.getElementById("welcome").innerHTML="Welcome, "+n;
    document.getElementById("welcome").style.display="block";
    document.getElementById("logoutBtn").style.display="inline-block";
-   document.getElementById("storeContent").style.display="block";document.querySelector(".card").style.display="none";
+   document.getElementById("storeContent").style.display="block";
+document.querySelectorAll(".card").forEach(function(card){
+    card.style.display="block";
+});
  }
 }
 
