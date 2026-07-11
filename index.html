@@ -195,7 +195,7 @@
             z-index: 999;
         }
 
-        /* لۆگیکی نوێ بۆ چەرخی بەخت و پۆپئەپ */
+        /* چەرخی بەخت و پۆپئەپ */
         .wheel-container {
             width: 200px;
             height: 200px;
@@ -234,6 +234,50 @@
             font-size: 14px;
         }
         .live-popup.show { left: 20px; }
+
+        /* ستایلی نوێ بۆ مێژووی داواکارییەکان و ڕێبەری پارەدان */
+        .history-list {
+            text-align: right;
+            max-height: 200px;
+            overflow-y: auto;
+            background: var(--input-bg);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+        .history-item {
+            border-bottom: 1px solid #555;
+            padding: 8px 0;
+        }
+        .guide-box {
+            background: var(--input-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px auto;
+            text-align: right;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* دوگمەی چاتی لایەکی جێگیر */
+        .floating-chat {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 999;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -292,6 +336,25 @@
             <div id="calcResult" class="price" style="font-weight: bold; margin: 10px 0;">0 IQD</div>
         </div>
 
+        <!-- بەشی نوێ: گۆڕینەوەی خاڵەکان (Redeem Points) -->
+        <div class="card" style="max-width: 500px; margin: 0 auto 20px;">
+            <h2 data-key="redeemTitle">🪙 بازاڕی خاڵەکان (خەڵاتی بەخۆڕایی)</h2>
+            <p data-key="redeemDesc">خاڵەکانت بگۆڕەوە بۆ یوسی بەخۆڕایی:</p><br>
+            <div style="display: flex; justify-content: space-around; gap: 10px;">
+                <div style="background: var(--input-bg); padding: 10px; border-radius: 8px; width: 45%;">
+                    <h3>60 UC</h3>
+                    <p style="color: gold;">150 Point</p><br>
+                    <button onclick="redeemPrize('60 UC', 150)" style="padding: 5px 10px; font-size: 14px;" data-key="redeemBtn">گۆڕینەوە</button>
+                </div>
+                <div style="background: var(--input-bg); padding: 10px; border-radius: 8px; width: 45%;">
+                    <h3>325 UC</h3>
+                    <p style="color: gold;">600 Point</p><br>
+                    <button onclick="redeemPrize('325 UC', 600)" style="padding: 5px 10px; font-size: 14px;" data-key="redeemBtn">گۆڕینەوە</button>
+                </div>
+            </div>
+            <p id="redeemMsg" style="margin-top: 10px; font-weight: bold; color: #ff3366;"></p>
+        </div>
+
         <!-- چەرخی بەخت (خەڵاتی ڕۆژانە) -->
         <div class="card" style="max-width: 500px; margin: 0 auto 20px;">
             <h2 data-key="wheelTitle">🎁 چەرخی بەختی کوردستان ستۆر</h2>
@@ -302,6 +365,18 @@
             </div>
             <button onclick="spinWheel()" id="spinBtn" style="margin-top:10px;" data-key="spinBtn">بیسوڕێنە</button>
             <p id="wheelMsg" style="margin-top:10px; color:gold; font-weight:bold;"></p>
+        </div>
+
+        <!-- بەشی نوێ: ڕێبەری پارەدان -->
+        <div class="card" style="max-width: 600px; margin: 0 auto 20px;">
+            <h2 data-key="guideTitle">ℹ️ چۆنیەتی ناردنی پارە و کڕین</h2>
+            <div class="guide-box" id="guideBox">
+                <strong>١. ناردنی پارە:</strong> بڕی پارەی دیاریکراو بنێرە بۆ یەکێک لەم ژمارانە:<br>
+                • فاستپێ (FastPay): <span style="color:var(--accent-color);">07751513431</span><br>
+                • زەین کاش (ZainCash): <span style="color:var(--accent-color);">07751513431</span><br>
+                <strong>٢. ژمارەی پسوڵە:</strong> دوای ناردنی پارەکە، ژمارەی وەسڵەکە کۆپی بکە.<br>
+                <strong>٣. داواکاری:</strong> لە فۆرمی خوارەوە زانیارییەکانت بنووسە و ژمارەی پسوڵەکە لێبدە و کلیل لەسەر ناردن بکە.
+            </div>
         </div>
 
         <div class="search-container">
@@ -338,7 +413,6 @@
                     <option value="1800 UC">1800 UC</option>
                     <option value="3850 UC">3850 UC</option>
                 </select><br>
-                <!-- بەڵگەی پارەدان -->
                 <input type="text" id="receiptCode" placeholder="ژمارەی پسوڵەی فاستپێ یان زەین کاش (یاخوود ناوی بنێر)"><br>
                 <button onclick="sendOrder()" data-key="sendOrder">ناردنی داواکاری</button>
             </div>
@@ -392,6 +466,14 @@
             <div class="card service-item"><h2>5K Telegram Members</h2><p class="price" data-iqd="20,000 IQD" data-usd="$13.35">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Telegram%20Members" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
+        <!-- بەشی نوێ: مێژووی داواکارییەکانی کڕیار (Order History) -->
+        <div class="card" style="max-width: 600px; margin: 20px auto;">
+            <h2 data-key="historyTitle">📜 مێژووی داواکارییەکانت</h2><br>
+            <div class="history-list" id="historyList">
+                <!-- لێرە کۆدی داواکارییە کۆنەکان بە JS زیاد دەبن -->
+            </div>
+        </div>
+
         <div class="card" style="margin-top: 30px;">
             <h2 data-key="payments">💳 ڕێگاکانی پێدانی پارە</h2>
             <p>Qi Card | FastPay | FIB Bank | Cash</p>
@@ -402,22 +484,6 @@
             <p><a href="https://www.facebook.com/share/1RaePme8hR/" target="_blank">📘 Facebook Page</a></p>
             <p><a href="https://www.facebook.com/groups/314942885710513/" target="_blank">👥 Facebook Group</a></p>
         </div>
-
-        <div class="card">
-            <h2 data-key="aboutTitle">دەربارەی ئێمە</h2>
-            <p data-key="aboutDesc">کوردستان ستۆر باشترینە بۆ خزمەتگوزاری یوسی و سۆشیاڵ میدیا.</p>
-        </div>
-        
-        <div class="card">
-            <h2 data-key="reviewsTitle">⭐ پێداچوونەوەی کڕیاران</h2>
-            <p>⭐⭐⭐⭐⭐ "Fast delivery!"</p>
-            <p>⭐⭐⭐⭐⭐ "Trusted seller."</p>
-        </div>
-
-        <div class="card">
-            <h2 data-key="statusTitle">🟢 دۆخ</h2>
-            <p style="color:#00ff99; font-weight: bold;" data-key="statusDesc">ئێمە ٢٤ کاتژمێر ئۆنلاینین</p>
-        </div>
     </div>
 
     <!-- پۆپئەپی ئاگادارکەرەوەی چالاکییەکان -->
@@ -425,6 +491,9 @@
         <span style="font-size: 20px;">🛒</span>
         <div id="popupText">کڕیارێک ئێستا داواکارییەکی نارد!</div>
     </div>
+
+    <!-- دوگمەی چاتی جێگیری لای ڕاست (WhatsApp Support) -->
+    <a href="https://wa.me/9647751513431" class="floating-chat" target="_blank" title="Support">💬</a>
 
     <button id="topBtn" onclick="topFunction()">⬆</button>
 
@@ -453,18 +522,18 @@
                 sendOrder: "ناردنی داواکاری",
                 payments: "💳 ڕێگاکانی پێدانی پارە",
                 followUs: "🌐 فۆڵۆمان بکەن",
-                aboutTitle: "دەربارەی ئێمە",
-                aboutDesc: "کوردستان ستۆر باشترینە بۆ خزمەتگوزاری یوسی و گەشەپێدانی سۆشیاڵ میدیا.",
-                reviewsTitle: "⭐ پێداچوونەوەی کڕیاران",
-                statusTitle: "🟢 دۆخ",
-                statusDesc: "ئێمە ٢٤ کاتژمێر ئۆنلاینین",
                 searchPlace: "گەڕان بۆ خزمەتگوزارییەکان...",
                 calcTitle: "🧮 حاسیبەی خێرای یوسی",
                 calcDesc: "بڕی یوسی بنووسە بۆ زانینی نرخەکەی:",
                 calcPlace: "بۆ نموونە: 325",
                 wheelTitle: "🎁 چەرخی بەختی کوردستان ستۆر",
                 wheelDesc: "ڕۆژی جارێک چەرخەکە بسوڕێنە و خەڵات ببەرەوە!",
-                spinBtn: "بیسوڕێنە"
+                spinBtn: "بیسوڕێنە",
+                redeemTitle: "🪙 بازاڕی خاڵەکان (خەڵاتی بەخۆڕایی)",
+                redeemDesc: "خاڵەکانت بگۆڕەوە بۆ یوسی بەخۆڕایی:",
+                redeemBtn: "گۆڕینەوە",
+                guideTitle: "ℹ️ چۆنیەتی ناردنی پارە و کڕین",
+                historyTitle: "📜 مێژووی داواکارییەکانت"
             },
             en: {
                 title: "KURDISTAN STORE",
@@ -486,18 +555,18 @@
                 sendOrder: "Send Order",
                 payments: "💳 Payment Methods",
                 followUs: "🌐 Follow Us",
-                aboutTitle: "About Us",
-                aboutDesc: "KURDISTAN STORE is the best shop for PUBG UC and Social Media boosting.",
-                reviewsTitle: "⭐ Customer Reviews",
-                statusTitle: "🟢 Status",
-                statusDesc: "We are Online 24/7",
                 searchPlace: "Search for services...",
                 calcTitle: "🧮 Quick UC Calculator",
                 calcDesc: "Enter UC amount to see the price:",
                 calcPlace: "e.g., 325",
-                wheelTitle: "🎁 Kurdistan Store Wheel of Fortune",
+                wheelTitle: "🎁 Kurdistan Store Wheel",
                 wheelDesc: "Spin the wheel once a day to win prizes!",
-                spinBtn: "Spin Now"
+                spinBtn: "Spin Now",
+                redeemTitle: "🪙 Points Shop (Free Rewards)",
+                redeemDesc: "Redeem your points for free UC:",
+                redeemBtn: "Redeem",
+                guideTitle: "ℹ️ Payment & Purchase Guide",
+                historyTitle: "📜 Your Order History"
             },
             ar: {
                 title: "متجر كردستان",
@@ -519,18 +588,18 @@
                 sendOrder: "إرسال الطلب",
                 payments: "💳 طرق الدفع",
                 followUs: "🌐 تابعنا",
-                aboutTitle: "من نحن",
-                aboutDesc: "متجر كردستان هو الأفضل لخدمات الشدات وزيادة متابعين وسائل التواصل الاجتماعي.",
-                reviewsTitle: "⭐ آراء العملاء",
-                statusTitle: "🟢 الحالة",
-                statusDesc: "نحن متواجدون 24/7",
                 searchPlace: "البحث عن الخدمات...",
                 calcTitle: "🧮 حاسبة الشدات السريعة",
                 calcDesc: "أدخل كمية الشدات لمعرفة السعر:",
                 calcPlace: "مثال: 325",
                 wheelTitle: "🎁 عجلة الحظ لمتجر كردستان",
                 wheelDesc: "أدر العجلة مرة واحدة في اليوم لتربح جوائز!",
-                spinBtn: "أدر العجلة"
+                spinBtn: "أدر العجلة",
+                redeemTitle: "🪙 متجر النقاط (مكافآت مجانية)",
+                redeemDesc: "استبدل نقاطك بشدات مجانية:",
+                redeemBtn: "استبدال",
+                guideTitle: "ℹ️ دليل الدفع والشراء",
+                historyTitle: "📜 سجل طلباتك"
             }
         };
 
@@ -541,12 +610,11 @@
 
             document.querySelectorAll('[data-key]').forEach(elem => {
                 const key = elem.getAttribute('data-key');
-                if (translations[lang][key]) {
-                    elem.innerHTML = translations[lang][key];
-                }
+                if (translations[lang][key]) elem.innerHTML = translations[lang][key];
             });
 
             updatePointsDisplay(lang);
+            updateGuideText(lang);
 
             const searchInput = document.getElementById('searchBox');
             if(searchInput) searchInput.placeholder = translations[lang]["searchPlace"];
@@ -561,7 +629,6 @@
                 else receiptInput.placeholder = "FastPay or ZainCash Receipt Number (or Sender Name)";
             }
 
-            // ناوی تابەکان
             let tabs = {
                 ku: ["PUBG UC", "کارتەکان", "شاشەکان", "یاری تر", "ئینستاگرام", "تیکتۆک", "سۆشیاڵ میدیا"],
                 ar: ["شدات ببجي", "بطاقات", "الاشتراكات", "ألعاب أخرى", "إنستغرام", "تيك توك", "مواقع أخرى"],
@@ -573,6 +640,18 @@
             });
 
             calculateUCPrice();
+            loadOrderHistory();
+        }
+
+        function updateGuideText(lang) {
+            let guide = document.getElementById("guideBox");
+            if(lang === 'en') {
+                guide.innerHTML = `<strong>1. Send Money:</strong> Send the price to one of these numbers:<br>• FastPay: <span style="color:var(--accent-color);">07751513431</span><br>• ZainCash: <span style="color:var(--accent-color);">07751513431</span><br><strong>2. Copy Receipt:</strong> Copy the receipt transaction ID after sending.<br><strong>3. Order:</strong> Fill the form below with your ID and Receipt ID, then click Send.`;
+            } else if(lang === 'ar') {
+                guide.innerHTML = `<strong>١. إرسال الأموال:</strong> أرسل المبلغ المحدد إلى أحد الأرقام التالية:<br>• فاست بي: <span style="color:var(--accent-color);">07751513431</span><br>• زين كاش: <span style="color:var(--accent-color);">07751513431</span><br><strong>٢. رقم الوصل:</strong> انسخ رقم المعاملة أو الوصل بعد الإرسال.<br><strong>٣. الطلب:</strong> املاً الاستمارة أدناه برقم الحساب ورقم الوصل واضغط إرسال.`;
+            } else {
+                guide.innerHTML = `<strong>١. ناردنی پارە:</strong> بڕی پارەی دیاریکراو بنێرە بۆ یەکێک لەم ژمارانە:<br>• فاستپێ (FastPay): <span style="color:var(--accent-color);">07751513431</span><br>• زەین کاش (ZainCash): <span style="color:var(--accent-color);">07751513431</span><br><strong>٢. ژمارەی پسوڵە:</strong> دوای ناردنی پارەکە، ژمارەی وەسڵەکە کۆپی بکە.<br><strong>٣. داواکاری:</strong> لە فۆرمی خوارەوە زانیارییەکانت بنووسە و ژمارەی پسوڵەکە لێبدە و کلیل لەسەر ناردن بکە.`;
+            }
         }
 
         function updatePointsDisplay(lang) {
@@ -586,14 +665,11 @@
         function toggleCurrency() {
             currentCurrency = (currentCurrency === "IQD") ? "USD" : "IQD";
             document.getElementById("currencyBtn").innerText = (currentCurrency === "IQD") ? "💵 IQD" : "💵 USD";
-            
             document.querySelectorAll('.price').forEach(priceElem => {
                 if (priceElem.id !== "calcResult") {
                     const iqdPrice = priceElem.getAttribute('data-iqd');
                     const usdPrice = priceElem.getAttribute('data-usd');
-                    if(iqdPrice && usdPrice) {
-                        priceElem.innerText = (currentCurrency === "IQD") ? iqdPrice : usdPrice;
-                    }
+                    if(iqdPrice && usdPrice) priceElem.innerText = (currentCurrency === "IQD") ? iqdPrice : usdPrice;
                 }
             });
             calculateUCPrice();
@@ -607,19 +683,40 @@
                 return;
             }
             if (currentCurrency === "IQD") {
-                let price = Math.round(ucAmount * 24.615);
-                resultElem.innerText = price.toLocaleString() + " IQD";
+                resultElem.innerText = Math.round(ucAmount * 24.615).toLocaleString() + " IQD";
             } else {
-                let price = (ucAmount * 0.0165).toFixed(2);
-                resultElem.innerText = "$" + price;
+                resultElem.innerText = "$" + (ucAmount * 0.0165).toFixed(2);
             }
         }
 
-        // چەرخی بەخت (Wheel of Fortune)
+        // بەشی نوێ: لۆگیکی گۆڕینەوەی خاڵەکان (Redeem Logic)
+        function redeemPrize(ucReward, costPoints) {
+            let lang = localStorage.getItem("selectedLang") || "ku";
+            if(userPoints < costPoints) {
+                if(lang === 'ku') document.getElementById("redeemMsg").innerText = "❌ خاڵی پێویستت نییە!";
+                else if(lang === 'ar') document.getElementById("redeemMsg").innerText = "❌ ليس لديك نقاط كافية!";
+                else document.getElementById("redeemMsg").innerText = "❌ Not enough points!";
+                return;
+            }
+            userPoints -= costPoints;
+            localStorage.setItem("points", userPoints);
+            updatePointsDisplay();
+            
+            document.getElementById("redeemMsg").style.color = "#00ff99";
+            if(lang === 'ku') document.getElementById("redeemMsg").innerText = `✅ بەسەرکەوتوویی گۆڕدرا بۆ ${ucReward}!`;
+            else if(lang === 'ar') document.getElementById("redeemMsg").innerText = `✅ تم الاستبدال بنجاح لـ ${ucReward}!`;
+            else document.getElementById("redeemMsg").innerText = `✅ Successfully redeemed for ${ucReward}!`;
+
+            saveToHistory(`🎁 Redeem Reward: ${ucReward}`, "Points Exchange", new Date().toLocaleString());
+
+            let message = encodeURIComponent(`KURDISTAN STORE - POINTS REDEEM:\n\n👤 User: ${localStorage.getItem("name")}\n📧 Email: ${localStorage.getItem("email")}\n🎁 Free Reward: ${ucReward}\n🪙 Remaining Points: ${userPoints}`);
+            window.open("https://wa.me/9647751513431?text=" + message, "_blank");
+        }
+
+        // چەرخی بەخت
         let isSpinning = false;
         function spinWheel() {
             if (isSpinning) return;
-            
             let lastSpin = localStorage.getItem("lastSpinDate");
             let today = new Date().toDateString();
             if(lastSpin === today) {
@@ -632,14 +729,12 @@
 
             isSpinning = true;
             let wheel = document.getElementById("luckyWheel");
-            let randomDeg = Math.floor(Math.random() * 360) + 1440; // لایەنی کەم ٤ جار دەسوڕێتەوە
+            let randomDeg = Math.floor(Math.random() * 360) + 1440;
             wheel.style.transform = `rotate(${randomDeg}deg)`;
 
             setTimeout(() => {
                 isSpinning = false;
                 localStorage.setItem("lastSpinDate", today);
-                
-                // دیاریکردنی خەڵات و خاڵ بە شێوەی هەرەمەکی
                 let prizes = [10, 20, 50, 5]; 
                 let wonPoints = prizes[Math.floor(Math.random() * prizes.length)];
                 
@@ -654,10 +749,9 @@
             }, 4000);
         }
 
-        // ئاگادارکەرەوەی جوڵاوی خۆکار (Live Popups)
+        // ئاگادارکەرەوەی جوڵاو
         const cities = ["Hewlêr", "Sulaymaniyah", "Duhok", "Kirkuk", "Halabja", "Ranya", "Zaxo", "Kalar"];
-        const products = ["325 UC", "660 UC", "Netflix Profile", "iTunes Card $10", "YouTube Premium", "5K TikTok Followers"];
-        
+        const products = ["325 UC", "660 UC", "Netflix Profile", "iTunes Card $10", "YouTube Premium"];
         function showLivePopup() {
             let lang = localStorage.getItem("selectedLang") || "ku";
             let randomCity = cities[Math.floor(Math.random() * cities.length)];
@@ -670,10 +764,33 @@
 
             let popup = document.getElementById("livePopup");
             popup.classList.add("show");
-
             setTimeout(() => { popup.classList.remove("show"); }, 5000);
         }
-        setInterval(showLivePopup, 20000); // هەموو ٢٠ چرکە جارێک پۆپئەپێک پیشان دەدات
+        setInterval(showLivePopup, 20000);
+
+        // بەشی نوێ: پاشەکەوتکردنی مێژووی داواکارییەکان
+        function saveToHistory(item, receipt, date) {
+            let history = JSON.parse(localStorage.getItem("orderHistory")) || [];
+            history.unshift({ item, receipt, date });
+            localStorage.setItem("orderHistory", JSON.stringify(history));
+            loadOrderHistory();
+        }
+
+        function loadOrderHistory() {
+            let history = JSON.parse(localStorage.getItem("orderHistory")) || [];
+            let container = document.getElementById("historyList");
+            let lang = localStorage.getItem("selectedLang") || "ku";
+            if(history.length === 0) {
+                container.innerHTML = (lang==='ku') ? "هیچ داواکارییەکی کۆن نییە." : (lang==='ar'?'لا توجد طلبات سابقة.':'No previous orders.');
+                return;
+            }
+            container.innerHTML = history.map(h => `
+                <div class="history-item">
+                    <strong>${h.item}</strong> - 📄 ${h.receipt}<br>
+                    <span style="font-size:11px; color:#aaa;">🕒 ${h.date}</span>
+                </div>
+            `).join('');
+        }
 
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -694,7 +811,7 @@
             let items = document.querySelectorAll('.service-item');
             items.forEach(item => {
                 let text = item.querySelector('h2').innerText.toLowerCase();
-                if(text.includes(input)) item.style.style.display = "block";
+                if(text.includes(input)) item.style.display = "block";
                 else item.style.display = "none";
             });
         }
@@ -708,6 +825,7 @@
             localStorage.setItem("email", email);
             localStorage.setItem("password", password);
             localStorage.setItem("points", "0");
+            localStorage.setItem("orderHistory", JSON.stringify([]));
             document.getElementById("signupMsg").innerHTML = "✅ Account Created! Now Login.";
         }
 
@@ -736,9 +854,9 @@
             document.getElementById("storeContent").style.display = "block";
             document.getElementById("authSection").style.display = "none";
             updatePointsDisplay();
+            loadOrderHistory();
         }
 
-        // ناردنی داواکاری لەگەڵ بەڵگەی پارەدان و زیادکردنی خاڵ بۆ کڕین
         function sendOrder() {
             let pubgId = document.getElementById('pubgId').value;
             let name = document.getElementById('orderName').value;
@@ -747,10 +865,12 @@
             
             if (!pubgId || !name) { alert("Fill all fields!"); return; }
 
-            // کاتێک کڕین دەکات ۱۰ خاڵی بۆ زیاد دەبێت وەک هاندانی دڵسۆزی کڕیار
             userPoints += 10;
             localStorage.setItem("points", userPoints);
             updatePointsDisplay();
+
+            let now = new Date().toLocaleString();
+            saveToHistory(`🛒 ${uc} (ID: ${pubgId})`, `پسوڵە: ${receipt}`, now);
 
             let message = encodeURIComponent(`KURDISTAN STORE - NEW ORDER:\n\n👤 Name: ${name}\n🆔 PUBG ID: ${pubgId}\n📦 Item: ${uc}\n🧾 Receipt Info: ${receipt}\n🪙 Total User Points: ${userPoints}`);
             window.open("https://wa.me/9647751513431?text=" + message, "_blank");
@@ -758,11 +878,9 @@
 
         window.onload = function() {
             if(localStorage.getItem("loggedIn") == "yes") showStore();
-            
             let savedLang = localStorage.getItem("selectedLang") || "ku";
             document.getElementById("langSelect").value = savedLang;
             changeLanguage(savedLang);
-
             let savedTheme = localStorage.getItem("theme") || "dark";
             document.documentElement.setAttribute('data-theme', savedTheme);
         };
