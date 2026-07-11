@@ -72,6 +72,25 @@
             margin: 20px 0;
         }
         
+        /* Search Box */
+        .search-container {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 900px;
+            padding: 0 5%;
+        }
+        .search-container input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px;
+            border-radius: 25px;
+            border: 2px solid var(--accent-color);
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-size: 16px;
+            outline: none;
+        }
+
         /* Navigation Tabs */
         .tabs-container {
             display: flex;
@@ -220,6 +239,11 @@
     <!-- Main Content (Hidden until login) -->
     <div class="container" id="storeContent" style="display:none;">
         
+        <!-- Search Bar Feature -->
+        <div class="search-container">
+            <input type="text" id="searchBox" onkeyup="filterServices()" data-placeholder="searchPlace" placeholder="گەڕان بۆ خزمەتگوزارییەکان...">
+        </div>
+
         <!-- Tabs Buttons -->
         <div class="tabs-container">
             <button class="tab-btn active" id="btn-pubg" onclick="openTab(event, 'pubg-tab')">PUBG UC</button>
@@ -233,11 +257,11 @@
         <!-- PUBG TAB -->
         <div id="pubg-tab" class="tab-content active">
             <h1 data-key="pubgTitle">🎮 خزمەتگوزارییەکانی یوسی پۆبجی</h1>
-            <div class="card"><h2>60 UC</h2><p class="price">1500 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%2060%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card"><h2>325 UC</h2><p class="price">8000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%20325%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card"><h2>660 UC</h2><p class="price">16000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%20660%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card"><h2>1800 UC</h2><p class="price">40000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%201800%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card"><h2>3850 UC</h2><p class="price">85000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%203850%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>60 UC</h2><p class="price">1500 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%2060%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>325 UC</h2><p class="price">8000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%20325%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>660 UC</h2><p class="price">16000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%20660%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>1800 UC</h2><p class="price">40000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%201800%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>3850 UC</h2><p class="price">85000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%203850%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
             
             <!-- Order Form -->
             <div class="card">
@@ -258,40 +282,40 @@
         <!-- INSTAGRAM TAB -->
         <div id="instagram-tab" class="tab-content">
             <h1 data-key="instaTitle">📸 خزمەتگوزارییەکانی ئینستاگرام</h1>
-            <div class="card"><h2>5K Followers</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Instagram%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card"><h2>10K Followers</h2><p class="price">40,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20Instagram%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card"><h2>20K Followers</h2><p class="price">75,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2020K%20Instagram%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card"><h2>5K Likes</h2><p class="price">15,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Instagram%20Likes" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>5K Followers (Instagram)</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Instagram%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>10K Followers (Instagram)</h2><p class="price">40,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20Instagram%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>20K Followers (Instagram)</h2><p class="price">75,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2020K%20Instagram%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>5K Likes (Instagram)</h2><p class="price">15,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Instagram%20Likes" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
         </div>
 
         <!-- TIKTOK TAB -->
         <div id="tiktok-tab" class="tab-content">
             <h1 data-key="tiktokTitle">🎵 خزمەتگوزارییەکانی تیکتۆک</h1>
-            <div class="card"><h2>5K Followers</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20TikTok%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card"><h2>10K Followers</h2><p class="price">40,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20TikTok%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card"><h2>10K Views</h2><p class="price">10,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20TikTok%20Views" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>5K Followers (TikTok)</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20TikTok%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>10K Followers (TikTok)</h2><p class="price">40,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20TikTok%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>10K Views (TikTok)</h2><p class="price">10,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20TikTok%20Views" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
         </div>
 
         <!-- YOUTUBE TAB -->
         <div id="youtube-tab" class="tab-content">
             <h1 data-key="youtubeTitle">▶️ خزمەتگوزارییەکانی یوتیوب</h1>
-            <div class="card"><h2>5K Subscribers</h2><p class="price">30,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20YouTube%20Subscribers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card"><h2>10K Subscribers</h2><p class="price">55,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20YouTube%20Subscribers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>5K Subscribers (YouTube)</h2><p class="price">30,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20YouTube%20Subscribers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>10K Subscribers (YouTube)</h2><p class="price">55,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20YouTube%20Subscribers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
         </div>
 
         <!-- FACEBOOK TAB -->
         <div id="facebook-tab" class="tab-content">
             <h1 data-key="facebookTitle">📘 خزمەتگوزارییەکانی فەیسبووک</h1>
-            <div class="card"><h2>5K Followers</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Facebook%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card"><h2>5K Group Members</h2><p class="price">35,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Facebook%20Group%20Members" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>5K Followers (Facebook)</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Facebook%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>5K Group Members (Facebook)</h2><p class="price">35,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Facebook%20Group%20Members" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
         </div>
 
         <!-- OTHER TAB -->
         <div id="other-tab" class="tab-content">
             <h1 data-key="otherTitle">👻 خزمەتگوزارییەکانی تر</h1>
-            <div class="card"><h2>5K Snapchat Followers</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Snapchat%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card"><h2>5K Telegram Members</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Telegram%20Members" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card"><h2>5K Discord Members</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Discord%20Members" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>5K Snapchat Followers</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Snapchat%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>5K Telegram Members</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Telegram%20Members" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>5K Discord Members</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Discord%20Members" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
         </div>
 
         <!-- Info Section (Fixed at bottom) -->
@@ -351,7 +375,8 @@
                 aboutDesc: "کوردستان ستۆر باشترینە بۆ خزمەتگوزاری یوسی و گەشەپێدانی سۆشیاڵ میدیا.",
                 reviewsTitle: "⭐ پێداچوونەوەی کڕیاران",
                 statusTitle: "🟢 دۆخ",
-                statusDesc: "ئێمە ٢٤ کاتژمێر ئۆنلاینین"
+                statusDesc: "ئێمە ٢٤ کاتژمێر ئۆنلاینین",
+                searchPlace: "گەڕان بۆ خزمەتگوزارییەکان..."
             },
             en: {
                 title: "KURDISTAN STORE",
@@ -377,7 +402,8 @@
                 aboutDesc: "KURDISTAN STORE is the best shop for PUBG UC and Social Media boosting.",
                 reviewsTitle: "⭐ Customer Reviews",
                 statusTitle: "🟢 Status",
-                statusDesc: "We are Online 24/7"
+                statusDesc: "We are Online 24/7",
+                searchPlace: "Search for services..."
             },
             ar: {
                 title: "متجر كردستان",
@@ -403,7 +429,8 @@
                 aboutDesc: "متجر كردستان هو الأفضل لخدمات الشدات وزيادة متابعين وسائل التواصل الاجتماعي.",
                 reviewsTitle: "⭐ آراء العملاء",
                 statusTitle: "🟢 الحالة",
-                statusDesc: "نحن متواجدون 24/7"
+                statusDesc: "نحن متواجدون 24/7",
+                searchPlace: "البحث عن الخدمات..."
             }
         };
 
@@ -418,6 +445,11 @@
                     elem.innerHTML = translations[lang][key];
                 }
             });
+
+            const searchInput = document.getElementById('searchBox');
+            if(searchInput) {
+                searchInput.placeholder = translations[lang]["searchPlace"];
+            }
 
             if(lang === 'ku') {
                 document.getElementById('btn-pubg').innerText = "PUBG UC";
@@ -454,7 +486,22 @@
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
-            evt.currentTarget.classList.add('active');
+            if(evt) evt.currentTarget.classList.add('active');
+        }
+
+        // Filter Feature Script
+        function filterServices() {
+            let input = document.getElementById('searchBox').value.toLowerCase();
+            let items = document.querySelectorAll('.service-item');
+            
+            items.forEach(item => {
+                let text = item.querySelector('h2').innerText.toLowerCase();
+                if(text.includes(input)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
         }
 
         function signup(){
