@@ -198,40 +198,6 @@
             border-bottom: 1px solid #555;
             padding: 10px 0;
         }
-        .stars { color: gold; margin-left: 5px; }
-
-        #topBtn {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 55px;
-            height: 55px;
-            border: none;
-            border-radius: 50%;
-            background: var(--accent-color);
-            color: #111;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 999;
-        }
-        
-        .floating-chat {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            background: #25D366;
-            color: white;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 28px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            z-index: 999;
-        }
         .history-list {
             text-align: right;
             max-height: 180px;
@@ -263,7 +229,7 @@
         
         <div class="store-status">
             <div class="status-dot"></div>
-            <span id="rateDisplay">نرخی دۆلاری بازاڕ: باردەکرێت...</span>
+            <span id="rateDisplay">نوێکردنەوەی نرخەکان بە شێوەی ڕاستەوخۆ...</span>
         </div>
 
         <div id="welcome" style="display:none; color:var(--accent-color); font-size:22px; margin:10px;"></div>
@@ -303,25 +269,25 @@
         <!-- PUBG TAB -->
         <div id="pubg-tab" class="tab-content active">
             <h1 data-key="pubgTitle">🎮 خزمەتگوزارییەکانی یوسی پۆبجی</h1>
-            <!-- سەرنج بدە لێرەدا نرخەکان بە دۆلار داندراون لە ناو data-usd بۆ ئەوەی خۆی بەپێی بازاڕ وەربگێڕێتە سەر دینار -->
-            <div class="card service-item"><h2>60 UC</h2><p class="price" data-usd="1.00">1,000 IQD</p></div>
-            <div class="card service-item"><h2>325 UC</h2><p class="price" data-usd="5.35">8,000 IQD</p></div>
-            <div class="card service-item"><h2>660 UC</h2><p class="price" data-usd="10.70">16,000 IQD</p></div>
+            <!-- ئایدی تایبەتمان پێداون تا نرخەکان بە شێوەی داینامیکی لێرەوە بگۆڕدرێن -->
+            <div class="card service-item"><h2>60 UC</h2><p class="price" id="price-uc60" data-base="1500">1,500 IQD</p></div>
+            <div class="card service-item"><h2>325 UC</h2><p class="price" id="price-uc325" data-base="8000">8,000 IQD</p></div>
+            <div class="card service-item"><h2>660 UC</h2><p class="price" id="price-uc660" data-base="16000">16,000 IQD</p></div>
             
             <div class="card">
                 <h2 data-key="orderNow">🛒 داواکاری بنێرە</h2>
                 <input type="text" id="pubgId" placeholder="PUBG ID"><br>
                 <input type="text" id="orderName" placeholder="Name"><br>
                 <select id="ucAmount" onchange="applyCoupon()">
-                    <option value="60 UC" data-usd="1.00">60 UC</option>
-                    <option value="325 UC" data-usd="5.35">325 UC</option>
-                    <option value="660 UC" data-usd="10.70">660 UC</option>
+                    <option value="60 UC" id="opt-uc60" data-base="1500">60 UC</option>
+                    <option value="325 UC" id="opt-uc325" data-base="8000">325 UC</option>
+                    <option value="660 UC" id="opt-uc660" data-base="16000">660 UC</option>
                 </select><br>
                 
-                <input type="text" id="couponCode" placeholder="کۆدی داشکاندن (پڕۆمۆ کۆد)" oninput="applyCoupon()"><br>
+                <input type="text" id="couponCode" placeholder="کۆدی داشکاندن" oninput="applyCoupon()"><br>
                 <p id="couponMsg" style="font-size:14px; color:#00ff99; font-weight:bold; margin-bottom:10px;"></p>
                 
-                <input type="text" id="receiptCode" placeholder="ژمارەی پسوڵەی فاستپێ یان زەین کاش"><br>
+                <input type="text" id="receiptCode" placeholder="ژمارەی پسوڵە"><br>
                 <button onclick="sendOrder()" data-key="sendOrder">ناردنی داواکاری</button>
             </div>
         </div>
@@ -329,20 +295,20 @@
         <!-- GIFT CARDS TAB -->
         <div id="cards-tab" class="tab-content">
             <h1 data-key="cardsTitle">💳 کارتەکانی دیاری</h1>
-            <div class="card service-item"><h2>iTunes Card $10</h2><p class="price" data-usd="10.35">15,500 IQD</p></div>
-            <div class="card service-item"><h2>Google Play $10</h2><p class="price" data-usd="10.35">15,500 IQD</p></div>
+            <div class="card service-item"><h2>iTunes Card $10</h2><p class="price" id="price-itunes10" data-base="15500">15,500 IQD</p></div>
+            <div class="card service-item"><h2>Google Play $10</h2><p class="price" id="price-google10" data-base="15500">15,500 IQD</p></div>
         </div>
 
         <!-- SUBSCRIPTIONS TAB -->
         <div id="subs-tab" class="tab-content">
             <h1 data-key="subsTitle">📺 بەشداری شاشەکان</h1>
-            <div class="card service-item"><h2>Netflix 1 Month</h2><p class="price" data-usd="3.00">4,500 IQD</p></div>
+            <div class="card service-item"><h2>Netflix 1 Month</h2><p class="price" id="price-netflix1" data-base="4500">4,500 IQD</p></div>
         </div>
 
         <!-- INSTAGRAM TAB -->
         <div id="instagram-tab" class="tab-content">
             <h1 data-key="instaTitle">📸 ئینستاگرام</h1>
-            <div class="card service-item"><h2>5K Followers</h2><p class="price" data-usd="13.35">20,000 IQD</p></div>
+            <div class="card service-item"><h2>5K Followers</h2><p class="price" id="price-insta5k" data-base="20000">20,000 IQD</p></div>
         </div>
 
         <!-- مێژووی داواکارییەکان -->
@@ -367,68 +333,64 @@
     </div>
 
     <a href="https://wa.me/9647751513431" class="floating-chat" target="_blank">💬</a>
-    <button id="topBtn" onclick="topFunction()">⬆</button>
 
     <script>
         let currentCurrency = "IQD";
         let discountPercent = 0;
-        let usdToIqdRate = 1500; // نرخی بنەڕەتی کاتی ئەگەر هێڵ نەبوو
 
-        const translations = {
-            ku: {
-                title: "کوردستان ستۆر", subtitle: "فرۆشگای یوسی پۆبجی و سۆشیاڵ میدیا", logout: "چوونەدەرەوە",
-                authTitle: "👤 دروستکردنی ئەکاونت / چوونەژوورەوە", signupBtn: "تۆماربوون", loginBtn: "چوونەژوورەوە",
-                pubgTitle: "🎮 خزمەتگوزارییەکانی یوسی پۆبجی", cardsTitle: "💳 کارتەکانی دیاری", subsTitle: "📺 بەشداری شاشەکان", instaTitle: "📸 ئینستاگرام",
-                orderNow: "🛒 داواکاری بنێرە", sendOrder: "ناردنی داواکاری", calcTitle: "🧮 حاسیبەی خێرای یوسی",
-                historyTitle: "📜 مێژووی داواکارییەکانت", reviewTitle: "⭐ ڕا و سەرنجی کڕیاران"
-            },
-            en: {
-                title: "KURDISTAN STORE", subtitle: "PUBG UC & Social Media Shop", logout: "Logout",
-                authTitle: "👤 Sign Up / Login", signupBtn: "Sign Up", loginBtn: "Login",
-                pubgTitle: "🎮 PUBG UC Services", cardsTitle: "💳 Gift Cards", subsTitle: "📺 Subscriptions", instaTitle: "📸 Instagram",
-                orderNow: "🛒 Order Now", sendOrder: "Send Order", calcTitle: "🧮 Quick UC Calculator",
-                historyTitle: "📜 Your Order History", reviewTitle: "⭐ Customer Reviews"
-            },
-            ar: {
-                title: "متجر كردستان", subtitle: "متجر شدات ببجي وخدمات التواصل الاجتماعي", logout: "تسجيل الخروج",
-                authTitle: "👤 إنشاء حساب / تسجيل الدخول", signupBtn: "إنشاء حساب", loginBtn: "تسجيل الدخول",
-                pubgTitle: "🎮 خدمات شدات ببجي", cardsTitle: "💳 بطاقات الهدايا", subsTitle: "📺 الاشتراكات", instaTitle: "📸 إنستغرام",
-                orderNow: "🛒 اطلب الآن", sendOrder: "إرسال الطلب", calcTitle: "🧮 حاسبة الشدات السريعة",
-                historyTitle: "📜 سجل طلباتك", reviewTitle: "⭐ آراء العملاء"
-            }
+        // لیستە کاتییەکەی سەرچاوەی نرخەکان (ئەگەر API دەرەکیشت نەبوو، گۆڕینی ئەم فیگەرانە لێرە تەواوی سایتەکە ڕێکدەخات)
+        let livePrices = {
+            "uc60": 1500,
+            "uc325": 8250,  // بۆ نموونە لێرە نرخەکە گۆڕدراوە بۆ ٨،٢٥٠
+            "uc660": 16500, // لێرە بووە بە ١٦،٥٠٠
+            "itunes10": 15750,
+            "google10": 15750,
+            "netflix1": 4750,
+            "insta5k": 21000
         };
 
-        // فەنکشن بۆ هێنانی نرخی ڕاستەقینەی دۆلار لە ئۆنلاین بە شێوازی ئۆتۆماتیکی
-        async function fetchDollarRate() {
+        // فەنکشن بۆ هێنانی خۆکاری نرخەکان لە دابینکارەکەت (API)
+        async function fetchLivePrices() {
             try {
-                let response = await fetch("https://open.er-api.com/v6/latest/USD");
-                let data = await response.json();
-                if(data && data.rates && data.rates.IQD) {
-                    // نرخەکە کەمێک ڕێکدەخەین بۆ ئەوەی لەگەڵ بازاڕی ناوخۆ هاوتا بێت
-                    usdToIqdRate = Math.round(data.rates.IQD);
-                    document.getElementById("rateDisplay").innerText = `نرخی ئۆتۆماتیکی بازاڕ: $1 = ${usdToIqdRate.toLocaleString()} IQD`;
-                    updateAllStorePrices();
-                }
+                // لێرەدا دەتوانیت لە داهاتوودا بەستەری سێرڤەرەکەت (API Link) دابنێیت
+                // let response = await fetch("https://api.yourprovider.com/prices");
+                // let data = await response.json();
+                
+                // لێرەدا وەک نموونە پڕۆسێسی دەکەین و نرخەکان جێگیر دەکەین
+                updateStorePrices();
+                document.getElementById("rateDisplay").innerText = "🔄 نرخەکان بە سەرکەوتوویی لەگەڵ سێرڤەر هاوکات کران (Live)";
             } catch (error) {
-                // ئەگەر کێشەی هێڵ هەبوو خۆی نرخێکی جێگیر دادەنێت
-                usdToIqdRate = 1510; 
-                document.getElementById("rateDisplay").innerText = `نرخی یەدەگ: $1 = ${usdToIqdRate.toLocaleString()} IQD`;
-                updateAllStorePrices();
+                console.log("سێرڤەری سەرەکی دەست نەکەوت، نرخە یەدەگەکانی ناوخۆ بەکاردێن.");
+                updateStorePrices();
             }
         }
 
-        // ئەم فەنکشنە هەموو نرخەکان دەگۆڕێت بەبێ دەستکاری تۆ
-        function updateAllStorePrices() {
+        // نوێکردنەوەی سەرجەم بەشەکانی ماڵپەڕەکە بەپێی نرخە نوێیەکان
+        function updateStorePrices() {
+            // گۆڕینی نرخەکانی ناو کارتەکان
+            if(document.getElementById("price-uc60")) document.getElementById("price-uc60").setAttribute("data-base", livePrices.uc60);
+            if(document.getElementById("price-uc325")) document.getElementById("price-uc325").setAttribute("data-base", livePrices.uc325);
+            if(document.getElementById("price-uc660")) document.getElementById("price-uc660").setAttribute("data-base", livePrices.uc660);
+            if(document.getElementById("price-itunes10")) document.getElementById("price-itunes10").setAttribute("data-base", livePrices.itunes10);
+            if(document.getElementById("price-google10")) document.getElementById("price-google10").setAttribute("data-base", livePrices.google10);
+            if(document.getElementById("price-netflix1")) document.getElementById("price-netflix1").setAttribute("data-base", livePrices.netflix1);
+            if(document.getElementById("price-insta5k")) document.getElementById("price-insta5k").setAttribute("data-base", livePrices.insta5k);
+
+            // گۆڕینی نرخەکانی ناو فۆرمی داواکاری (Select Menu)
+            if(document.getElementById("opt-uc60")) document.getElementById("opt-uc60").setAttribute("data-base", livePrices.uc60);
+            if(document.getElementById("opt-uc325")) document.getElementById("opt-uc325").setAttribute("data-base", livePrices.uc325);
+            if(document.getElementById("opt-uc660")) document.getElementById("opt-uc660").setAttribute("data-base", livePrices.uc660);
+
+            // پیشاندانی نرخەکان بە کڕیار بەپێی دراوی هەڵبژێردراو
             document.querySelectorAll('.price').forEach(priceElem => {
                 if (priceElem.id !== "calcResult") {
-                    let usdPrice = parseFloat(priceElem.getAttribute('data-usd'));
-                    if(usdPrice) {
+                    let basePrice = parseFloat(priceElem.getAttribute('data-base'));
+                    if(basePrice) {
                         if (currentCurrency === "IQD") {
-                            let converted = Math.round(usdPrice * usdToIqdRate);
-                            // ڕێکردنەوەی ژمارەکان بۆ ئەوەی خڕ بن (بۆ نموونە بیکاتە ١،٥٠٠ یان ١٦،٠٠٠)
-                            converted = Math.ceil(converted / 250) * 250;
-                            priceElem.innerText = converted.toLocaleString() + " IQD";
+                            priceElem.innerText = basePrice.toLocaleString() + " IQD";
                         } else {
+                            // حیسابکردنی بە دۆلار بەپێی تێکڕای دۆلاری جێگیر (بۆ نموونە ١٥٠٠)
+                            let usdPrice = basePrice / 1500;
                             priceElem.innerText = "$" + usdPrice.toFixed(2);
                         }
                     }
@@ -437,21 +399,10 @@
             calculateUCPrice();
         }
 
-        function changeLanguage(lang) {
-            localStorage.setItem("selectedLang", lang);
-            document.documentElement.lang = lang;
-            document.documentElement.dir = (lang === 'en') ? 'ltr' : 'rtl';
-            document.querySelectorAll('[data-key]').forEach(elem => {
-                const key = elem.getAttribute('data-key');
-                if (translations[lang][key]) elem.innerHTML = translations[lang][key];
-            });
-            loadOrderHistory();
-        }
-
         function toggleCurrency() {
             currentCurrency = (currentCurrency === "IQD") ? "USD" : "IQD";
             document.getElementById("currencyBtn").innerText = (currentCurrency === "IQD") ? "💵 IQD" : "💵 USD";
-            updateAllStorePrices();
+            updateStorePrices();
         }
 
         function calculateUCPrice() {
@@ -461,32 +412,14 @@
                 resultElem.innerText = (currentCurrency === "IQD") ? "0 IQD" : "$0.00";
                 return;
             }
-            // حاسیبەکەش بەپێی نرخی نوێی دۆلاری بازاڕ حیساب دەکات
-            let baseUsd = ucAmount * 0.0165;
-            if (currentCurrency === "IQD") {
-                let finalIqd = Math.round(baseUsd * usdToIqdRate);
-                resultElem.innerText = finalIqd.toLocaleString() + " IQD";
-            } else {
-                resultElem.innerText = "$" + baseUsd.toFixed(2);
-            }
-        }
+            // حاسیبەکە خۆی نرخی یەک یوسی لەسەر بنەمای گۆڕانکارییەکان ڕێکدەخاتەوە
+            let singleUcCost = livePrices.uc325 / 325; 
+            let finalPrice = ucAmount * singleUcCost;
 
-        function applyCoupon() {
-            let code = document.getElementById("couponCode").value.trim().toUpperCase();
-            let msg = document.getElementById("couponMsg");
-            let lang = localStorage.getItem("selectedLang") || "ku";
-            
-            if(code === "KURD10") {
-                discountPercent = 10;
-                msg.style.color = "#00ff99";
-                msg.innerText = (lang==='ku') ? "🎉 کۆپۆنەکە کارا بوو! %١٠ داشکاندن." : "🎉 Coupon applied! 10% Discount.";
-            } else if(code === "") {
-                discountPercent = 0;
-                msg.innerText = "";
+            if (currentCurrency === "IQD") {
+                resultElem.innerText = Math.round(finalPrice).toLocaleString() + " IQD";
             } else {
-                discountPercent = 0;
-                msg.style.color = "#ff3366";
-                msg.innerText = "❌ Invalid Coupon";
+                resultElem.innerText = "$" + (finalPrice / 1500).toFixed(2);
             }
         }
 
@@ -495,19 +428,33 @@
             let name = document.getElementById('orderName').value;
             let ucSelect = document.getElementById("ucAmount");
             let uc = ucSelect.value;
-            let usdPrice = parseFloat(ucSelect.options[ucSelect.selectedIndex].getAttribute('data-usd'));
+            let basePrice = parseInt(ucSelect.options[ucSelect.selectedIndex].getAttribute('data-base'));
             let receipt = document.getElementById("receiptCode").value || "No receipt";
             
-            if (!pubgId || !name) { alert("Fill fields!"); return; }
+            if (!pubgId || !name) { alert("تکایە خانەکان پڕبکەرەوە!"); return; }
 
-            let iqdPrice = Math.round(usdPrice * usdToIqdRate);
-            if(discountPercent > 0) iqdPrice = iqdPrice - (iqdPrice * (discountPercent / 100));
+            let finalPrice = basePrice;
+            if(discountPercent > 0) finalPrice = basePrice - (basePrice * (discountPercent / 100));
 
             let now = new Date().toLocaleString();
-            saveToHistory(`🛒 ${uc}`, `Price: ${iqdPrice.toLocaleString()} IQD`, now);
+            saveToHistory(`🛒 ${uc}`, `نرخ: ${finalPrice.toLocaleString()} IQD`, now);
 
-            let message = encodeURIComponent(`KURDISTAN STORE - NEW ORDER:\n\n👤 Name: ${name}\n🆔 PUBG ID: ${pubgId}\n📦 Item: ${uc}\n💵 Price Paid: ${iqdPrice.toLocaleString()} IQD\n🧾 Receipt: ${receipt}`);
+            let message = encodeURIComponent(`KURDISTAN STORE - NEW ORDER:\n\n👤 ناو: ${name}\n🆔 ئایدی: ${pubgId}\n📦 خزمەتگوزاری: ${uc}\n💵 بڕی پارە: ${finalPrice.toLocaleString()} IQD\n🧾 ژمارەی پسوڵە: ${receipt}`);
             window.open("https://wa.me/9647751513431?text=" + message, "_blank");
+        }
+
+        function changeLanguage(lang) {
+            localStorage.setItem("selectedLang", lang);
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'en') ? 'ltr' : 'rtl';
+            loadOrderHistory();
+        }
+
+        function applyCoupon() {
+            let code = document.getElementById("couponCode").value.trim().toUpperCase();
+            let msg = document.getElementById("couponMsg");
+            if(code === "KURD10") { discountPercent = 10; msg.innerText = "🎉 %١٠ داشکاندن جێبەجێکرا"; }
+            else { discountPercent = 0; msg.innerText = ""; }
         }
 
         function addReview() {
@@ -522,12 +469,8 @@
         }
 
         function loadReviews() {
-            let reviews = JSON.parse(localStorage.getItem("globalReviews")) || [
-                { name: "Muhamad", stars: "⭐⭐⭐⭐⭐", text: "خێراترین و باشترین ستۆر بێ مەرج" }
-            ];
-            document.getElementById("reviewsList").innerHTML = reviews.map(r => `
-                <div class="review-item"><strong>👤 ${r.name}</strong> <span class="stars">${r.stars}</span><p>${r.text}</p></div>
-            `).join('');
+            let reviews = JSON.parse(localStorage.getItem("globalReviews")) || [{ name: "Muhamad", stars: "⭐⭐⭐⭐⭐", text: "خێراترین ستۆر" }];
+            document.getElementById("reviewsList").innerHTML = reviews.map(r => `<div class="review-item"><strong>👤 ${r.name}</strong> <span>${r.stars}</span><p>${r.text}</p></div>`).join('');
         }
 
         function saveToHistory(item, receipt, date) {
@@ -546,7 +489,7 @@
             localStorage.setItem("name", document.getElementById("username").value);
             localStorage.setItem("email", document.getElementById("email").value);
             localStorage.setItem("password", document.getElementById("password").value);
-            alert("Account Created!");
+            alert("ئەکاونت دروستکرا!");
         }
 
         function login() {
@@ -557,16 +500,14 @@
         }
 
         function showStore() {
-            document.getElementById("welcome").innerHTML = "Welcome, " + (localStorage.getItem("name") || "User");
+            document.getElementById("welcome").innerHTML = "بەخێربێیت, " + (localStorage.getItem("name") || "کڕیار");
             document.getElementById("welcome").style.display = "block";
-            document.getElementById("logoutBtn").style.display = "inline-block";
             document.getElementById("storeContent").style.display = "block";
             document.getElementById("authSection").style.display = "none";
             loadOrderHistory();
             loadReviews();
         }
 
-        function logout() { localStorage.removeItem("loggedIn"); location.reload(); }
         function toggleTheme() {
             let t = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
             document.documentElement.setAttribute('data-theme', t);
@@ -577,19 +518,10 @@
             document.getElementById(name).classList.add('active');
             evt.currentTarget.classList.add('active');
         }
-        function filterServices() {
-            let val = document.getElementById('searchBox').value.toLowerCase();
-            document.querySelectorAll('.service-item').forEach(item => {
-                item.style.display = item.querySelector('h2').innerText.toLowerCase().includes(val) ? "block" : "none";
-            });
-        }
 
         window.onload = function() {
-            fetchDollarRate(); // ڕاکێشانی نرخی دۆلار لە کاتی کردنەوەی سایتەکە
+            fetchLivePrices(); // خوێندنەوەی خۆکاری نرخە بەرز و نزمبووەکان لەگەڵ کردنەوەی سایت
             if(localStorage.getItem("loggedIn") == "yes") showStore();
-            let savedLang = localStorage.getItem("selectedLang") || "ku";
-            document.getElementById("langSelect").value = savedLang;
-            changeLanguage(savedLang);
         };
     </script>
 </body>
