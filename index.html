@@ -42,6 +42,7 @@
         body {
             background: var(--bg-color);
             color: var(--text-color);
+            overflow-x: hidden;
         }
         header {
             background: var(--header-bg);
@@ -136,6 +137,7 @@
             margin-bottom: 20px;
             text-align: center;
             box-shadow: 0 0 10px rgba(0,255,153,.2);
+            position: relative;
         }
         .card h2 {
             color: var(--accent-color);
@@ -192,6 +194,46 @@
             box-shadow: 0 0 15px rgba(0,255,153,.6);
             z-index: 999;
         }
+
+        /* لۆگیکی نوێ بۆ چەرخی بەخت و پۆپئەپ */
+        .wheel-container {
+            width: 200px;
+            height: 200px;
+            border: 5px solid var(--accent-color);
+            border-radius: 50%;
+            margin: 20px auto;
+            position: relative;
+            transition: transform 4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: conic-gradient(#ff3366 0deg 60deg, #3311ff 60deg 120deg, #ffaa00 120deg 180deg, #00ff99 180deg 240deg, #9900ff 240deg 300deg, #00ffff 300deg 360deg);
+        }
+        .wheel-pointer {
+            width: 0; height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 20px solid red;
+            position: absolute;
+            top: -10px; left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        .live-popup {
+            position: fixed;
+            bottom: 20px;
+            left: -350px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: left 0.5s ease-in-out;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        .live-popup.show { left: 20px; }
     </style>
 </head>
 <body>
@@ -215,6 +257,7 @@
         <h3 data-key="subtitle">فرۆشگای یوسی پۆبجی و سۆشیاڵ میدیا</h3>
         
         <div id="welcome" style="display:none; color:var(--accent-color); font-size:22px; margin:10px;"></div>
+        <div id="userPoints" style="display:none; color:gold; font-size:16px; margin-bottom:10px;"> خاڵەکانت: 0 خاڵ</div>
         <button id="logoutBtn" onclick="logout()" style="display:none; margin: 10px auto;" data-key="logout">چوونەدەرەوە</button>
 
         <div id="authSection" class="card" style="max-width: 400px; margin: 20px auto;">
@@ -247,6 +290,18 @@
             <p style="margin-bottom: 10px;" data-key="calcDesc">بڕی یوسی بنووسە بۆ زانینی نرخەکەی:</p>
             <input type="number" id="calcInput" placeholder="بۆ نموونە: 325" oninput="calculateUCPrice()" style="width: 90%; font-size: 16px;"><br>
             <div id="calcResult" class="price" style="font-weight: bold; margin: 10px 0;">0 IQD</div>
+        </div>
+
+        <!-- چەرخی بەخت (خەڵاتی ڕۆژانە) -->
+        <div class="card" style="max-width: 500px; margin: 0 auto 20px;">
+            <h2 data-key="wheelTitle">🎁 چەرخی بەختی کوردستان ستۆر</h2>
+            <p data-key="wheelDesc">ڕۆژی جارێک چەرخەکە بسوڕێنە و خەڵات ببەرەوە!</p>
+            <div style="position:relative; width:210px; margin:0 auto;">
+                <div class="wheel-pointer"></div>
+                <div class="wheel-container" id="luckyWheel"></div>
+            </div>
+            <button onclick="spinWheel()" id="spinBtn" style="margin-top:10px;" data-key="spinBtn">بیسوڕێنە</button>
+            <p id="wheelMsg" style="margin-top:10px; color:gold; font-weight:bold;"></p>
         </div>
 
         <div class="search-container">
@@ -283,6 +338,8 @@
                     <option value="1800 UC">1800 UC</option>
                     <option value="3850 UC">3850 UC</option>
                 </select><br>
+                <!-- بەڵگەی پارەدان -->
+                <input type="text" id="receiptCode" placeholder="ژمارەی پسوڵەی فاستپێ یان زەین کاش (یاخوود ناوی بنێر)"><br>
                 <button onclick="sendOrder()" data-key="sendOrder">ناردنی داواکاری</button>
             </div>
         </div>
@@ -363,10 +420,17 @@
         </div>
     </div>
 
+    <!-- پۆپئەپی ئاگادارکەرەوەی چالاکییەکان -->
+    <div id="livePopup" class="live-popup">
+        <span style="font-size: 20px;">🛒</span>
+        <div id="popupText">کڕیارێک ئێستا داواکارییەکی نارد!</div>
+    </div>
+
     <button id="topBtn" onclick="topFunction()">⬆</button>
 
     <script>
-        let currentCurrency = "IQD"; // لێرەدا جۆری دراو پاشەکەوت دەبێت
+        let currentCurrency = "IQD";
+        let userPoints = parseInt(localStorage.getItem("points")) || 0;
 
         const translations = {
             ku: {
@@ -397,7 +461,10 @@
                 searchPlace: "گەڕان بۆ خزمەتگوزارییەکان...",
                 calcTitle: "🧮 حاسیبەی خێرای یوسی",
                 calcDesc: "بڕی یوسی بنووسە بۆ زانینی نرخەکەی:",
-                calcPlace: "بۆ نموونە: 325"
+                calcPlace: "بۆ نموونە: 325",
+                wheelTitle: "🎁 چەرخی بەختی کوردستان ستۆر",
+                wheelDesc: "ڕۆژی جارێک چەرخەکە بسوڕێنە و خەڵات ببەرەوە!",
+                spinBtn: "بیسوڕێنە"
             },
             en: {
                 title: "KURDISTAN STORE",
@@ -427,7 +494,10 @@
                 searchPlace: "Search for services...",
                 calcTitle: "🧮 Quick UC Calculator",
                 calcDesc: "Enter UC amount to see the price:",
-                calcPlace: "e.g., 325"
+                calcPlace: "e.g., 325",
+                wheelTitle: "🎁 Kurdistan Store Wheel of Fortune",
+                wheelDesc: "Spin the wheel once a day to win prizes!",
+                spinBtn: "Spin Now"
             },
             ar: {
                 title: "متجر كردستان",
@@ -457,7 +527,10 @@
                 searchPlace: "البحث عن الخدمات...",
                 calcTitle: "🧮 حاسبة الشدات السريعة",
                 calcDesc: "أدخل كمية الشدات لمعرفة السعر:",
-                calcPlace: "مثال: 325"
+                calcPlace: "مثال: 325",
+                wheelTitle: "🎁 عجلة الحظ لمتجر كردستان",
+                wheelDesc: "أدر العجلة مرة واحدة في اليوم لتربح جوائز!",
+                spinBtn: "أدر العجلة"
             }
         };
 
@@ -473,50 +546,47 @@
                 }
             });
 
+            updatePointsDisplay(lang);
+
             const searchInput = document.getElementById('searchBox');
-            if(searchInput) {
-                searchInput.placeholder = translations[lang]["searchPlace"];
-            }
+            if(searchInput) searchInput.placeholder = translations[lang]["searchPlace"];
 
             const calcInput = document.getElementById('calcInput');
-            if(calcInput) {
-                calcInput.placeholder = translations[lang]["calcPlace"];
+            if(calcInput) calcInput.placeholder = translations[lang]["calcPlace"];
+
+            const receiptInput = document.getElementById('receiptCode');
+            if(receiptInput) {
+                if(lang === 'ku') receiptInput.placeholder = "ژمارەی پسوڵەی فاستپێ یان زەین کاش (یاخوود ناوی بنێر)";
+                else if(lang === 'ar') receiptInput.placeholder = "رقم الوصل لـ فاست بي أو زين كاش (أو اسم المرسل)";
+                else receiptInput.placeholder = "FastPay or ZainCash Receipt Number (or Sender Name)";
             }
 
-            if(lang === 'ku') {
-                document.getElementById('btn-pubg').innerText = "PUBG UC";
-                document.getElementById('btn-cards').innerText = "کارتەکان";
-                document.getElementById('btn-subs').innerText = "شاشەکان";
-                document.getElementById('btn-games').innerText = "یاری تر";
-                document.getElementById('btn-insta').innerText = "ئینستاگرام";
-                document.getElementById('btn-tiktok').innerText = "تیکتۆک";
-                document.getElementById('btn-social').innerText = "سۆشیاڵ میدیا";
-            } else if(lang === 'ar') {
-                document.getElementById('btn-pubg').innerText = "شدات ببجي";
-                document.getElementById('btn-cards').innerText = "بطاقات";
-                document.getElementById('btn-subs').innerText = "الاشتراكات";
-                document.getElementById('btn-games').innerText = "ألعاب أخرى";
-                document.getElementById('btn-insta').innerText = "إنستغرام";
-                document.getElementById('btn-tiktok').innerText = "تيك توك";
-                document.getElementById('btn-social').innerText = "مواقع أخرى";
-            } else {
-                document.getElementById('btn-pubg').innerText = "PUBG UC";
-                document.getElementById('btn-cards').innerText = "Gift Cards";
-                document.getElementById('btn-subs').innerText = "Subscriptions";
-                document.getElementById('btn-games').innerText = "Other Games";
-                document.getElementById('btn-insta').innerText = "Instagram";
-                document.getElementById('btn-tiktok').innerText = "TikTok";
-                document.getElementById('btn-social').innerText = "Social Media";
-            }
-            calculateUCPrice(); // نوێکردنەوەی زمانی حاسیبەکە
+            // ناوی تابەکان
+            let tabs = {
+                ku: ["PUBG UC", "کارتەکان", "شاشەکان", "یاری تر", "ئینستاگرام", "تیکتۆک", "سۆشیاڵ میدیا"],
+                ar: ["شدات ببجي", "بطاقات", "الاشتراكات", "ألعاب أخرى", "إنستغرام", "تيك توك", "مواقع أخرى"],
+                en: ["PUBG UC", "Gift Cards", "Subscriptions", "Other Games", "Instagram", "TikTok", "Social Media"]
+            };
+            let ids = ['btn-pubg', 'btn-cards', 'btn-subs', 'btn-games', 'btn-insta', 'btn-tiktok', 'btn-social'];
+            ids.forEach((id, index) => {
+                document.getElementById(id).innerText = tabs[lang][index];
+            });
+
+            calculateUCPrice();
         }
 
-        // فەنکشنی گۆڕینی دراو
+        function updatePointsDisplay(lang) {
+            lang = lang || localStorage.getItem("selectedLang") || "ku";
+            let pElem = document.getElementById("userPoints");
+            if(lang === 'ku') pElem.innerText = `🪙 خاڵەکانت: ${userPoints} خاڵ`;
+            else if(lang === 'ar') pElem.innerText = `🪙 نقاطك: ${userPoints} نقطة`;
+            else pElem.innerText = `🪙 Your Points: ${userPoints} pts`;
+        }
+
         function toggleCurrency() {
             currentCurrency = (currentCurrency === "IQD") ? "USD" : "IQD";
             document.getElementById("currencyBtn").innerText = (currentCurrency === "IQD") ? "💵 IQD" : "💵 USD";
             
-            // گۆڕینی نرخی ناو کارتەکان
             document.querySelectorAll('.price').forEach(priceElem => {
                 if (priceElem.id !== "calcResult") {
                     const iqdPrice = priceElem.getAttribute('data-iqd');
@@ -526,29 +596,84 @@
                     }
                 }
             });
-            calculateUCPrice(); // نوێکردنەوەی نرخی حاسیبەکە
+            calculateUCPrice();
         }
 
-        // فەنکشنی حاسیبەی نرخەکان (1 UC = 25 IQD یان 0.0167 USD وەک نموونە)
         function calculateUCPrice() {
             const ucAmount = document.getElementById("calcInput").value;
             const resultElem = document.getElementById("calcResult");
-            
             if (!ucAmount || ucAmount <= 0) {
                 resultElem.innerText = (currentCurrency === "IQD") ? "0 IQD" : "$0.00";
                 return;
             }
-
             if (currentCurrency === "IQD") {
-                // بۆ نموونە هەر یەکیەک یوسی بە 24.6 دینار (325 یوسی دەکاتە 8000 دینار)
                 let price = Math.round(ucAmount * 24.615);
                 resultElem.innerText = price.toLocaleString() + " IQD";
             } else {
-                // بە دۆلار
                 let price = (ucAmount * 0.0165).toFixed(2);
                 resultElem.innerText = "$" + price;
             }
         }
+
+        // چەرخی بەخت (Wheel of Fortune)
+        let isSpinning = false;
+        function spinWheel() {
+            if (isSpinning) return;
+            
+            let lastSpin = localStorage.getItem("lastSpinDate");
+            let today = new Date().toDateString();
+            if(lastSpin === today) {
+                let lang = localStorage.getItem("selectedLang") || "ku";
+                if(lang === 'ku') document.getElementById("wheelMsg").innerText = "❌ تۆ ئەمڕۆ چەرخەکەت بەکارهێناوە! سبەی وەرەوە.";
+                else if(lang === 'ar') document.getElementById("wheelMsg").innerText = "❌ لقد استخدمت العجلة اليوم بالفعل! عد غداً.";
+                else document.getElementById("wheelMsg").innerText = "❌ You already spun today! Come back tomorrow.";
+                return;
+            }
+
+            isSpinning = true;
+            let wheel = document.getElementById("luckyWheel");
+            let randomDeg = Math.floor(Math.random() * 360) + 1440; // لایەنی کەم ٤ جار دەسوڕێتەوە
+            wheel.style.transform = `rotate(${randomDeg}deg)`;
+
+            setTimeout(() => {
+                isSpinning = false;
+                localStorage.setItem("lastSpinDate", today);
+                
+                // دیاریکردنی خەڵات و خاڵ بە شێوەی هەرەمەکی
+                let prizes = [10, 20, 50, 5]; 
+                let wonPoints = prizes[Math.floor(Math.random() * prizes.length)];
+                
+                userPoints += wonPoints;
+                localStorage.setItem("points", userPoints);
+                updatePointsDisplay();
+
+                let lang = localStorage.getItem("selectedLang") || "ku";
+                if(lang === 'ku') document.getElementById("wheelMsg").innerText = `🎉 پیرۆزە! ${wonPoints} خاڵت بردەوە!`;
+                else if(lang === 'ar') document.getElementById("wheelMsg").innerText = `🎉 مبروك! لقد فزت بـ ${wonPoints} نقطة!`;
+                else document.getElementById("wheelMsg").innerText = `🎉 Congrats! You won ${wonPoints} points!`;
+            }, 4000);
+        }
+
+        // ئاگادارکەرەوەی جوڵاوی خۆکار (Live Popups)
+        const cities = ["Hewlêr", "Sulaymaniyah", "Duhok", "Kirkuk", "Halabja", "Ranya", "Zaxo", "Kalar"];
+        const products = ["325 UC", "660 UC", "Netflix Profile", "iTunes Card $10", "YouTube Premium", "5K TikTok Followers"];
+        
+        function showLivePopup() {
+            let lang = localStorage.getItem("selectedLang") || "ku";
+            let randomCity = cities[Math.floor(Math.random() * cities.length)];
+            let randomProduct = products[Math.floor(Math.random() * products.length)];
+            let pText = document.getElementById("popupText");
+            
+            if(lang === 'ku') pText.innerText = `🔥 کڕیارێک لە (${randomCity}) ئێستا [${randomProduct}]ی کڕی!`;
+            else if(lang === 'ar') pText.innerText = `🔥 قام عميل من (${randomCity}) الآن بشراء [${randomProduct}]!`;
+            else pText.innerText = `🔥 A customer from (${randomCity}) just bought [${randomProduct}]!`;
+
+            let popup = document.getElementById("livePopup");
+            popup.classList.add("show");
+
+            setTimeout(() => { popup.classList.remove("show"); }, 5000);
+        }
+        setInterval(showLivePopup, 20000); // هەموو ٢٠ چرکە جارێک پۆپئەپێک پیشان دەدات
 
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -567,14 +692,10 @@
         function filterServices() {
             let input = document.getElementById('searchBox').value.toLowerCase();
             let items = document.querySelectorAll('.service-item');
-            
             items.forEach(item => {
                 let text = item.querySelector('h2').innerText.toLowerCase();
-                if(text.includes(input)) {
-                    item.style.display = "block";
-                } else {
-                    item.style.display = "none";
-                }
+                if(text.includes(input)) item.style.style.display = "block";
+                else item.style.display = "none";
             });
         }
 
@@ -586,6 +707,7 @@
             localStorage.setItem("name", name);
             localStorage.setItem("email", email);
             localStorage.setItem("password", password);
+            localStorage.setItem("points", "0");
             document.getElementById("signupMsg").innerHTML = "✅ Account Created! Now Login.";
         }
 
@@ -609,17 +731,28 @@
             let n = localStorage.getItem("name") || "User";
             document.getElementById("welcome").innerHTML = "Welcome, " + n;
             document.getElementById("welcome").style.display = "block";
+            document.getElementById("userPoints").style.display = "block";
             document.getElementById("logoutBtn").style.display = "inline-block";
             document.getElementById("storeContent").style.display = "block";
             document.getElementById("authSection").style.display = "none";
+            updatePointsDisplay();
         }
 
+        // ناردنی داواکاری لەگەڵ بەڵگەی پارەدان و زیادکردنی خاڵ بۆ کڕین
         function sendOrder() {
             let pubgId = document.getElementById('pubgId').value;
             let name = document.getElementById('orderName').value;
             let uc = document.getElementById("ucAmount").value;
+            let receipt = document.getElementById("receiptCode").value || "نەنێردراوە";
+            
             if (!pubgId || !name) { alert("Fill all fields!"); return; }
-            let message = `PUBG Order:%0A%0AID: ${pubgId}%0AName: ${name}%0AAmount: ${uc}`;
+
+            // کاتێک کڕین دەکات ۱۰ خاڵی بۆ زیاد دەبێت وەک هاندانی دڵسۆزی کڕیار
+            userPoints += 10;
+            localStorage.setItem("points", userPoints);
+            updatePointsDisplay();
+
+            let message = encodeURIComponent(`KURDISTAN STORE - NEW ORDER:\n\n👤 Name: ${name}\n🆔 PUBG ID: ${pubgId}\n📦 Item: ${uc}\n🧾 Receipt Info: ${receipt}\n🪙 Total User Points: ${userPoints}`);
             window.open("https://wa.me/9647751513431?text=" + message, "_blank");
         }
 
