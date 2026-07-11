@@ -72,7 +72,6 @@
             margin: 20px 0;
         }
         
-        /* Search Box */
         .search-container {
             text-align: center;
             margin: 20px auto;
@@ -91,7 +90,6 @@
             outline: none;
         }
 
-        /* Navigation Tabs */
         .tabs-container {
             display: flex;
             flex-wrap: wrap;
@@ -202,7 +200,6 @@
         <button onclick="toggleTheme()" id="themeBtn">☀️ Mode</button>
     </div>
 
-    <!-- وێنەی ڕەسەنی بانەر بەبێ دەستکاری -->
     <img src="banner.png" alt="PUBG UC Banner" style="width:100%; max-width:1200px; display:block; margin:0 auto 20px;">
 
     <header>
@@ -212,7 +209,6 @@
         <div id="welcome" style="display:none; color:var(--accent-color); font-size:22px; margin:10px;"></div>
         <button id="logoutBtn" onclick="logout()" style="display:none; margin: 10px auto;" data-key="logout">چوونەدەرەوە</button>
 
-        <!-- Auth Section -->
         <div id="authSection" class="card" style="max-width: 400px; margin: 20px auto;">
             <h2 data-key="authTitle">👤 دروستکردنی ئەکاونت / چوونەژوورەوە</h2><br>
             <input type="text" id="username" placeholder="Nav / Name"><br>
@@ -233,25 +229,22 @@
         </div>
     </header>
 
-    <!-- وێنەی ڕەسەنی پۆبجی بەبێ دەستکاری -->
     <img src="PUBG.JPG" alt="PUBG" style="width:100%; max-width:700px; border-radius:15px; display:block; margin:20px auto;">
 
-    <!-- Main Content (Hidden until login) -->
     <div class="container" id="storeContent" style="display:none;">
         
-        <!-- Search Bar Feature -->
         <div class="search-container">
             <input type="text" id="searchBox" onkeyup="filterServices()" data-placeholder="searchPlace" placeholder="گەڕان بۆ خزمەتگوزارییەکان...">
         </div>
 
-        <!-- Tabs Buttons -->
         <div class="tabs-container">
             <button class="tab-btn active" id="btn-pubg" onclick="openTab(event, 'pubg-tab')">PUBG UC</button>
+            <button class="tab-btn" id="btn-cards" onclick="openTab(event, 'cards-tab')">Gift Cards</button>
+            <button class="tab-btn" id="btn-subs" onclick="openTab(event, 'subs-tab')">Subscriptions</button>
+            <button class="tab-btn" id="btn-games" onclick="openTab(event, 'games-tab')">Other Games</button>
             <button class="tab-btn" id="btn-insta" onclick="openTab(event, 'instagram-tab')">Instagram</button>
             <button class="tab-btn" id="btn-tiktok" onclick="openTab(event, 'tiktok-tab')">TikTok</button>
-            <button class="tab-btn" id="btn-youtube" onclick="openTab(event, 'youtube-tab')">YouTube</button>
-            <button class="tab-btn" id="btn-facebook" onclick="openTab(event, 'facebook-tab')">Facebook</button>
-            <button class="tab-btn" id="btn-other" onclick="openTab(event, 'other-tab')">Other Services</button>
+            <button class="tab-btn" id="btn-social" onclick="openTab(event, 'social-tab')">Social Media</button>
         </div>
 
         <!-- PUBG TAB -->
@@ -263,7 +256,6 @@
             <div class="card service-item"><h2>1800 UC</h2><p class="price">40000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%201800%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
             <div class="card service-item"><h2>3850 UC</h2><p class="price">85000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%203850%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
             
-            <!-- Order Form -->
             <div class="card">
                 <h2 data-key="orderNow">🛒 داواکاری بنێرە</h2>
                 <input type="text" id="pubgId" placeholder="PUBG ID"><br>
@@ -279,46 +271,54 @@
             </div>
         </div>
 
+        <!-- GIFT CARDS TAB -->
+        <div id="cards-tab" class="tab-content">
+            <h1 data-key="cardsTitle">💳 کارتەکانی دیاری (Gift Cards)</h1>
+            <div class="card service-item"><h2>iTunes Card $10</h2><p class="price">15,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20iTunes%20Card%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>Google Play $10</h2><p class="price">15,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Google%20Play%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>Razer Gold $10</h2><p class="price">14,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Razer%20Gold%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>PlayStation Card $10</h2><p class="price">15,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20PlayStation%20Card%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+        </div>
+
+        <!-- SUBSCRIPTIONS TAB -->
+        <div id="subs-tab" class="tab-content">
+            <h1 data-key="subsTitle">📺 بەشداری شاشەکان (Subscriptions)</h1>
+            <div class="card service-item"><h2>Netflix 1 Profile (1 Month)</h2><p class="price">5,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Netflix%201%20Profile" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>Shahid VIP (1 Month)</h2><p class="price">6,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Shahid%20VIP" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>YouTube Premium (1 Month)</h2><p class="price">3,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20YouTube%20Premium" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>Spotify Premium (1 Month)</h2><p class="price">4,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Spotify%20Premium" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+        </div>
+
+        <!-- OTHER GAMES TAB -->
+        <div id="games-tab" class="tab-content">
+            <h1 data-key="gamesTitle">🎲 یارییەکانی تر</h1>
+            <div class="card service-item"><h2>Ludo Star 100M Coins</h2><p class="price">5,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Ludo%20Star%20100M%20Coins" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>Ludo Star 500 Diamonds</h2><p class="price">6,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Ludo%20Star%20500%20Diamonds" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>Free Fire 210 Diamonds</h2><p class="price">4,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Free%20Fire%20210%20Diamonds" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+        </div>
+
         <!-- INSTAGRAM TAB -->
         <div id="instagram-tab" class="tab-content">
             <h1 data-key="instaTitle">📸 خزمەتگوزارییەکانی ئینستاگرام</h1>
-            <div class="card service-item"><h2>5K Followers (Instagram)</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Instagram%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card service-item"><h2>10K Followers (Instagram)</h2><p class="price">40,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20Instagram%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card service-item"><h2>20K Followers (Instagram)</h2><p class="price">75,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2020K%20Instagram%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card service-item"><h2>5K Likes (Instagram)</h2><p class="price">15,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Instagram%20Likes" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>5K Followers (Instagram)</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Instagram%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>10K Followers (Instagram)</h2><p class="price">40,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20Instagram%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
         <!-- TIKTOK TAB -->
         <div id="tiktok-tab" class="tab-content">
             <h1 data-key="tiktokTitle">🎵 خزمەتگوزارییەکانی تیکتۆک</h1>
-            <div class="card service-item"><h2>5K Followers (TikTok)</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20TikTok%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card service-item"><h2>10K Followers (TikTok)</h2><p class="price">40,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20TikTok%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card service-item"><h2>10K Views (TikTok)</h2><p class="price">10,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20TikTok%20Views" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+            <div class="card service-item"><h2>5K Followers (TikTok)</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20TikTok%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>10K Views (TikTok)</h2><p class="price">10,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20TikTok%20Views" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
-        <!-- YOUTUBE TAB -->
-        <div id="youtube-tab" class="tab-content">
-            <h1 data-key="youtubeTitle">▶️ خزمەتگوزارییەکانی یوتیوب</h1>
-            <div class="card service-item"><h2>5K Subscribers (YouTube)</h2><p class="price">30,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20YouTube%20Subscribers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card service-item"><h2>10K Subscribers (YouTube)</h2><p class="price">55,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20YouTube%20Subscribers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
+        <!-- SOCIAL MEDIA TAB -->
+        <div id="social-tab" class="tab-content">
+            <h1 data-key="socialTitle">🌐 تۆڕە کۆمەڵایەتییەکانی تر</h1>
+            <div class="card service-item"><h2>5K Subscribers (YouTube)</h2><p class="price">30,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20YouTube%20Subscribers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>5K Followers (Facebook)</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Facebook%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>5K Telegram Members</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Telegram%20Members" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
-        <!-- FACEBOOK TAB -->
-        <div id="facebook-tab" class="tab-content">
-            <h1 data-key="facebookTitle">📘 خزمەتگوزارییەکانی فەیسبووک</h1>
-            <div class="card service-item"><h2>5K Followers (Facebook)</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Facebook%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card service-item"><h2>5K Group Members (Facebook)</h2><p class="price">35,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Facebook%20Group%20Members" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-        </div>
-
-        <!-- OTHER TAB -->
-        <div id="other-tab" class="tab-content">
-            <h1 data-key="otherTitle">👻 خزمەتگوزارییەکانی تر</h1>
-            <div class="card service-item"><h2>5K Snapchat Followers</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Snapchat%20Followers" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card service-item"><h2>5K Telegram Members</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Telegram%20Members" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-            <div class="card service-item"><h2>5K Discord Members</h2><p class="price">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Discord%20Members" target="_blank"><button data-key="orderNowBtn">داوا بکە</button></a></div>
-        </div>
-
-        <!-- Info Section (Fixed at bottom) -->
         <div class="card" style="margin-top: 30px;">
             <h2 data-key="payments">💳 ڕێگاکانی پێدانی پارە</h2>
             <p>Qi Card | FastPay | FIB Bank | Cash</p>
@@ -360,15 +360,15 @@
                 loginBtn: "چوونەژوورەوە",
                 owners: "خاوەنەکان",
                 pubgTitle: "🎮 خزمەتگوزارییەکانی یوسی پۆبجی",
+                cardsTitle: "💳 کارتەکانی دیاری (Gift Cards)",
+                subsTitle: "📺 بەشداری شاشەکان (Subscriptions)",
+                gamesTitle: "🎲 یارییەکانی تر",
                 instaTitle: "📸 خزمەتگوزارییەکانی ئینستاگرام",
                 tiktokTitle: "🎵 خزمەتگوزارییەکانی تیکتۆک",
-                youtubeTitle: "▶️ خزمەتگوزارییەکانی یوتیوب",
-                facebookTitle: "📘 خزمەتگوزارییەکانی فەیسبووک",
-                otherTitle: "👻 خزمەتگوزارییەکانی تر",
+                socialTitle: "🌐 تۆڕە کۆمەڵایەتییەکانی تر",
                 buyNow: "بکڕە",
                 orderNow: "🛒 داواکاری بنێرە",
                 sendOrder: "ناردنی داواکاری",
-                orderNowBtn: "داوا بکە",
                 payments: "💳 ڕێگاکانی پێدانی پارە",
                 followUs: "🌐 فۆڵۆمان بکەن",
                 aboutTitle: "دەربارەی ئێمە",
@@ -387,15 +387,15 @@
                 loginBtn: "Login",
                 owners: "Owners",
                 pubgTitle: "🎮 PUBG UC Services",
+                cardsTitle: "💳 Gift Cards",
+                subsTitle: "📺 Subscriptions",
+                gamesTitle: "🎲 Other Games",
                 instaTitle: "📸 Instagram Services",
                 tiktokTitle: "🎵 TikTok Services",
-                youtubeTitle: "▶️ YouTube Services",
-                facebookTitle: "📘 Facebook Services",
-                otherTitle: "👻 Other Services",
+                socialTitle: "🌐 Other Social Media",
                 buyNow: "BUY NOW",
                 orderNow: "🛒 Order Now",
                 sendOrder: "Send Order",
-                orderNowBtn: "ORDER NOW",
                 payments: "💳 Payment Methods",
                 followUs: "🌐 Follow Us",
                 aboutTitle: "About Us",
@@ -414,15 +414,15 @@
                 loginBtn: "تسجيل الدخول",
                 owners: "المالكين",
                 pubgTitle: "🎮 خدمات شدات ببجي (UC)",
+                cardsTitle: "💳 بطاقات الهدايا",
+                subsTitle: "📺 الاشتراكات والشاشات",
+                gamesTitle: "🎲 ألعاب أخرى",
                 instaTitle: "📸 خدمات إنستغرام",
                 tiktokTitle: "🎵 خدمات تيك توك",
-                youtubeTitle: "▶️ خدمات يوتيوب",
-                facebookTitle: "📘 خدمات فيسبوك",
-                otherTitle: "👻 خدمات أخرى",
+                socialTitle: "🌐 وسائل تواصل أخرى",
                 buyNow: "شراء الآن",
                 orderNow: "🛒 اطلب الآن",
                 sendOrder: "إرسال الطلب",
-                orderNowBtn: "اطلب الآن",
                 payments: "💳 طرق الدفع",
                 followUs: "🌐 تابعنا",
                 aboutTitle: "من نحن",
@@ -453,25 +453,28 @@
 
             if(lang === 'ku') {
                 document.getElementById('btn-pubg').innerText = "PUBG UC";
+                document.getElementById('btn-cards').innerText = "کارتەکان";
+                document.getElementById('btn-subs').innerText = "شاشەکان";
+                document.getElementById('btn-games').innerText = "یاری تر";
                 document.getElementById('btn-insta').innerText = "ئینستاگرام";
                 document.getElementById('btn-tiktok').innerText = "تیکتۆک";
-                document.getElementById('btn-youtube').innerText = "یوتیوب";
-                document.getElementById('btn-facebook').innerText = "فەیسبووک";
-                document.getElementById('btn-other').innerText = "خزمەتگوزاری تر";
+                document.getElementById('btn-social').innerText = "سۆشیاڵ میدیا";
             } else if(lang === 'ar') {
                 document.getElementById('btn-pubg').innerText = "شدات ببجي";
+                document.getElementById('btn-cards').innerText = "بطاقات";
+                document.getElementById('btn-subs').innerText = "الاشتراكات";
+                document.getElementById('btn-games').innerText = "ألعاب أخرى";
                 document.getElementById('btn-insta').innerText = "إنستغرام";
                 document.getElementById('btn-tiktok').innerText = "تيك توك";
-                document.getElementById('btn-youtube').innerText = "يوتيوب";
-                document.getElementById('btn-facebook').innerText = "فيسبوك";
-                document.getElementById('btn-other').innerText = "خدمات أخرى";
+                document.getElementById('btn-social').innerText = "مواقع أخرى";
             } else {
                 document.getElementById('btn-pubg').innerText = "PUBG UC";
+                document.getElementById('btn-cards').innerText = "Gift Cards";
+                document.getElementById('btn-subs').innerText = "Subscriptions";
+                document.getElementById('btn-games').innerText = "Other Games";
                 document.getElementById('btn-insta').innerText = "Instagram";
                 document.getElementById('btn-tiktok').innerText = "TikTok";
-                document.getElementById('btn-youtube').innerText = "YouTube";
-                document.getElementById('btn-facebook').innerText = "Facebook";
-                document.getElementById('btn-other').innerText = "Other";
+                document.getElementById('btn-social').innerText = "Social Media";
             }
         }
 
@@ -489,7 +492,6 @@
             if(evt) evt.currentTarget.classList.add('active');
         }
 
-        // Filter Feature Script
         function filterServices() {
             let input = document.getElementById('searchBox').value.toLowerCase();
             let items = document.querySelectorAll('.service-item');
