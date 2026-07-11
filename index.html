@@ -4,96 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PUBG UC - KURDISTAN STORE</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
+
+    <meta name="description" content="KURDISTAN STORE - PUBG UC Shop">
+    <meta property="og:title" content="KURDISTAN STORE">
+    <meta property="og:image" content="https://xoshawysarhad-png.github.io/favicon.png">
     
     <style>
         :root {
-            --bg-color: #0f111a;
-            --card-bg: #1a1d29;
+            --bg-color: #111;
+            --card-bg: #222;
             --text-color: #fff;
             --accent-color: #00ff99;
             --accent-hover: #00cc77;
-            --input-bg: #25293c;
-            --header-bg: #161925;
-            --sub-tab-bg: #2c314d;
+            --input-bg: #333;
+            --header-bg: #1f1f1f;
         }
 
         [data-theme="light"] {
-            --bg-color: #f4f6f9;
-            --card-bg: #ffffff;
-            --text-color: #222;
+            --bg-color: #f4f4f4;
+            --card-bg: #fff;
+            --text-color: #333;
             --accent-color: #00aa66;
             --accent-hover: #008855;
-            --input-bg: #e6eaf0;
-            --header-bg: #e1e5f0;
-            --sub-tab-bg: #d2d7e6;
+            --input-bg: #e0e0e0;
+            --header-bg: #ddd;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
             transition: background 0.3s, color 0.3s;
         }
         body {
             background: var(--bg-color);
             color: var(--text-color);
-            overflow-x: hidden;
         }
         header {
             background: var(--header-bg);
             text-align: center;
-            padding: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            padding: 25px;
         }
-        header h1 { color: var(--accent-color); font-size: 28px; }
-        
-        .store-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0,0,0,0.4);
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 13px;
-            margin-top: 10px;
+        header h1 {
+            color: var(--accent-color);
         }
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #00ff99;
-            box-shadow: 0 0 8px #00ff99;
-        }
-
         .controls-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1000px;
+            max-width: 900px;
             margin: 10px auto;
             padding: 0 5%;
+            gap: 10px;
         }
         .controls-bar select, .controls-bar button {
             padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid #444;
+            border-radius: 5px;
+            border: 1px solid #555;
             background: var(--card-bg);
             color: var(--text-color);
             cursor: pointer;
         }
-        .right-controls { display: flex; gap: 10px; }
+        .right-controls {
+            display: flex;
+            gap: 10px;
+        }
+        h1, h3 {
+            text-align: center;
+            margin: 20px 0;
+        }
         
         .search-container {
             text-align: center;
             margin: 20px auto;
-            max-width: 1000px;
+            max-width: 900px;
             padding: 0 5%;
         }
         .search-container input {
             width: 100%;
-            max-width: 450px;
-            padding: 12px 20px;
+            max-width: 400px;
+            padding: 12px;
             border-radius: 25px;
             border: 2px solid var(--accent-color);
             background: var(--card-bg);
@@ -102,158 +95,102 @@
             outline: none;
         }
 
-        /* مینیۆ سەرەکییەکان */
         .tabs-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
             margin: 20px auto;
-            max-width: 1000px;
+            max-width: 900px;
             padding: 0 5%;
         }
         .tab-btn {
             background: var(--card-bg);
             color: var(--text-color);
             border: 1px solid var(--accent-color);
-            padding: 12px 24px;
-            border-radius: 25px;
+            padding: 10px 20px;
+            border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 15px;
         }
         .tab-btn.active {
             background: var(--accent-color);
             color: #111;
         }
-
-        /* بەشە لاوەکییەکان (Sub-Categories) */
-        .sub-tabs-container {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin: 15px 0;
+        .tab-content {
+            display: none;
         }
-        .sub-tab-btn {
-            background: var(--sub-tab-bg);
-            color: var(--text-color);
-            border: none;
-            padding: 6px 15px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: bold;
-        }
-        .sub-tab-btn.active {
-            background: #ffcc00;
-            color: #000;
+        .tab-content.active {
+            display: block;
         }
 
-        .tab-content, .sub-tab-content { display: none; }
-        .tab-content.active, .sub-tab-content.active { display: block; }
-
-        /* دیزاینی کارتە نوێیەکان بە وێنەو گرافیک */
         .container {
             width: 90%;
-            max-width: 1000px;
+            max-width: 900px;
             margin: 30px auto;
-        }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
         }
         .card {
             background: var(--card-bg);
-            border-radius: 16px;
+            border-radius: 12px;
             padding: 20px;
             margin-bottom: 20px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 0 10px rgba(0,255,153,.2);
         }
-        
-        /* شێوازی وێنەی ناو کارتەکان */
-        .card-image {
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 15px;
-            background: #222;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            border: 2px solid var(--accent-color);
+        .card h2 {
+            color: var(--accent-color);
         }
-        
-        .card h2 { font-size: 18px; margin-bottom: 8px; }
         .price {
-            color: #ffd700;
-            font-size: 20px;
-            margin: 10px 0;
-            font-weight: bold;
+            color: gold;
+            font-size: 22px;
+            margin: 15px 0;
         }
         input, select {
-            padding: 12px;
-            width: 85%;
-            max-width: 320px;
+            padding: 10px;
+            width: 80%;
+            max-width: 300px;
             background: var(--input-bg);
-            border: 1px solid #444;
+            border: 1px solid #555;
             color: var(--text-color);
-            border-radius: 8px;
-            margin-bottom: 12px;
+            border-radius: 5px;
+            margin-bottom: 10px;
             text-align: inherit;
-            outline: none;
         }
-        
-        .buy-btn {
+        .card button {
             background: var(--accent-color);
             color: #000;
             border: none;
-            padding: 10px 22px;
+            padding: 12px 30px;
             border-radius: 8px;
-            font-size: 15px;
+            font-size: 17px;
             cursor: pointer;
             font-weight: bold;
-            width: 100%;
-            margin-top: 5px;
+            transition: 0.2s;
         }
-        .buy-btn:hover {
+        .card button:hover {
             background: var(--accent-hover);
-            transform: translateY(-2px);
+            transform: scale(1.05);
         }
-
-        .reviews-container, .history-list {
-            text-align: right;
-            max-height: 200px;
-            overflow-y: auto;
-            background: var(--input-bg);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
         }
-        .review-item, .history-item { border-bottom: 1px solid #444; padding: 10px 0; font-size: 14px; }
-        
-        .floating-chat {
+        #topBtn {
+            display: none;
             position: fixed;
             bottom: 20px;
-            left: 20px;
-            background: #25d366;
-            color: white;
-            width: 60px;
-            height: 60px;
+            right: 20px;
+            width: 55px;
+            height: 55px;
+            border: none;
             border-radius: 50%;
-            text-align: center;
-            line-height: 60px;
-            font-size: 30px;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-            z-index: 1000;
+            background: var(--accent-color);
+            color: #111;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0,255,153,.6);
+            z-index: 999;
         }
     </style>
 </head>
@@ -271,397 +208,424 @@
         </div>
     </div>
 
-    <header>
-        <h1>کوردستان ستۆر</h1>
-        <h3>فرۆشگای یوسی پۆبجی و سەرجەم خزمەتگوزارییەکان</h3>
-        
-        <div class="store-status">
-            <div class="status-dot"></div>
-            <span id="rateDisplay">نوێکردنەوەی نرخەکان بە شێوەی ئۆتۆماتیکی...</span>
-        </div>
+    <img src="banner.png" alt="PUBG UC Banner" style="width:100%; max-width:1200px; display:block; margin:0 auto 20px;">
 
+    <header>
+        <h1 data-key="title">کوردستان ستۆر</h1>
+        <h3 data-key="subtitle">فرۆشگای یوسی پۆبجی و سۆشیاڵ میدیا</h3>
+        
         <div id="welcome" style="display:none; color:var(--accent-color); font-size:22px; margin:10px;"></div>
-        <button id="logoutBtn" onclick="logout()" style="display:none; margin: 10px auto;">چوونەدەرەوە</button>
+        <button id="logoutBtn" onclick="logout()" style="display:none; margin: 10px auto;" data-key="logout">چوونەدەرەوە</button>
 
         <div id="authSection" class="card" style="max-width: 400px; margin: 20px auto;">
-            <h2>👤 چوونەژوورەوە / تۆماربوون</h2><br>
+            <h2 data-key="authTitle">👤 دروستکردنی ئەکاونت / چوونەژوورەوە</h2><br>
             <input type="text" id="username" placeholder="Nav / Name"><br>
             <input type="email" id="email" placeholder="Email"><br>
             <input type="password" id="password" placeholder="Password"><br>
-            <button onclick="signup()">تۆماربوون</button>
-            <button onclick="login()">چوونەژوورەوە</button>
+            <button onclick="signup()" data-key="signupBtn">تۆماربوون</button>
+            <button onclick="login()" data-key="loginBtn">چوونەژوورەوە</button>
+            <p id="loginMsg" style="margin-top: 10px;"></p>
+            <p id="signupMsg"></p>
+        </div>
+
+        <div id="ownersSection">
+            <h3 data-key="owners">خاوەنەکان</h3>
+            <p>👤 MUHAMAD MARIWAN AZEZ</p>
+            <p>👤 BAREZ ABAS</p>
+            <p>👤 AKAY PUBG</p>
+            <p>👤 AHMAD CHOMANI</p>
         </div>
     </header>
 
+    <img src="PUBG.JPG" alt="PUBG" style="width:100%; max-width:700px; border-radius:15px; display:block; margin:20px auto;">
+
     <div class="container" id="storeContent" style="display:none;">
         
-        <!-- حاسیبەی خێرا -->
         <div class="card" style="max-width: 500px; margin: 0 auto 20px;">
-            <h2>🧮 حاسیبەی خێرای یوسی</h2>
-            <input type="number" id="calcInput" placeholder="بۆ نموونە: 325" oninput="calculateUCPrice()"><br>
-            <div id="calcResult" class="price">0 IQD</div>
+            <h2 data-key="calcTitle">🧮 حاسیبەی خێرای یوسی</h2>
+            <p style="margin-bottom: 10px;" data-key="calcDesc">بڕی یوسی بنووسە بۆ زانینی نرخەکەی:</p>
+            <input type="number" id="calcInput" placeholder="بۆ نموونە: 325" oninput="calculateUCPrice()" style="width: 90%; font-size: 16px;"><br>
+            <div id="calcResult" class="price" style="font-weight: bold; margin: 10px 0;">0 IQD</div>
         </div>
 
         <div class="search-container">
             <input type="text" id="searchBox" onkeyup="filterServices()" placeholder="گەڕان بۆ خزمەتگوزارییەکان...">
         </div>
 
-        <!-- مینیۆی سەرەکی تاتەکان -->
         <div class="tabs-container">
-            <button class="tab-btn active" onclick="openMainTab(event, 'pubg-tab')">PUBG UC</button>
-            <button class="tab-btn" onclick="openMainTab(event, 'cards-tab')">Gift Cards</button>
-            <button class="tab-btn" onclick="openMainTab(event, 'subs-tab')">Subscriptions</button>
-            <button class="tab-btn" onclick="openMainTab(event, 'instagram-tab')">Instagram</button>
+            <button class="tab-btn active" id="btn-pubg" onclick="openTab(event, 'pubg-tab')">PUBG UC</button>
+            <button class="tab-btn" id="btn-cards" onclick="openTab(event, 'cards-tab')">Gift Cards</button>
+            <button class="tab-btn" id="btn-subs" onclick="openTab(event, 'subs-tab')">Subscriptions</button>
+            <button class="tab-btn" id="btn-games" onclick="openTab(event, 'games-tab')">Other Games</button>
+            <button class="tab-btn" id="btn-insta" onclick="openTab(event, 'instagram-tab')">Instagram</button>
+            <button class="tab-btn" id="btn-tiktok" onclick="openTab(event, 'tiktok-tab')">TikTok</button>
+            <button class="tab-btn" id="btn-social" onclick="openTab(event, 'social-tab')">Social Media</button>
         </div>
 
-        <!-- ================= PUBG TAB ================= -->
         <div id="pubg-tab" class="tab-content active">
-            <!-- بەشە لاوەکییەکانی پۆبجی (Sub-Categories) -->
-            <div class="sub-tabs-container">
-                <button class="sub-tab-btn active" onclick="openSubTab(event, 'pubg-global', 'pubg-tab')">Global / عێراقی</button>
-                <button class="sub-tab-btn" onclick="openSubTab(event, 'pubg-korean', 'pubg-tab')">Korean / کۆری</button>
-            </div>
-
-            <!-- پۆبجی جیهانی -->
-            <div id="pubg-global" class="sub-tab-content active">
-                <div class="services-grid">
-                    <div class="card service-item">
-                        <div class="card-image">🪙</div>
-                        <h2>60 UC Global</h2>
-                        <p class="price" id="price-uc60" data-base="1500">1,500 IQD</p>
-                        <button class="buy-btn" onclick="selectService('60 UC Global')">داواکردن</button>
-                    </div>
-                    <div class="card service-item">
-                        <div class="card-image">📦</div>
-                        <h2>325 UC Global</h2>
-                        <p class="price" id="price-uc325" data-base="8200">8,200 IQD</p>
-                        <button class="buy-btn" onclick="selectService('325 UC Global')">داواکردن</button>
-                    </div>
-                    <div class="card service-item">
-                        <div class="card-image">🔥</div>
-                        <h2>660 UC Global</h2>
-                        <p class="price" id="price-uc660" data-base="16400">16,400 IQD</p>
-                        <button class="buy-btn" onclick="selectService('660 UC Global')">داواکردن</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- پۆبجی کۆری -->
-            <div id="pubg-korean" class="sub-tab-content">
-                <div class="services-grid">
-                    <div class="card service-item">
-                        <div class="card-image">🇰🇷</div>
-                        <h2>180 UC Korean</h2>
-                        <p class="price" id="price-uckor180" data-base="6000">6,000 IQD</p>
-                        <button class="buy-btn" onclick="selectService('180 UC Korean')">داواکردن</button>
-                    </div>
-                    <div class="card service-item">
-                        <div class="card-image">🇰🇷</div>
-                        <h2>660 UC Korean</h2>
-                        <p class="price" id="price-uckor660" data-base="19500">19,500 IQD</p>
-                        <button class="buy-btn" onclick="selectService('660 UC Korean')">داواکردن</button>
-                    </div>
-                </div>
+            <h1 data-key="pubgTitle">🎮 خزمەتگوزارییەکانی یوسی پۆبجی</h1>
+            <div class="card service-item"><h2>60 UC</h2><p class="price" data-iqd="1,500 IQD" data-usd="$1.00">1,500 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%2060%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>325 UC</h2><p class="price" data-iqd="8,000 IQD" data-usd="$5.35">8,000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%20325%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>660 UC</h2><p class="price" data-iqd="16,000 IQD" data-usd="$10.70">16,000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%20660%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>1800 UC</h2><p class="price" data-iqd="40,000 IQD" data-usd="$26.70">40,000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%201800%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>3850 UC</h2><p class="price" data-iqd="85,000 IQD" data-usd="$56.70">85,000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%203850%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            
+            <div class="card">
+                <h2 data-key="orderNow">🛒 داواکاری بنێرە</h2>
+                <input type="text" id="pubgId" placeholder="PUBG ID"><br>
+                <input type="text" id="orderName" placeholder="Name"><br>
+                <select id="ucAmount">
+                    <option value="60 UC">60 UC</option>
+                    <option value="325 UC">325 UC</option>
+                    <option value="660 UC">660 UC</option>
+                    <option value="1800 UC">1800 UC</option>
+                    <option value="3850 UC">3850 UC</option>
+                </select><br>
+                <button onclick="sendOrder()" data-key="sendOrder">ناردنی داواکاری</button>
             </div>
         </div>
 
-        <!-- ================= GIFT CARDS TAB ================= -->
         <div id="cards-tab" class="tab-content">
-            <!-- بەشە لاوەکییەکانی کارت (Sub-Categories) -->
-            <div class="sub-tabs-container">
-                <button class="sub-tab-btn active" onclick="openSubTab(event, 'cards-usa', 'cards-tab')">کارتەکانی ئەمریکی (USA)</button>
-                <button class="sub-tab-btn" onclick="openSubTab(event, 'cards-iq', 'cards-tab')">کارتەکانی عێراقی (IQ)</button>
-            </div>
-
-            <!-- کارتەکانی ئەمریکی -->
-            <div id="cards-usa" class="sub-tab-content active">
-                <div class="services-grid">
-                    <div class="card service-item">
-                        <div class="card-image">🍏</div>
-                        <h2>iTunes USA $10</h2>
-                        <p class="price" id="price-itunes10" data-base="15600">15,600 IQD</p>
-                        <button class="buy-btn" onclick="selectService('iTunes USA $10')">داواکردن</button>
-                    </div>
-                    <div class="card service-item">
-                        <div class="card-image">🤖</div>
-                        <h2>Google Play USA $10</h2>
-                        <p class="price" id="price-google10" data-base="15600">15,600 IQD</p>
-                        <button class="buy-btn" onclick="selectService('Google Play USA $10')">داواکردن</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- کارتەکانی عێراقی -->
-            <div id="cards-iq" class="sub-tab-content">
-                <div class="services-grid">
-                    <div class="card service-item">
-                        <div class="card-image">🇮🇶</div>
-                        <h2>Asiacell 5,000</h2>
-                        <p class="price" id="price-asia5" data-base="5000">5,000 IQD</p>
-                        <button class="buy-btn" onclick="selectService('Asiacell 5,000')">داواکردن</button>
-                    </div>
-                    <div class="card service-item">
-                        <div class="card-image">🇮🇶</div>
-                        <h2>Zain 5,000</h2>
-                        <p class="price" id="price-zain5" data-base="5000">5,000 IQD</p>
-                        <button class="buy-btn" onclick="selectService('Zain 5,000')">داواکردن</button>
-                    </div>
-                </div>
-            </div>
+            <h1 data-key="cardsTitle">💳 کارتەکانی دیاری (Gift Cards)</h1>
+            <div class="card service-item"><h2>iTunes Card $10</h2><p class="price" data-iqd="15,500 IQD" data-usd="$10.35">15,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20iTunes%20Card%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>Google Play $10</h2><p class="price" data-iqd="15,500 IQD" data-usd="$10.35">15,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Google%20Play%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>Razer Gold $10 (100 G)</h2><p class="price" data-iqd="15,000 IQD" data-usd="$10.00">15,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Razer%20Gold%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>PlayStation Card $10</h2><p class="price" data-iqd="15,250 IQD" data-usd="$10.20">15,250 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20PlayStation%20Card%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
-        <!-- ================= SUBSCRIPTIONS TAB ================= -->
         <div id="subs-tab" class="tab-content">
-            <h1>📺 بەشداری شاشەکان</h1><br>
-            <div class="services-grid">
-                <div class="card service-item">
-                    <div class="card-image">🎬</div>
-                    <h2>Netflix 1 Month</h2>
-                    <p class="price" id="price-netflix1" data-base="4800">4,800 IQD</p>
-                    <button class="buy-btn" onclick="selectService('Netflix 1 Month')">داواکردن</button>
-                </div>
-            </div>
+            <h1 data-key="subsTitle">📺 بەشداری شاشەکان (Subscriptions)</h1>
+            <div class="card service-item"><h2>Netflix 1 Profile (1 Month)</h2><p class="price" data-iqd="4,500 IQD" data-usd="$3.00">4,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Netflix%201%20Profile" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>Shahid VIP Premium (1 Month)</h2><p class="price" data-iqd="5,500 IQD" data-usd="$3.70">5,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Shahid%20VIP" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>YouTube Premium (1 Month)</h2><p class="price" data-iqd="3,500 IQD" data-usd="$2.35">3,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20YouTube%20Premium" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>Spotify Premium (1 Month)</h2><p class="price" data-iqd="3,000 IQD" data-usd="$2.00">3,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Spotify%20Premium" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
-        <!-- ================= INSTAGRAM TAB ================= -->
+        <div id="games-tab" class="tab-content">
+            <h1 data-key="gamesTitle">🎲 یارییەکانی تر</h1>
+            <div class="card service-item"><h2>Ludo Star 100M Coins</h2><p class="price" data-iqd="4,500 IQD" data-usd="$3.00">4,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Ludo%20Star%20100M%20Coins" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>Ludo Star 500 Diamonds</h2><p class="price" data-iqd="6,500 IQD" data-usd="$4.35">6,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Ludo%20Star%20500%20Diamonds" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>Free Fire 210 Diamonds</h2><p class="price" data-iqd="4,250 IQD" data-usd="$2.85">4,250 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Free%20Fire%20210%20Diamonds" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+        </div>
+
         <div id="instagram-tab" class="tab-content">
-            <h1>📸 خزمەتگوزارییەکانی ئینستاگرام</h1><br>
-            <div class="services-grid">
-                <div class="card service-item">
-                    <div class="card-image">📈</div>
-                    <h2>5K Followers</h2>
-                    <p class="price" id="price-insta5k" data-base="21000">21,000 IQD</p>
-                    <button class="buy-btn" onclick="selectService('5K Followers')">داواکردن</button>
-                </div>
-            </div>
+            <h1 data-key="instaTitle">📸 خزمەتگوزارییەکانی ئینستاگرام</h1>
+            <div class="card service-item"><h2>5K Followers (Instagram)</h2><p class="price" data-iqd="20,000 IQD" data-usd="$13.35">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Instagram%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>10K Followers (Instagram)</h2><p class="price" data-iqd="40,000 IQD" data-usd="$26.70">40,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20Instagram%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
-        <!-- ================= فۆرمی داواکاری گشتی ================= -->
-        <div class="card" id="orderFormSection" style="margin-top: 30px; border: 2px solid var(--accent-color);">
-            <h2>🛒 فۆرمی ناردنی داواکاری</h2><br>
-            <p style="font-size: 16px; margin-bottom: 15px;">بابەتی هەڵبژێردراو: <strong id="selectedServiceDisplay" style="color: #ffcc00; font-size: 18px;">(تکایە کلیک لە داواکردنی کارتێک بکە)</strong></p>
-            
-            <input type="text" id="targetId" placeholder="ئایدی یاری / یان لێنکی لاپەڕە"><br>
-            <input type="text" id="orderName" placeholder="ناوی تەواوت"><br>
-            
-            <input type="text" id="couponCode" placeholder="کۆدی داشکاندن (ئەگەر هەتە)" oninput="applyCoupon()"><br>
-            <p id="couponMsg" style="font-size:14px; color:#00ff99; font-weight:bold; margin-bottom:10px;"></p>
-            
-            <input type="text" id="receiptCode" placeholder="ژمارەی پسوڵەی ئاسیا یان فاستپەی"><br>
-            <button onclick="sendOrder()" style="background: #25d366; color: white;">🚀 ناردن بۆ واتسەپ</button>
+        <div id="tiktok-tab" class="tab-content">
+            <h1 data-key="tiktokTitle">🎵 خزمەتگوزارییەکانی تیکتۆک</h1>
+            <div class="card service-item"><h2>5K Followers (TikTok)</h2><p class="price" data-iqd="20,000 IQD" data-usd="$13.35">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20TikTok%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>10K Views (TikTok)</h2><p class="price" data-iqd="10,000 IQD" data-usd="$6.70">10,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20TikTok%20Views" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
-        <!-- مێژووی داواکارییەکان -->
+        <div id="social-tab" class="tab-content">
+            <h1 data-key="socialTitle">🌐 تۆڕە کۆمەڵایەتییەکانی تر</h1>
+            <div class="card service-item"><h2>5K Subscribers (YouTube)</h2><p class="price" data-iqd="30,000 IQD" data-usd="$20.00">30,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20YouTube%20Subscribers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>5K Followers (Facebook)</h2><p class="price" data-iqd="20,000 IQD" data-usd="$13.35">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Facebook%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><h2>5K Telegram Members</h2><p class="price" data-iqd="20,000 IQD" data-usd="$13.35">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Telegram%20Members" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+        </div>
+
+        <div class="card" style="margin-top: 30px;">
+            <h2 data-key="payments">💳 ڕێگاکانی پێدانی پارە</h2>
+            <p>Qi Card | FastPay | FIB Bank | Cash</p>
+        </div>
+
         <div class="card">
-            <h2>📜 مێژووی داواکارییەکانت</h2>
-            <div class="history-list" id="historyList"></div>
+            <h2 data-key="followUs">🌐 فۆڵۆمان بکەن</h2>
+            <p><a href="https://www.facebook.com/share/1RaePme8hR/" target="_blank">📘 Facebook Page</a></p>
+            <p><a href="https://www.facebook.com/groups/314942885710513/" target="_blank">👥 Facebook Group</a></p>
         </div>
 
-        <!-- بەشی ڕا و سەرنج -->
         <div class="card">
-            <h2>⭐ ڕا و سەرنجی کڕیاران</h2>
-            <input type="text" id="revName" placeholder="ناوەکەت"><br>
-            <select id="revStars">
-                <option value="⭐⭐⭐⭐⭐">٥ ئەستێرە</option>
-                <option value="⭐⭐⭐⭐">٤ ئەستێرە</option>
-            </select><br>
-            <input type="text" id="revText" placeholder="نووسینی ڕاکەت..."><br>
-            <button onclick="addReview()">ناردنی ڕا</button>
-            <div class="reviews-container" id="reviewsList"></div>
+            <h2 data-key="aboutTitle">دەربارەی ئێمە</h2>
+            <p data-key="aboutDesc">کوردستان ستۆر باشترینە بۆ خزمەتگوزاری یوسی و سۆشیاڵ میدیا.</p>
+        </div>
+        
+        <div class="card">
+            <h2 data-key="reviewsTitle">⭐ پێداچوونەوەی کڕیاران</h2>
+            <p>⭐⭐⭐⭐⭐ "Fast delivery!"</p>
+            <p>⭐⭐⭐⭐⭐ "Trusted seller."</p>
         </div>
 
+        <div class="card">
+            <h2 data-key="statusTitle">🟢 دۆخ</h2>
+            <p style="color:#00ff99; font-weight: bold;" data-key="statusDesc">ئێمە ٢٤ کاتژمێر ئۆنلاینین</p>
+        </div>
     </div>
 
-    <a href="https://wa.me/9647751513431" class="floating-chat" target="_blank">💬</a>
+    <button id="topBtn" onclick="topFunction()">⬆</button>
 
     <script>
         let currentCurrency = "IQD";
-        let discountPercent = 0;
-        let selectedService = "";
 
-        // سەرچاوەی مەرکەزی بۆ کۆنترۆڵکردنی نرخە بەرز و نزمبووەکان
-        let livePrices = {
-            "60 UC Global": 1500,
-            "325 UC Global": 8200,
-            "660 UC Global": 16400,
-            "180 UC Korean": 6000,
-            "660 UC Korean": 19500,
-            "iTunes USA $10": 15600,
-            "Google Play USA $10": 15600,
-            "Asiacell 5,000": 5000,
-            "Zain 5,000": 5000,
-            "Netflix 1 Month": 4800,
-            "5K Followers": 21000
+        const translations = {
+            ku: {
+                title: "کوردستان ستۆر",
+                subtitle: "فرۆشگای یوسی پۆبجی و سۆشیاڵ میدیا",
+                logout: "چوونەدەرەوە",
+                authTitle: "👤 دروستکردنی ئەکاونت / چوونەژوورەوە",
+                signupBtn: "تۆماربوون",
+                loginBtn: "چوونەژوورەوە",
+                owners: "خاوەنەکان",
+                pubgTitle: "🎮 خزمەتگوزارییەکانی یوسی پۆبجی",
+                cardsTitle: "💳 کارتەکانی دیاری (Gift Cards)",
+                subsTitle: "📺 بەشداری شاشەکان (Subscriptions)",
+                gamesTitle: "🎲 یارییەکانی تر",
+                instaTitle: "📸 خزمەتگوزارییەکانی ئینستاگرام",
+                tiktokTitle: "🎵 خزمەتگوزارییەکانی تیکتۆک",
+                socialTitle: "🌐 تۆڕە کۆمەڵایەتییەکانی تر",
+                buyNow: "بکڕە",
+                orderNow: "🛒 داواکاری بنێرە",
+                sendOrder: "ناردنی داواکاری",
+                payments: "💳 ڕێگاکانی پێدانی پارە",
+                followUs: "🌐 فۆڵۆمان بکەن",
+                aboutTitle: "دەربارەی ئێمە",
+                aboutDesc: "کوردستان ستۆر باشترینە بۆ خزمەتگوزاری یوسی و گەشەپێدانی سۆشیاڵ میدیا.",
+                reviewsTitle: "⭐ پێداچوونەوەی کڕیاران",
+                statusTitle: "🟢 دۆخ",
+                statusDesc: "ئێمە ٢٤ کاتژمێر ئۆنلاینین",
+                searchPlace: "گەڕان بۆ خزمەتگوزارییەکان...",
+                calcTitle: "🧮 حاسیبەی خێرای یوسی",
+                calcDesc: "بڕی یوسی بنووسە بۆ زانینی نرخەکەی:",
+                calcPlace: "بۆ نموونە: 325"
+            },
+            en: {
+                title: "KURDISTAN STORE",
+                subtitle: "PUBG UC & Social Media Shop",
+                logout: "Logout",
+                authTitle: "👤 Sign Up / Login",
+                signupBtn: "Sign Up",
+                loginBtn: "Login",
+                owners: "Owners",
+                pubgTitle: "🎮 PUBG UC Services",
+                cardsTitle: "💳 Gift Cards",
+                subsTitle: "📺 Subscriptions",
+                gamesTitle: "🎲 Other Games",
+                instaTitle: "📸 Instagram Services",
+                tiktokTitle: "🎵 TikTok Services",
+                socialTitle: "🌐 Other Social Media",
+                buyNow: "BUY NOW",
+                orderNow: "🛒 Order Now",
+                sendOrder: "Send Order",
+                payments: "💳 Payment Methods",
+                followUs: "🌐 Follow Us",
+                aboutTitle: "About Us",
+                aboutDesc: "KURDISTAN STORE is the best shop for PUBG UC and Social Media boosting.",
+                reviewsTitle: "⭐ Customer Reviews",
+                statusTitle: "🟢 Status",
+                statusDesc: "We are Online 24/7",
+                searchPlace: "Search for services...",
+                calcTitle: "🧮 Quick UC Calculator",
+                calcDesc: "Enter UC amount to see the price:",
+                calcPlace: "e.g., 325"
+            },
+            ar: {
+                title: "متجر كردستان",
+                subtitle: "متجر شدات ببجي وخدمات التواصل الاجتماعي",
+                logout: "تسجيل الخروج",
+                authTitle: "👤 إنشاء حساب / تسجيل الدخول",
+                signupBtn: "إنشاء حساب",
+                loginBtn: "تسجيل الدخول",
+                owners: "المالكين",
+                pubgTitle: "🎮 خدمات شدات ببجي (UC)",
+                cardsTitle: "💳 بطاقات الهدايا",
+                subsTitle: "📺 الاشتراكات والشاشات",
+                gamesTitle: "🎲 ألعاب أخرى",
+                instaTitle: "📸 خدمات إنستغرام",
+                tiktokTitle: "🎵 خدمات تيك توك",
+                socialTitle: "🌐 وسائل تواصل أخرى",
+                buyNow: "شراء الآن",
+                orderNow: "🛒 اطلب الآن",
+                sendOrder: "إرسال الطلب",
+                payments: "💳 طرق الدفع",
+                followUs: "🌐 تابعنا",
+                aboutTitle: "من نحن",
+                aboutDesc: "متجر كردستان هو الأفضل لخدمات الشدات وزيادة متابعين وسائل التواصل الاجتماعي.",
+                reviewsTitle: "⭐ آراء العملاء",
+                statusTitle: "🟢 الحالة",
+                statusDesc: "نحن متواجدون 24/7",
+                searchPlace: "البحث عن الخدمات...",
+                calcTitle: "🧮 حاسبة الشدات السريعة",
+                calcDesc: "أدخل كمية الشدات لمعرفة السعر:",
+                calcPlace: "مثال: 325"
+            }
         };
 
-        function fetchLivePrices() {
-            // بەستنەوەی نرخەکان بە کلیلە داینامیکییەکانەوە
-            if(document.getElementById("price-uc60")) document.getElementById("price-uc60").setAttribute("data-base", livePrices["60 UC Global"]);
-            if(document.getElementById("price-uc325")) document.getElementById("price-uc325").setAttribute("data-base", livePrices["325 UC Global"]);
-            if(document.getElementById("price-uc660")) document.getElementById("price-uc660").setAttribute("data-base", livePrices["660 UC Global"]);
-            if(document.getElementById("price-uckor180")) document.getElementById("price-uckor180").setAttribute("data-base", livePrices["180 UC Korean"]);
-            if(document.getElementById("price-uckor660")) document.getElementById("price-uckor660").setAttribute("data-base", livePrices["660 UC Korean"]);
-            if(document.getElementById("price-itunes10")) document.getElementById("price-itunes10").setAttribute("data-base", livePrices["iTunes USA $10"]);
-            if(document.getElementById("price-google10")) document.getElementById("price-google10").setAttribute("data-base", livePrices["Google Play USA $10"]);
-            if(document.getElementById("price-asia5")) document.getElementById("price-asia5").setAttribute("data-base", livePrices["Asiacell 5,000"]);
-            if(document.getElementById("price-zain5")) document.getElementById("price-zain5").setAttribute("data-base", livePrices["Zain 5,000"]);
-            if(document.getElementById("price-netflix1")) document.getElementById("price-netflix1").setAttribute("data-base", livePrices["Netflix 1 Month"]);
-            if(document.getElementById("price-insta5k")) document.getElementById("price-insta5k").setAttribute("data-base", livePrices["5K Followers"]);
+        function changeLanguage(lang) {
+            localStorage.setItem("selectedLang", lang);
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'en') ? 'ltr' : 'rtl';
 
-            updateDisplayPrices();
-            document.getElementById("rateDisplay").innerText = "🔄 نرخەکان بە شێوەی داینامیکی نوێکرانەوە";
-        }
-
-        function updateDisplayPrices() {
-            document.querySelectorAll('.price').forEach(priceElem => {
-                if (priceElem.id !== "calcResult") {
-                    let basePrice = parseFloat(priceElem.getAttribute('data-base'));
-                    if(basePrice) {
-                        if (currentCurrency === "IQD") {
-                            priceElem.innerText = basePrice.toLocaleString() + " IQD";
-                        } else {
-                            priceElem.innerText = "$" + (basePrice / 1500).toFixed(2);
-                        }
-                    }
+            document.querySelectorAll('[data-key]').forEach(elem => {
+                const key = elem.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    elem.innerHTML = translations[lang][key];
                 }
             });
-        }
 
-        function selectService(serviceName) {
-            selectedService = serviceName;
-            document.getElementById("selectedServiceDisplay").innerText = serviceName + " (" + livePrices[serviceName].toLocaleString() + " IQD)";
-            document.getElementById("orderFormSection").scrollIntoView({ behavior: 'smooth' });
+            const searchInput = document.getElementById('searchBox');
+            if(searchInput && translations[lang]) {
+                searchInput.placeholder = translations[lang]["searchPlace"];
+            }
+
+            const calcInput = document.getElementById('calcInput');
+            if(calcInput && translations[lang]) {
+                calcInput.placeholder = translations[lang]["calcPlace"];
+            }
+
+            if(lang === 'ku') {
+                document.getElementById('btn-pubg').innerText = "PUBG UC";
+                document.getElementById('btn-cards').innerText = "کارتەکان";
+                document.getElementById('btn-subs').innerText = "شاشەکان";
+                document.getElementById('btn-games').innerText = "یاری تر";
+                document.getElementById('btn-insta').innerText = "ئینستاگرام";
+                document.getElementById('btn-tiktok').innerText = "تیکتۆک";
+                document.getElementById('btn-social').innerText = "سۆشیاڵ میدیا";
+            } else if(lang === 'ar') {
+                document.getElementById('btn-pubg').innerText = "شدات ببجي";
+                document.getElementById('btn-cards').innerText = "بطاقات";
+                document.getElementById('btn-subs').innerText = "الاشتراكات";
+                document.getElementById('btn-games').innerText = "ألعاب أخرى";
+                document.getElementById('btn-insta').innerText = "إنستغرام";
+                document.getElementById('btn-tiktok').innerText = "تيك توك";
+                document.getElementById('btn-social').innerText = "مواقع أخرى";
+            } else {
+                document.getElementById('btn-pubg').innerText = "PUBG UC";
+                document.getElementById('btn-cards').innerText = "Gift Cards";
+                document.getElementById('btn-subs').innerText = "Subscriptions";
+                document.getElementById('btn-games').innerText = "Other Games";
+                document.getElementById('btn-insta').innerText = "Instagram";
+                document.getElementById('btn-tiktok').innerText = "TikTok";
+                document.getElementById('btn-social').innerText = "Social Media";
+            }
+            calculateUCPrice();
         }
 
         function toggleCurrency() {
             currentCurrency = (currentCurrency === "IQD") ? "USD" : "IQD";
             document.getElementById("currencyBtn").innerText = (currentCurrency === "IQD") ? "💵 IQD" : "💵 USD";
-            updateDisplayPrices();
+            
+            document.querySelectorAll('.price').forEach(priceElem => {
+                if (priceElem.id !== "calcResult") {
+                    const iqdPrice = priceElem.getAttribute('data-iqd');
+                    const usdPrice = priceElem.getAttribute('data-usd');
+                    if(iqdPrice && usdPrice) {
+                        priceElem.innerText = (currentCurrency === "IQD") ? iqdPrice : usdPrice;
+                    }
+                }
+            });
             calculateUCPrice();
         }
 
         function calculateUCPrice() {
             const ucAmount = document.getElementById("calcInput").value;
             const resultElem = document.getElementById("calcResult");
-            if (!ucAmount || ucAmount <= 0) { resultElem.innerText = "0 IQD"; return; }
             
-            let singleUcCost = livePrices["325 UC Global"] / 325; 
-            let finalPrice = ucAmount * singleUcCost;
+            if (!ucAmount || ucAmount <= 0) {
+                resultElem.innerText = (currentCurrency === "IQD") ? "0 IQD" : "$0.00";
+                return;
+            }
 
             if (currentCurrency === "IQD") {
-                resultElem.innerText = Math.round(finalPrice).toLocaleString() + " IQD";
+                let price = Math.round(ucAmount * 24.615);
+                resultElem.innerText = price.toLocaleString() + " IQD";
             } else {
-                resultElem.innerText = "$" + (finalPrice / 1500).toFixed(2);
+                let price = (ucAmount * 0.0165).toFixed(2);
+                resultElem.innerText = "$" + price;
             }
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        function openTab(evt, tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            if(evt) evt.currentTarget.classList.add('active');
         }
 
         function filterServices() {
-            let filter = document.getElementById('searchBox').value.toUpperCase();
-            document.querySelectorAll('.service-item').forEach(item => {
-                let text = item.getElementsByTagName("h2")[0].innerText;
-                item.style.display = text.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+            let input = document.getElementById('searchBox').value.toLowerCase();
+            let items = document.querySelectorAll('.service-item');
+            
+            items.forEach(item => {
+                let text = item.querySelector('h2').innerText.toLowerCase();
+                if(text.includes(input)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
             });
         }
 
-        // کۆنترۆڵکردنی تابی سەرەکی
-        function openMainTab(evt, tabId) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            evt.currentTarget.classList.add('active');
-        }
-
-        // کۆنترۆڵکردنی تابی لاوەکی (Sub-category)
-        function openSubTab(evt, subTabId, parentTabId) {
-            let parent = document.getElementById(parentTabId);
-            parent.querySelectorAll('.sub-tab-content').forEach(st => st.classList.remove('active'));
-            parent.querySelectorAll('.sub-tab-btn').forEach(sb => sb.classList.remove('active'));
-            document.getElementById(subTabId).classList.add('active');
-            evt.currentTarget.classList.add('active');
-        }
-
-        function sendOrder() {
-            if(!selectedService) { alert("تکایە سەرەتا خزمەتگوزارییەک هەڵبژێرە!"); return; }
-            let targetId = document.getElementById('targetId').value;
-            let name = document.getElementById('orderName').value;
-            let receipt = document.getElementById("receiptCode").value || "نەنێردراوە";
-            
-            if (!targetId || !name) { alert("تکایە خانەکان پڕبکەرەوە!"); return; }
-
-            let basePrice = livePrices[selectedService];
-            let finalPrice = basePrice;
-            if(discountPercent > 0) finalPrice = basePrice - (basePrice * (discountPercent / 100));
-
-            let now = new Date().toLocaleString();
-            saveToHistory(`📦 ${selectedService}`, `نرخ: ${finalPrice.toLocaleString()} IQD`, now);
-
-            let message = encodeURIComponent(`KURDISTAN STORE - NEW ORDER:\n\n👤 ناو: ${name}\n🆔 ئایدی/لینک: ${targetId}\n📦 بابەت: ${selectedService}\n💵 نرخ: ${finalPrice.toLocaleString()} IQD\n🧾 پسوڵە: ${receipt}`);
-            window.open("https://wa.me/9647751513431?text=" + message, "_blank");
-        }
-
-        function applyCoupon() {
-            let code = document.getElementById("couponCode").value.trim().toUpperCase();
-            let msg = document.getElementById("couponMsg");
-            if(code === "KURD10") { discountPercent = 10; msg.innerText = "🎉 %١٠ داشکاندن جێبەجێکرا"; }
-            else { discountPercent = 0; msg.innerText = ""; }
-        }
-
         function signup(){
-            localStorage.setItem("email", document.getElementById("email").value);
-            localStorage.setItem("name", document.getElementById("username").value);
-            alert("ئەکاونت دروستکرا!");
+            let name = document.getElementById("username").value;
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            if(!name || !email || !password) { alert("Please fill all fields"); return; }
+            localStorage.setItem("name", name);
+            localStorage.setItem("email", email);
+            localStorage.setItem("password", password);
+            document.getElementById("signupMsg").innerHTML = "✅ Account Created! Now Login.";
         }
+
         function login() {
-            if (document.getElementById("email").value === localStorage.getItem("email")) {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            if (email === localStorage.getItem("email") && password === localStorage.getItem("password") && email) {
                 localStorage.setItem("loggedIn", "yes");
                 showStore();
+            } else {
+                document.getElementById("loginMsg").innerHTML = "❌ Wrong Info!";
             }
         }
-        function showStore() {
-            document.getElementById("welcome").innerHTML = "بەخێربێیت, " + (localStorage.getItem("name") || "کڕیار");
-            document.getElementById("welcome").style.display = "block";
-            document.getElementById("storeContent").style.display = "block";
-            document.getElementById("authSection").style.display = "none";
-            loadOrderHistory();
-            loadReviews();
-        }
-        function logout() {
+
+        function logout(){
             localStorage.removeItem("loggedIn");
             location.reload();
         }
-        function saveToHistory(item, receipt, date) {
-            let history = JSON.parse(localStorage.getItem("orderHistory")) || [];
-            history.unshift({ item, receipt, date });
-            localStorage.setItem("orderHistory", JSON.stringify(history));
-            loadOrderHistory();
+
+        function showStore() {
+            let n = localStorage.getItem("name") || "User";
+            document.getElementById("welcome").innerHTML = "Welcome, " + n;
+            document.getElementById("welcome").style.display = "block";
+            document.getElementById("logoutBtn").style.display = "inline-block";
+            document.getElementById("storeContent").style.display = "block";
+            document.getElementById("authSection").style.display = "none";
         }
-        function loadOrderHistory() {
-            let history = JSON.parse(localStorage.getItem("orderHistory")) || [];
-            document.getElementById("historyList").innerHTML = history.map(h => `<div class="history-item"><strong>${h.item}</strong> - ${h.receipt}</div>`).join('');
-        }
-        function addReview() {
-            let name = document.getElementById("revName").value;
-            let stars = document.getElementById("revStars").value;
-            let text = document.getElementById("revText").value;
-            if(!name || !text) return;
-            let reviews = JSON.parse(localStorage.getItem("globalReviews")) || [];
-            reviews.unshift({ name, stars, text });
-            localStorage.setItem("globalReviews", JSON.stringify(reviews));
-            loadReviews();
-        }
-        function loadReviews() {
-            let reviews = JSON.parse(localStorage.getItem("globalReviews")) || [{ name: "Ahmad", stars: "⭐⭐⭐⭐⭐", text: "شازە دەستان خۆش" }];
-            document.getElementById("reviewsList").innerHTML = reviews.map(r => `<div class="review-item"><strong>👤 ${r.name}</strong> <span>${r.stars}</span><p>${r.text}</p></div>`).join('');
-        }
-        function toggleTheme() {
-            let t = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', t);
+
+        function sendOrder() {
+            let pubgId = document.getElementById('pubgId').value;
+            let name = document.getElementById('orderName').value;
+            let uc = document.getElementById("ucAmount").value;
+            if (!pubgId || !name) { alert("Fill all fields!"); return; }
+            let message = `PUBG Order:%0A%0AID: ${pubgId}%0AName: ${name}%0AAmount: ${uc}`;
+            window.open("https://wa.me/9647751513431?text=" + message, "_blank");
         }
 
         window.onload = function() {
-            fetchLivePrices();
             if(localStorage.getItem("loggedIn") == "yes") showStore();
+            
+            let savedLang = localStorage.getItem("selectedLang") || "ku";
+            document.getElementById("langSelect").value = savedLang;
+            changeLanguage(savedLang);
+
+            let savedTheme = localStorage.getItem("theme") || "dark";
+            document.documentElement.setAttribute('data-theme', savedTheme);
         };
+
+        let topBtn = document.getElementById("topBtn");
+        window.addEventListener("scroll", () => {
+            topBtn.style.display = (window.scrollY > 250) ? "block" : "none";
+        });
+        function topFunction() { window.scrollTo({ top: 0, behavior: "smooth" }); }
     </script>
 </body>
 </html>
