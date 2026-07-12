@@ -467,20 +467,23 @@
         </div>
     </div>
 
-    <!-- دیزاینی بۆکسی چاتی زیرەکی دەستکرد -->
-    <div id="ai-chat-container" style="position:fixed; bottom:90px; left:20px; width:300px; background:var(--card-bg); border:2px solid var(--accent-color); border-radius:10px; display:none; z-index:9999; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
-        <div style="background:var(--accent-color); color:#000; padding:10px; font-weight:bold; text-align:center; border-radius:8px 8px 0 0; font-size:14px;">🤖 وەلامدەرەوەی زیرەک (AI Bot)</div>
-        <div id="chat-logs" style="height:220px; overflow-y:auto; padding:10px; font-size:13px; display:flex; flex-direction:column; gap:8px; text-align:right;">
-            <div style="background:#333; padding:8px; border-radius:5px; align-self:flex-start; max-width:85%;">سڵاو! من یارمەتیدەری زیرەکی کوردستان ستۆرم. چۆن دەتوانم یارمەتیت بدەم؟ (لە سەر پارەدان، یوسی، یان کێشەکان بپرسە)</div>
+    <!-- دیزاینی بۆکسی چاتی زیرەکی دەستکردی پێشکەوتوو -->
+    <div id="ai-chat-container" style="position:fixed; bottom:90px; left:20px; width:320px; background:var(--card-bg); border:2px solid var(--accent-color); border-radius:12px; display:none; z-index:9999; box-shadow: 0 8px 25px rgba(0,0,0,0.6); flex-direction: column;">
+        <div style="background:var(--accent-color); color:#000; padding:12px; font-weight:bold; text-align:center; border-radius:10px 10px 0 0; font-size:14px; display:flex; justify-content:space-between; align-items:center;">
+            <span>🤖 پشتگیری زیرەکی دەستکرد (Gemini)</span>
+            <button onclick="toggleAIChat()" style="background:none; border:none; font-size:16px; cursor:pointer; color:#000; font-weight:bold;">✕</button>
         </div>
-        <div style="display:flex; padding:5px; background:#111; border-radius:0 0 10px 10px;">
-            <input type="text" id="chat-input" placeholder="نامەکەت بنووسە..." style="width:75%; margin:0; padding:8px; border-radius:4px 0 0 4px; font-size:13px;">
-            <button onclick="askAI()" style="width:25%; padding:8px; background:var(--accent-color); color:#000; border:none; border-radius:0 4px 4px 0; font-size:12px; cursor:pointer; font-weight:bold;">ناردن</button>
+        <div id="chat-logs" style="height:250px; overflow-y:auto; padding:12px; font-size:13px; display:flex; flex-direction:column; gap:10px; text-align:right; background:#1e1e1e;">
+            <div style="background:#333; padding:10px; border-radius:8px; align-self:flex-start; max-width:85%; line-height:1.4;">سڵاو! من یارمەتیدەری زیرەکی کوردستان ستۆرم 🔥. لە هەر گرفت، کێشە، یان شێوازی کڕین و پارەدان بپرسە، ڕاستەوخۆ وەڵامت دەدەمەوە.</div>
+        </div>
+        <div style="display:flex; padding:8px; background:#111; border-radius:0 0 12px 12px; border-top:1px solid #333;">
+            <input type="text" id="chat-input" placeholder="پرسیارەکەت لێرە بنووسە..." style="width:75%; margin:0; padding:10px; border-radius:6px; font-size:13px; border:1px solid #444; outline:none; background:#222; color:#fff;">
+            <button onclick="askAI()" id="send-btn" style="width:23%; margin-right:2%; padding:10px; background:var(--accent-color); color:#000; border:none; border-radius:6px; font-size:13px; cursor:pointer; font-weight:bold;">ناردن</button>
         </div>
     </div>
 
     <!-- دوگمەی خڕی زیرەکی دەستکرد -->
-    <button onclick="toggleAIChat()" style="position:fixed; bottom:20px; left:90px; width:55px; height:55px; border:none; border-radius:50%; background:gold; color:#111; font-size:24px; cursor:pointer; z-index:9999; box-shadow:0 0 15px rgba(255,215,0,0.6);">🤖</button>
+    <button onclick="toggleAIChat()" style="position:fixed; bottom:20px; left:90px; width:55px; height:55px; border:none; border-radius:50%; background:gold; color:#111; font-size:24px; cursor:pointer; z-index:9999; box-shadow:0 0 15px rgba(255,215,0,0.6); display:flex; align-items:center; justify-content:center;">🤖</button>
 
     <!-- Live Toast Area -->
     <div id="live-toast">
@@ -615,50 +618,78 @@
             window.open(`https://wa.me/9647751513431?text=${text}`, '_blank');
         }
 
-        // سیستەمی لۆژیکی وەڵامدانەوەی زیرەکی دەستکرد
+        // ==========================================
+        // 🤖 سیستەمی پێشکەوتووی زیرەکی دەستکرد فەرمی (GEMINI AI)
+        // ==========================================
+        
+        // ئەی پی ئای کلیلی فەرمی چالاککراو بۆ کوردستان ستۆر
+        const GEMINI_API_KEY = "AIzaSyD - کۆدی فەرمی لێرە جێگیر کراوە"; 
+
+        const botContext = "تۆ یاریدەدەرێکی کڕیارانی زیرەکی و زمانزانی بۆ ماڵپەڕی 'کوردستان ستۆر' (KURDISTAN STORE). هەمیشە بە زمانی کوردییەکی زۆر شیرین، کورت، دۆستانە و ڕوون وەڵام بدەرەوە. ماڵپەڕەکە یوسی پۆبجی، گیفت کارت، بەشداریکردنی نێتفلیکس و لایک و فۆڵۆوەرسی تیکتۆک و ئینستاگرام دەفرۆشێت. خاوەنەکان بریتین لە: MUHAMAD MARIWAN AZEZ, BAREZ ABAS, AKAY PUBG, AHMAD CHOMANI. ڕێگاکانی پارەدان: فاست بەی (07751513431)، FIB (9647751513431). ئەگەر کڕیار کێشەیەکی هەبوو لە کارنەکردنی کاڵا یان کێشەی پارە، پێی بڵێ وێنەی پسوڵە یان سکرینشۆت بگرێت و لە واتسئاپ بۆ خاوەنەکانی بنێرێت بۆ چارەسەری خێرا. هەمیشە وەڵامەکانت زۆر کورت و خێرا بن و ڕستەی درێژ بەکارمەهێنە.";
+
+        let chatHistory = [{ role: "user", parts: [{ text: botContext }] }];
+
         function toggleAIChat() {
             const chatBox = document.getElementById("ai-chat-container");
-            chatBox.style.display = chatBox.style.display === "none" ? "block" : "none";
+            chatBox.style.display = chatBox.style.display === "none" ? "flex" : "none";
         }
 
         async function askAI() {
             const inputField = document.getElementById("chat-input");
             const logs = document.getElementById("chat-logs");
+            const sendBtn = document.getElementById("send-btn");
             const userText = inputField.value.trim();
             
             if(!userText) return;
             
-            logs.innerHTML += `<div style="background:var(--accent-color); color:#000; padding:8px; border-radius:5px; align-self:flex-end; max-width:85%; word-wrap:break-word; margin-bottom:5px;">${userText}</div>`;
+            logs.innerHTML += `<div style="background:var(--accent-color); color:#000; padding:10px; border-radius:8px; align-self:flex-end; max-width:85%; word-wrap:break-word; margin-bottom:5px; line-height:1.4;">${userText}</div>`;
             inputField.value = "";
             logs.scrollTop = logs.scrollHeight;
 
-            setTimeout(() => {
-                let aiResponse = "ببوورە، من بە تەواوی لە پرسیارەکەت تێنەگەیشتم. تکایە گەر کێشەیەکت هەیە، لە ڕێگەی فۆرمی داواکارییەکە یان بە واتسئاپ پەیوەندیمان پێوە بکە.";
-                const lowerText = userText.toLowerCase();
+            const loadingId = "loading-" + Date.now();
+            logs.innerHTML += `<div id="${loadingId}" style="background:#333; padding:10px; border-radius:8px; align-self:flex-start; max-width:85%; color:#aaa; margin-bottom:5px;">🤖 خەریکە وەڵام دەنووسێت...</div>`;
+            logs.scrollTop = logs.scrollHeight;
+            
+            inputField.disabled = true;
+            sendBtn.disabled = true;
 
-                if(lowerText.includes("سڵاو") || lowerText.includes("slaw") || lowerText.includes("مرحبا")) {
-                    aiResponse = "سڵاو لە تۆش! بەخێربێیت بۆ کوردستان ستۆر. چۆن دەتوانم یارمەتیت بدەم؟";
-                } else if(lowerText.includes("پارە") || lowerText.includes("کارت") || lowerText.includes("پاره") || lowerText.includes("fastpay") || lowerText.includes("fib")) {
-                    aiResponse = "بۆ پێدانی پارە، لە فۆرمی خوارەوەی بەشی PUBG یەکێک لە ڕێگاکان (FastPay یان FIB...) هەڵبژێرە، ڕەقەمەکەمان نیشان دەدات. پارەکە بنێرە و وێنەی پسوڵەکە لە واتسئاپ بۆمان فڕێ بدە.";
-                } else if(lowerText.includes("یوسی") || lowerText.includes("uc") || lowerText.includes("شدات")) {
-                    aiResponse = "ئێمە خێراترین سیستەمی بارگاویکردنەوەی یوسیمان هەیە! دەتوانیت نرخەکان لە بەشی سەرەوە ببینیت و ڕاستەوخۆ داواکاری بنێریت.";
-                } else if(lowerText.includes("کێشە") || lowerText.includes("گرفت") || lowerText.includes("ئیش ناکات")) {
-                    aiResponse = "نیگەران مەبە! ئەگەر کێشەیەک لە حیسابەکەت یان ناردنی یوسیدا هەیە، وێنەی کێشەکە بگرە و ڕاستەوخۆ لە واتسئاپ بۆ خاوەنەکانی بنێرە تا بۆت چارەسەر بکەن.";
-                } else if(lowerText.includes("کات") || lowerText.includes("کەی") || lowerText.includes("سەعات")) {
-                    aiResponse = "فرۆشگاکەمان ٢٤ کاتژمێر کار دەکات و ئۆنلاینە، بەڵام وەڵامدانەوەی واتسئاپ بە شێوەیەکی گشتی لە نێوان ٥ بۆ ١٥ خولەک دەخایەنێت.";
+            chatHistory.push({ role: "user", parts: [{ text: userText }] });
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ contents: chatHistory })
+                });
+
+                const data = await response.json();
+                document.getElementById(loadingId).remove();
+
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    let aiResponse = data.candidates[0].content.parts[0].text;
+                    logs.innerHTML += `<div style="background:#333; padding:10px; border-radius:8px; align-self:flex-start; max-width:85%; line-height:1.4; white-space: pre-line;">🤖 ${aiResponse}</div>`;
+                    chatHistory.push({ role: "model", parts: [{ text: aiResponse }] });
+                } else {
+                    logs.innerHTML += `<div style="background:#333; padding:10px; border-radius:8px; align-self:flex-start; max-width:85%;">🤖 کێشەیەک هەیە، تکایە کەمێکی تر هەوڵ بدەرەوە.</div>`;
                 }
+            } catch (error) {
+                document.getElementById(loadingId).remove();
+                logs.innerHTML += `<div style="background:#333; padding:10px; border-radius:8px; align-self:flex-start; max-width:85%;">🤖 ناتوانم ئێستا پەیوەندی بە سێرڤەرەوە بکەم.</div>`;
+            }
 
-                logs.innerHTML += `<div style="background:#333; padding:8px; border-radius:5px; align-self:flex-start; max-width:85%; word-wrap:break-word; margin-bottom:5px;">🤖 ${aiResponse}</div>`;
-                logs.scrollTop = logs.scrollHeight;
-            }, 800);
+            inputField.disabled = false;
+            sendBtn.disabled = false;
+            inputField.focus();
+            logs.scrollTop = logs.scrollHeight;
         }
 
-        // گوێگرتن لە کلیلی Enter بۆ ناردنی نامەی چات
         document.getElementById("chat-input").addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
                 askAI();
             }
         });
+
+        // ==========================================
 
         function signup() {
             const user = document.getElementById("username").value;
