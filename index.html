@@ -500,7 +500,7 @@
         </div>
     </div>
 
-    <!-- بۆکسی نوێی پشتگیری لای چەپ - زۆر خێرا و ژیر بە زمانی کوردی -->
+    <!-- بۆکسی پشتیوانی لای چەپ -->
     <div id="ai-chat-container">
         <div style="background:var(--accent-color); color:#000; padding:12px; font-weight:bold; text-align:center; border-radius:10px 10px 0 0; font-size:14px; display:flex; justify-content:space-between; align-items:center;">
             <span>🤖 یاریدەدەری کوردستان ستۆر</span>
@@ -515,7 +515,7 @@
         </div>
     </div>
 
-    <!-- دوگمەی خڕی بۆت لە سوچی چەپ بەبێ تێکدانی شاشە -->
+    <!-- دوگمەی خڕی بۆت لە سوچی چەپ -->
     <button id="ai-chat-btn" onclick="toggleAIChat()">🤖</button>
 
     <!-- Live Toast Area -->
@@ -651,9 +651,6 @@
             window.open(`https://wa.me/9647751513431?text=${text}`, '_blank');
         }
 
-        // ==========================================
-        // 🤖 سیستەمی نوێی بۆتی ناوخۆیی (زۆر خێرا و ژیر و بێ کێشە)
-        // ==========================================
         function toggleAIChat() {
             const chatBox = document.getElementById("ai-chat-container");
             chatBox.style.display = chatBox.style.display === "none" ? "flex" : "none";
@@ -685,7 +682,7 @@
             } else if (userText.includes("کێشە") || userText.includes("غەڵەت") || userText.includes("کار ناکات")) {
                 botReply = "خەمت نەبێت! ئەگەر کێشەیەکت لە هەیە، تەنها وێنەیەک یان سکرینشۆتی پسوڵەی پارەکەت بۆ خاوەنەکانمان لە واتسئاپ بنێرە و یەکسەر بۆت چارەسەر دەکەن.";
             } else if (userText.includes("نێتفلیکس") || userText.includes("netflix") || userText.includes("ئینستا") || userText.includes("تیکتۆک")) {
-                botReply = "بەڵێ، جگە لە یوسی، مەلەف و پرۆفایلی نێتفلیکس، فۆڵۆوەرسی ئینستاگرام و تیکتۆکیشمان هەیە بە نرخێکی زۆر گونجاو!";
+                botReply = "بەڵێ، جگە لە یوسی, مەلەف و پرۆفایلی نێتفلیکس، فۆڵۆوەرسی ئینستاگرام و تیکتۆکیشمان هەیە بە نرخێکی زۆر گونجاو!";
             }
 
             setTimeout(() => {
@@ -699,23 +696,36 @@
                 localAIResponse();
             }
         });
-        // ==========================================
 
+        // ==========================================
+        // 🛠️ چاککردنی سیستەمی تۆماربوون و چوونەژوورەوە
+        // ==========================================
         function signup() {
-            const user = document.getElementById("username").value;
+            const user = document.getElementById("username").value.trim();
             if(user) {
                 localStorage.setItem("username", user);
                 document.getElementById("signupMsg").innerText = "تۆماربوون سەرکەوتوو بوو! ئێستا لۆگین بکە.";
+                document.getElementById("loginMsg").innerText = "";
+            } else {
+                alert("تکایە ناو بنووسە بۆ تۆماربوون.");
             }
         }
 
         function login() {
-            const user = document.getElementById("username").value;
+            const user = document.getElementById("username").value.trim();
             if(user) {
+                localStorage.setItem("username", user); // پاشەکەوتکردنی ناوەکە لە کاتی لۆگیندا
                 localStorage.setItem("loggedIn", "true");
                 checkAuth();
             } else {
-                document.getElementById("loginMsg").innerText = "تکایە ناو بنووسە.";
+                // ئەگەر خانەکە بەتاڵ بوو بەڵام پێشتر تۆمار بوبوو
+                const savedUser = localStorage.getItem("username");
+                if (savedUser) {
+                    localStorage.setItem("loggedIn", "true");
+                    checkAuth();
+                } else {
+                    document.getElementById("loginMsg").innerText = "تکایە ناو بنووسە بۆ چوونەژوورەوە.";
+                }
             }
         }
 
@@ -727,11 +737,12 @@
         function checkAuth() {
             const isLoggedIn = localStorage.getItem("loggedIn");
             if (isLoggedIn) {
+                const savedName = localStorage.getItem("username") || "User";
                 document.getElementById("authSection").style.display = "none";
                 document.getElementById("storeContent").style.display = "block";
                 document.getElementById("logoutBtn").style.display = "block";
                 document.getElementById("welcome").style.display = "block";
-                document.getElementById("welcome").innerText = "بەخێربێیت، " + (localStorage.getItem("username") || "User");
+                document.getElementById("welcome").innerText = "بەخێربێیت، " + savedName;
             } else {
                 document.getElementById("authSection").style.display = "block";
                 document.getElementById("storeContent").style.display = "none";
