@@ -198,6 +198,7 @@
             color: var(--accent-color);
             text-decoration: none;
         }
+
         #topBtn {
             display: none;
             position: fixed;
@@ -266,34 +267,34 @@
             100% { transform: translate3d(-100%, 0, 0); }
         }
 
-        /* جێگیرکردنی بۆکسی چاتەکە لە سوچی چەپی خوارەوە بە تەواوی */
+        /* 🛠️ چاککردنی تەواوی شوێنی بۆتەکە لە سوچی چەپی خوارەوە بۆ ئەوەی تێکەڵ نەبێت */
         #ai-chat-container {
             position: fixed;
-            bottom: 85px;
+            bottom: 90px;
             left: 20px;
             width: 320px;
             background: var(--card-bg);
             border: 2px solid var(--accent-color);
             border-radius: 12px;
             display: none;
-            z-index: 99999;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+            z-index: 999999;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.7);
             flex-direction: column;
         }
         #ai-chat-btn {
             position: fixed;
             bottom: 20px;
-            left: 90px;
-            width: 55px;
-            height: 55px;
+            left: 20px; /* گۆڕینی لای بۆتەکە بۆ سوچی چەپ بە ڕەهایی */
+            width: 60px;
+            height: 60px;
             border: none;
             border-radius: 50%;
             background: gold;
             color: #111;
-            font-size: 24px;
+            font-size: 28px;
             cursor: pointer;
-            z-index: 99999;
-            box-shadow: 0 0 15px rgba(255,215,0,0.6);
+            z-index: 999999;
+            box-shadow: 0 0 20px rgba(255,215,0,0.7);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -500,7 +501,7 @@
         </div>
     </div>
 
-    <!-- بۆکسی پشتیوانی لای چەپ -->
+    <!-- 🛠️ بۆکسی چاتی نوێ کەرەوە لە لای چەپی خوارەوە بە تەواوی جێگیرە -->
     <div id="ai-chat-container">
         <div style="background:var(--accent-color); color:#000; padding:12px; font-weight:bold; text-align:center; border-radius:10px 10px 0 0; font-size:14px; display:flex; justify-content:space-between; align-items:center;">
             <span>🤖 یاریدەدەری کوردستان ستۆر</span>
@@ -515,7 +516,7 @@
         </div>
     </div>
 
-    <!-- دوگمەی خڕی بۆت لە سوچی چەپ -->
+    <!-- دوگمەی خڕی بۆت لە سوچی چەپ لە سەرەوەی کۆنتێنەرەکە -->
     <button id="ai-chat-btn" onclick="toggleAIChat()">🤖</button>
 
     <!-- Live Toast Area -->
@@ -656,6 +657,9 @@
             chatBox.style.display = chatBox.style.display === "none" ? "flex" : "none";
         }
 
+        // ==========================================
+        // 🤖 🛠️ سیستەمی هۆشمەندی و پێشکەوتووی بۆتەکە
+        // ==========================================
         function localAIResponse() {
             const inputField = document.getElementById("chat-input");
             const logs = document.getElementById("chat-logs");
@@ -667,28 +671,38 @@
             inputField.value = "";
             logs.scrollTop = logs.scrollHeight;
 
-            let botReply = "ببوورە تێنەگەیشتم 🧐. دەتوانیت زیاتر ڕوونی بکەیتەوە؟ یان دەتوانیت ڕاستەوخۆ لە ڕێگەی فۆرمی داواکارییەوە پەیوەندی بە واتسئاپمانەوە بکەیت بۆ وەڵامدانەوەی خێرا.";
+            let botReply = "ببوورە تێنەگەیشتم 🧐. من تەنها دەتوانم وەڵامی پرسیارەکانی پەیوەست بە نرخ، شێوازی کڕین، فاستبەی و خاوەنەکانی سایت بدەمەوە. تکایە وشەیەکی ڕوونتر بەکاربهێنە.";
 
-            if (userText.includes("سڵاو") || userText.includes("slaw") || userText.includes("سلام")) {
-                botReply = "سڵاو لە تۆش دۆستی خۆم! هیوادارم ڕۆژێکی خۆشت هەبێت 🌟. چۆن دەتوانم یارمەتیت بدەم؟";
-            } else if (userText.includes("یوسی") || userText.includes("uc") || userText.includes("نرخ")) {
-                botReply = "لێرە نرخەکانمان زۆر گونجاون! 60 یوسی بە 1,500 دینارە و 325 یوسی تەنها بە 8,000 دینارە! دەتوانیت لە ڕێگەی حاسیبەکەی سەرەوە بڕی تر تاقی بکەیتەوە.";
-            } else if (userText.includes("چۆن بکڕم") || userText.includes("شێوازی کڕین") || userText.includes("کڕین")) {
-                botReply = "زۆر ئاسانە! تەنها بڕی یوسیەکە و ئایدیەکەت بنووسە لە فۆرمی داواکاری خوارەوە، پاشان ڕێگای پارەدانەکە (وەک فاست بەی) هەڵبژێرە و دوگمەی ناردن بە واتسئاپ دابگرە.";
-            } else if (userText.includes("خاوەن") || userText.includes("کێیە") || userText.includes("ستاف")) {
-                botReply = "خاوەنەکانی کوردستان ستۆر بریتین لە: MUHAMAD MARIWAN AZEZ, BAREZ ABAS, AKAY PUBG, AHMAD CHOMANI.";
-            } else if (userText.includes("پارە") || userText.includes("فاست بەی") || userText.includes("fastpay") || userText.includes("fib")) {
-                botReply = "ڕێگاکانی پارەدانمان پێکهاتوون لە: فاست بەی (ژمارە: 07751513431) یان FIB (ژمارە: 9647751513431) یان زەین کاش و کیکارت.";
-            } else if (userText.includes("کێشە") || userText.includes("غەڵەت") || userText.includes("کار ناکات")) {
-                botReply = "خەمت نەبێت! ئەگەر کێشەیەکت لە هەیە، تەنها وێنەیەک یان سکرینشۆتی پسوڵەی پارەکەت بۆ خاوەنەکانمان لە واتسئاپ بنێرە و یەکسەر بۆت چارەسەر دەکەن.";
-            } else if (userText.includes("نێتفلیکس") || userText.includes("netflix") || userText.includes("ئینستا") || userText.includes("تیکتۆک")) {
-                botReply = "بەڵێ، جگە لە یوسی, مەلەف و پرۆفایلی نێتفلیکس، فۆڵۆوەرسی ئینستاگرام و تیکتۆکیشمان هەیە بە نرخێکی زۆر گونجاو!";
+            // بەهێزکردنی ناسینەوەی وشەکان بۆ زیادکردنی شارەزایی بۆتەکە
+            if (userText.includes("سڵاو") || userText.includes("slaw") || userText.includes("سلام") || userText.includes("marhaba")) {
+                botReply = "سڵاو لە تۆش کڕیاری هێژا! زۆر بەخێربێیت بۆ کوردستان ستۆر 🔥. چۆن دەتوانم لە کڕینی یوسی یان خزمەتگوزارییەکانی تر یارمەتیت بدەم؟";
+            } 
+            else if (userText.includes("نرخ") || userText.includes("نرخی یوسی") || userText.includes("بۆچەندە") || userText.includes("uc price") || userText.includes("یوسی بە چەندە")) {
+                botReply = "نرخەکانمان زۆر گونجاون و بەم شێوەیەیە:<br>• 60 یوسی: 1,500 دینار<br>• 325 یوسی: 8,000 دینار<br>• 660 یوسی: 16,000 دینار<br>• 1800 یوسی: 40,000 دینار<br>تەنانەت دەتوانیت لە حاسیبەی سەرەوەی سایتەکە هەر بڕێک کە بتەوێت بنووسیت بۆ زانینی نرخەکەی.";
+            } 
+            else if (userText.includes("چۆن بکڕم") || userText.includes("شێوازی کڕین") || userText.includes("کڕین") || userText.includes("how to buy") || userText.includes("طريقة الشراء")) {
+                botReply = "کڕین لای ئێمە زۆر ئاسانە! تەنها بڕۆ خوارەوە بۆ بەشی 'فۆرمی داواکاری'، ئایدی پۆبجی و ناوت بنووسە، ڕێگای پارەدان هەڵبژێرە و دوگمەی واتسئاپ دابگرە تا پەیامەکەمان بۆ بنێردرێت.";
+            } 
+            else if (userText.includes("خاوەن") || userText.includes("ستاف") || userText.includes("کێیە") || userText.includes("خاوەنی سایت")) {
+                botReply = "ئەم سایتە بە فەرمی لەلایەن ئەم بەڕێزانەوە بەڕێوەدەبرێت:<br>👤 MUHAMAD MARIWAN AZEZ<br>👤 BAREZ ABAS<br>👤 AKAY PUBG<br>👤 AHMAD CHOMANI<br>هەموویان جێگای متمانەن و بە زووترین کات داواکارییەکانتان بۆ ڕادەپەڕێنن.";
+            } 
+            else if (userText.includes("فاست بەی") || userText.includes("fastpay") || userText.includes("پارە ناردن") || userText.includes("زەین کاش") || userText.includes("fib")) {
+                botReply = "ئێمە پارە لەسەر ئەم ژمارانە وەردەگرین:<br>💳 فاست بەی: 07751513431<br>💳 بانکی FIB: 9647751513431<br>دوای ناردنی پارەکە، تکایە سکرینشۆتی پسوڵەکە بۆ واتسئاپ بنێرە.";
+            } 
+            else if (userText.includes("متمانە") || userText.includes("ڕاستە") || userText.includes("دزین") || userText.includes("scam") || userText.includes("ئەمینە")) {
+                botReply = "کوردستان ستۆر ١٠٠٪ جێگای متمانەیە و خاوەنی چەندین ساڵ ئەزموونە! دەتوانیت لە بەشی خوارەوە 'پێداچوونەوەی کڕیاران' ببینی کە چەندە ڕازین. ئامانجمان تەنها ڕاستگۆییە.";
+            } 
+            else if (userText.includes("کێشە") || userText.includes("غەڵەت") || userText.includes("کار ناکات") || userText.includes("پشتیوانی")) {
+                botReply = "هیچ خەم مەخۆ دۆستی من! ئەگەر هەر کێشەیەکت لە ناردنی یوسی یان داواکارییەکانت هەیە، ڕاستەوخۆ لە واتسئاپ سکرینشۆت بنێرە، ستافەکەمان یەکسەر بۆت چاک دەکەن.";
+            } 
+            else if (userText.includes("ئینستا") || userText.includes("تیکتۆک") || userText.includes("فۆڵۆوەرس") || userText.includes("سۆشیاڵ")) {
+                botReply = "بەڵێ! ئێمە خزمەتگوزاری بەرزکردنەوەی فۆڵۆوەرسی ئینستاگرام و تیکتۆک، لایک، سه‌بسکرایبی یوتیوب و مەلەفی نێتفلیکسیشمان هەیە. دەتوانیت لە تابەکانی سەرەوە بیبینیت.";
             }
 
             setTimeout(() => {
                 logs.innerHTML += `<div style="background:#333; padding:10px; border-radius:8px; align-self:flex-start; max-width:85%; line-height:1.4;">🤖 ${botReply}</div>`;
                 logs.scrollTop = logs.scrollHeight;
-            }, 500);
+            }, 400);
         }
 
         document.getElementById("chat-input").addEventListener("keypress", function(event) {
@@ -697,9 +711,6 @@
             }
         });
 
-        // ==========================================
-        // 🛠️ چاککردنی سیستەمی تۆماربوون و چوونەژوورەوە
-        // ==========================================
         function signup() {
             const user = document.getElementById("username").value.trim();
             if(user) {
@@ -714,11 +725,10 @@
         function login() {
             const user = document.getElementById("username").value.trim();
             if(user) {
-                localStorage.setItem("username", user); // پاشەکەوتکردنی ناوەکە لە کاتی لۆگیندا
+                localStorage.setItem("username", user); 
                 localStorage.setItem("loggedIn", "true");
                 checkAuth();
             } else {
-                // ئەگەر خانەکە بەتاڵ بوو بەڵام پێشتر تۆمار بوبوو
                 const savedUser = localStorage.getItem("username");
                 if (savedUser) {
                     localStorage.setItem("loggedIn", "true");
