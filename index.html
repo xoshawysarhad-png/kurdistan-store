@@ -281,6 +281,7 @@
         </div>
     </div>
 
+    <!-- Live Market Ticker -->
     <div class="ticker-wrap">
         <div class="ticker">
             <div class="ticker-item">USD/IQD Market Rate: <span id="ticker-rate">150,000 IQD</span></div>
@@ -318,6 +319,7 @@
 
     <div class="container" id="storeContent" style="display:none;">
         
+        <!-- حاسیبەی نرخەکان -->
         <div class="card" style="max-width: 500px; margin: 0 auto 20px;">
             <h2 data-key="calcTitle">🧮 حاسیبەی خێرای یوسی</h2>
             <p style="margin-bottom: 10px;" data-key="calcDesc">بڕی یوسی بنووسە بۆ زانینی نرخەکەی:</p>
@@ -339,6 +341,7 @@
             <button class="tab-btn" id="btn-social" onclick="openTab(event, 'social-tab')"><img src="https://cdn-icons-png.flaticon.com/512/2065/2065157.png" alt="">Social</button>
         </div>
 
+        <!-- PUBG TAB -->
         <div id="pubg-tab" class="tab-content active">
             <h1 data-key="pubgTitle">🎮 خزمەتگوزارییەکانی یوسی پۆبجی</h1>
             <div class="card service-item"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" class="service-img" alt="UC"><h2>60 UC</h2><p class="price" data-base-usd="1.00">1,500 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%2060%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
@@ -347,10 +350,14 @@
             <div class="card service-item"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" class="service-img" alt="UC"><h2>1800 UC</h2><p class="price" data-base-usd="26.70">40,000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%201800%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
             <div class="card service-item"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" class="service-img" alt="UC"><h2>3850 UC</h2><p class="price" data-base-usd="56.70">85,000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%203850%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
             
-            <div class="card">
-                <h2 data-key="orderNow">🛒 داواکاری بنێرە</h2>
-                <input type="text" id="pubgId" placeholder="PUBG ID"><br>
-                <input type="text" id="orderName" placeholder="Name"><br>
+            <!-- فۆرمی داواکاری و پارەدانی پێشکەوتوو -->
+            <div class="card" style="max-width: 500px; margin: 20px auto; border: 2px solid #555;">
+                <h2 data-key="orderNow">🛒 فۆرمی داواکاری و پارەدان</h2>
+                <p style="font-size: 14px; color: #aaa; margin-bottom: 15px;">تکایە زانیارییەکان بە دروستی پڕبکەرەوە</p>
+                
+                <input type="text" id="pubgId" placeholder="PUBG ID (یاخود لینکی ئەکاونت)"><br>
+                <input type="text" id="orderName" placeholder="ناوی سیانی کڕیار"><br>
+                
                 <select id="ucAmount">
                     <option value="60 UC">60 UC</option>
                     <option value="325 UC">325 UC</option>
@@ -358,10 +365,26 @@
                     <option value="1800 UC">1800 UC</option>
                     <option value="3850 UC">3850 UC</option>
                 </select><br>
-                <button onclick="sendOrder()" data-key="sendOrder">ناردنی داواکاری</button>
+
+                <label style="display:block; margin: 10px 0 5px 0; font-weight:bold; color:var(--accent-color);">ڕێگای پارەدان هەڵبژێره:</label>
+                <select id="paymentMethod" onchange="showPaymentDetails(this.value)">
+                    <option value="">-- دیاریبکە --</option>
+                    <option value="FastPay">FastPay (فاست بەی)</option>
+                    <option value="FIB">FIB (بانکی یەکەمی عێراقی)</option>
+                    <option value="ZainCash">Zain Cash (زەین کاش)</option>
+                    <option value="QiCard">Qi Card (ماستەركارت)</option>
+                </select><br>
+
+                <div id="paymentDetailsBox" style="display:none; background:#2c2c2c; padding:15px; border-radius:8px; margin:15px auto; width:80%; text-align:center; border: 1px dashed gold;">
+                    <p id="paymentInstruction" style="color:gold; font-weight:bold;"></p>
+                    <p style="font-size:13px; color:#cfcfcf; margin-top:5px;">⚠️ تکایە دوای ناردنی پارەکە، سکرینشۆتی پسوڵەکە لە واتسئاپ بنێرە.</p>
+                </div>
+
+                <button onclick="sendOrderWithPayment()" style="background: var(--accent-color); width: 80%; margin-top: 10px;" data-key="sendOrder">پشتڕاستکردنەوە و ناردن بە واتسئاپ</button>
             </div>
         </div>
 
+        <!-- GIFT CARDS TAB -->
         <div id="cards-tab" class="tab-content">
             <h1 data-key="cardsTitle">💳 کارتەکانی دیاری (Gift Cards)</h1>
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/831/831378.png" class="service-img" alt="iTunes"><h2>iTunes Card $10</h2><p class="price" data-base-usd="10.35">15,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20iTunes%20Card%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
@@ -372,6 +395,7 @@
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/588/588295.png" class="service-img" alt="Xbox"><h2>Xbox Gift Card $10</h2><p class="price" data-base-usd="10.00">15,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Xbox%20Gift%20Card%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
+        <!-- SUBSCRIPTIONS TAB -->
         <div id="subs-tab" class="tab-content">
             <h1 data-key="subsTitle">📺 بەشداری شاشەکان (Subscriptions)</h1>
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/5977/5977590.png" class="service-img" alt="Netflix"><h2>Netflix 1 Profile</h2><p class="price" data-base-usd="3.00">4,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Netflix%201%20Profile" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
@@ -380,6 +404,7 @@
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/174/174872.png" class="service-img" alt="Spotify"><h2>Spotify Premium</h2><p class="price" data-base-usd="2.00">3,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Spotify%20Premium" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
+        <!-- OTHER GAMES TAB -->
         <div id="games-tab" class="tab-content">
             <h1 data-key="gamesTitle">🎲 یارییەکانی تر</h1>
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/1413/1413406.png" class="service-img" alt="Ludo"><h2>Ludo Star 100M Coins</h2><p class="price" data-base-usd="3.00">4,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Ludo%20Star%20100M%20Coins" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
@@ -389,6 +414,7 @@
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/9406/9406790.png" class="service-img" alt="CoC"><h2>Clash of Clans Gold Pass</h2><p class="price" data-base-usd="6.00">9,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Clash%20of%20Clans%20Gold%20Pass" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
+        <!-- INSTAGRAM TAB -->
         <div id="instagram-tab" class="tab-content">
             <h1 data-key="instaTitle">📸 خزمەتگوزارییەکانی ئینستاگرام</h1>
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="service-img" alt="Instagram"><h2>5K Followers (Insta)</h2><p class="price" data-base-usd="13.35">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Instagram%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
@@ -396,6 +422,7 @@
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="service-img" alt="Instagram"><h2>1K Likes (Instagram)</h2><p class="price" data-base-usd="1.35">2,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%201K%20Instagram%20Likes" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
+        <!-- TIKTOK TAB -->
         <div id="tiktok-tab" class="tab-content">
             <h1 data-key="tiktokTitle">🎵 خزمەتگوزارییەکانی تیکتۆک</h1>
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046124.png" class="service-img" alt="TikTok"><h2>5K Followers (TikTok)</h2><p class="price" data-base-usd="13.35">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20TikTok%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
@@ -403,6 +430,7 @@
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046124.png" class="service-img" alt="TikTok"><h2>1K Likes (TikTok)</h2><p class="price" data-base-usd="2.00">3,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%201K%20TikTok%20Likes" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
+        <!-- SOCIAL MEDIA TAB -->
         <div id="social-tab" class="tab-content">
             <h1 data-key="socialTitle">🌐 تۆڕە کۆمەڵایەتییەکانی تر</h1>
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="service-img" alt="YouTube"><h2>5K Subscribers (YT)</h2><p class="price" data-base-usd="20.00">30,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20YouTube%20Subscribers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
@@ -439,6 +467,7 @@
         </div>
     </div>
 
+    <!-- Live Toast Area -->
     <div id="live-toast">
         <span id="toast-icon">🛒</span>
         <span id="toast-text">کڕیارێک خزمەتگوزارییەکی کڕی!</span>
@@ -482,7 +511,6 @@
                 resultDiv.innerText = currentCurrency === "IQD" ? "0 IQD" : "$0.00";
                 return;
             }
-            // گریمانە: هەر 1 یوسی نزیکەی 0.016 دۆلارە
             const baseUsd = ucInput * 0.0165; 
             if (currentCurrency === "IQD") {
                 let iqdPrice = Math.round(baseUsd * dollarRate);
@@ -529,7 +557,52 @@
             });
         }
 
-        // سیستمێکی کاتی بۆ ئەکاونت تا فرۆشگاکە بکرێتەوە
+        // بەشی نیشاندانی ژمارە حیسابەکانی تۆ
+        function showPaymentDetails(method) {
+            const box = document.getElementById("paymentDetailsBox");
+            const instruction = document.getElementById("paymentInstruction");
+            
+            if(method === "") {
+                box.style.display = "none";
+                return;
+            }
+            
+            box.style.display = "block";
+            
+            // لێرەدا دەتوانیت ژمارەکانی خۆت بنووسیت گەر ویستت بگۆڕدرێن ⬇️
+            if(method === "FastPay") {
+                instruction.innerHTML = "ژمارەی فاست بەی: <br><span style='font-size:20px; color:#fff;'>07751513431</span>";
+            } else if(method === "FIB") {
+                instruction.innerHTML = "ژمارەی حیسابی FIB: <br><span style='font-size:18px; color:#fff;'>9647751513431</span>";
+            } else if(method === "ZainCash") {
+                instruction.innerHTML = "ژمارەی زەین کاش: <br><span style='font-size:20px; color:#fff;'>078XXXXXXXX</span>";
+            } else if(method === "QiCard") {
+                instruction.innerHTML = "ژمارەی کارتی Qi: <br><span style='font-size:18px; color:#fff;'>4391_XXXX_XXXX_XXXX</span>";
+            }
+        }
+
+        // فۆنکشن بۆ ناردنی هەموو زانیارییەکان پێکەوە بۆ واتسئاپ
+        function sendOrderWithPayment() {
+            const pId = document.getElementById("pubgId").value;
+            const name = document.getElementById("orderName").value;
+            const amount = document.getElementById("ucAmount").value;
+            const method = document.getElementById("paymentMethod").value;
+            
+            if(!pId || !name || !method) { 
+                alert("تکایە هەموو خانەکان پڕبکەرەوە و ڕێگای پارەدان هەڵبژێرە."); 
+                return; 
+            }
+            
+            const text = `🚀 *داواکاری نوێ لە کوردستان ستۆر* 🚀%0A%0A` +
+                         `👤 *ناوی کڕیار:* ${name}%0A` +
+                         `🆔 *ئایدی / لینک:* ${pId}%0A` +
+                         `📦 *کاڵا / یوسی:* ${amount}%0A` +
+                         `💳 *ڕێگای پێدانی پارە:* ${method}%0A%0A` +
+                         `📸 _تکایە ئێستا وێنەی پسوڵەی ناردنی پارەکە لێرە بنێرە تاوەکو داواکارییەکەت چالاک بکرێت._`;
+                         
+            window.open(`https://wa.me/9647751513431?text=${text}`, '_blank');
+        }
+
         function signup() {
             const user = document.getElementById("username").value;
             if(user) {
@@ -569,16 +642,6 @@
             }
         }
 
-        function sendOrder() {
-            const pId = document.getElementById("pubgId").value;
-            const name = document.getElementById("orderName").value;
-            const amount = document.getElementById("ucAmount").value;
-            if(!pId || !name) { alert("تکایە زانیارییەکان پڕبکەرەوە"); return; }
-            const text = `سڵاو، داواکاری یوسی پۆبجیم هەیە:%0Aناوی کڕیار: ${name}%0Aئایدی: ${pId}%0Aبڕی یوسی: ${amount}`;
-            window.open(`https://wa.me/9647751513431?text=${text}`, '_blank');
-        }
-
-        // سیستەمی ئاگادارکەرەوەی کڕینی ساختە (Live Toast)
         const cities = ["سلێمانی", "هەولێر", "دهۆک", "کەرکوک", "هەڵەبجە", "ڕانیە", "کۆیە", "زاخۆ"];
         const realServices = ["325 UC", "660 UC", "Ludo Coins", "Netflix Profile", "TikTok Followers", "1800 UC", "Google Play Card"];
 
@@ -630,8 +693,8 @@
                 tiktokTitle: "🎵 خزمەتگوزارییەکانی تیکتۆک",
                 socialTitle: "🌐 تۆڕە کۆمەڵایەتییەکانی تر",
                 buyNow: "بکڕە",
-                orderNow: "🛒 داواکاری بنێرە",
-                sendOrder: "ناردنی داواکاری",
+                orderNow: "🛒 فۆرمی داواکاری و پارەدان",
+                sendOrder: "پشتڕاستکردنەوە و ناردن بە واتسئاپ",
                 payments: "💳 ڕێگاکانی پێدانی پارە",
                 followUs: "🌐 فۆڵۆمان بکەن",
                 aboutTitle: "دەربارەی ئێمە",
@@ -660,8 +723,8 @@
                 tiktokTitle: "🎵 TikTok Services",
                 socialTitle: "🌐 Other Social Media",
                 buyNow: "BUY NOW",
-                orderNow: "🛒 Order Now",
-                sendOrder: "Send Order",
+                orderNow: "🛒 Order & Payment Form",
+                sendOrder: "Confirm & Send via WhatsApp",
                 payments: "💳 Payment Methods",
                 followUs: "🌐 Follow Us",
                 aboutTitle: "About Us",
@@ -690,8 +753,8 @@
                 tiktokTitle: "🎵 خدمات تيك توك",
                 socialTitle: "🌐 وسائل التواصل الاجتماعي الأخرى",
                 buyNow: "شراء الآن",
-                orderNow: "🛒 أرسل طلبك",
-                sendOrder: "إرسال الطلب",
+                orderNow: "🛒 استمارة الطلب والدفع",
+                sendOrder: "تأكيد وإرسال عبر الواتساب",
                 payments: "💳 طرق الدفع",
                 followUs: "🌐 تابعنا",
                 aboutTitle: "من نحن",
@@ -729,7 +792,6 @@
             document.getElementById("calcInput").placeholder = translations[lang]["calcPlace"];
         }
 
-        // لۆدکردنی سەرەتایی وێبسایتەکە
         checkAuth();
         setInterval(updateMarketRates, 8000); 
         setInterval(showLivePurchase, 12000);
