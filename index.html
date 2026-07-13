@@ -4,42 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PUBG UC - KURDISTAN STORE</title>
+    <!-- هێنانی فۆنتی کوردی مۆدێرن لە ڕێگەی گوگل فۆنتسەوە -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/a/a7/PUBG_Logo.png">
-    <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/a/a7/PUBG_Logo.png">
-
-    <meta name="description" content="KURDISTAN STORE - PUBG UC Shop">
-    <meta property="og:title" content="KURDISTAN STORE">
-    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/a/a7/PUBG_Logo.png">
     
     <style>
         :root {
-            --bg-color: #111;
-            --card-bg: #222;
-            --text-color: #fff;
-            --accent-color: #00ff99;
-            --accent-hover: #00cc77;
-            --input-bg: #333;
-            --header-bg: #1f1f1f;
-            --notification-bg: rgba(0, 255, 153, 0.95);
+            --bg-color: #0b0c10;
+            --card-bg: rgba(31, 40, 51, 0.6);
+            --text-color: #c5c6c7;
+            --title-color: #fff;
+            --accent-color: #45f3ff;
+            --accent-hover: #00bfff;
+            --input-bg: #1f2833;
+            --header-bg: linear-gradient(135deg, #0b0c10, #1f2833);
+            --notification-bg: rgba(69, 243, 255, 0.95);
+            --border-glow: rgba(69, 243, 255, 0.2);
         }
 
         [data-theme="light"] {
-            --bg-color: #f4f4f4;
-            --card-bg: #fff;
-            --text-color: #333;
+            --bg-color: #f4f6f9;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-color: #444;
+            --title-color: #111;
             --accent-color: #00aa66;
             --accent-hover: #008855;
             --input-bg: #e0e0e0;
-            --header-bg: #ddd;
+            --header-bg: linear-gradient(135deg, #ddd, #fff);
             --notification-bg: rgba(0, 170, 102, 0.95);
+            --border-glow: rgba(0, 170, 102, 0.2);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
-            transition: background 0.3s, color 0.3s;
+            font-family: 'Noto Kufi Arabic', Arial, sans-serif; /* بەکارهێنانی فۆنتی مۆدێرن */
+            transition: all 0.3s ease;
         }
         body {
             background: var(--bg-color);
@@ -49,150 +52,195 @@
         header {
             background: var(--header-bg);
             text-align: center;
-            padding: 25px;
+            padding: 40px 20px;
+            border-bottom: 1px solid var(--border-glow);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
         }
         header h1 {
+            color: var(--title-color);
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px var(--accent-color);
+            margin-bottom: 10px;
+        }
+        header h3 {
             color: var(--accent-color);
+            font-weight: 300;
+            font-size: 1.2rem;
         }
         .controls-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 900px;
-            margin: 10px auto;
+            max-width: 1000px;
+            margin: 15px auto;
             padding: 0 5%;
-            gap: 10px;
         }
         .controls-bar select, .controls-bar button {
-            padding: 8px 12px;
-            border-radius: 5px;
-            border: 1px solid #555;
-            background: var(--card-bg);
-            color: var(--text-color);
+            padding: 10px 16px;
+            border-radius: 30px;
+            border: 1px solid var(--accent-color);
+            background: rgba(255,255,255,0.05);
+            color: var(--title-color);
             cursor: pointer;
+            backdrop-filter: blur(5px);
+            font-weight: bold;
+        }
+        .controls-bar button:hover {
+            background: var(--accent-color);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent-color);
         }
         .right-controls {
             display: flex;
             gap: 10px;
         }
-        h1, h3 {
-            text-align: center;
-            margin: 20px 0;
-        }
         
         .search-container {
             text-align: center;
-            margin: 20px auto;
-            max-width: 900px;
+            margin: 30px auto;
+            max-width: 1000px;
             padding: 0 5%;
         }
         .search-container input {
             width: 100%;
-            max-width: 400px;
-            padding: 12px;
-            border-radius: 25px;
-            border: 2px solid var(--accent-color);
-            background: var(--card-bg);
-            color: var(--text-color);
+            max-width: 500px;
+            padding: 14px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--border-glow);
+            background: var(--input-bg);
+            color: var(--title-color);
             font-size: 16px;
             outline: none;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+        .search-container input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px var(--border-glow);
         }
 
+        /* بەشی تابەکان بە شێوازی مۆدێرن */
         .tabs-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
-            margin: 20px auto;
-            max-width: 900px;
+            gap: 12px;
+            margin: 30px auto;
+            max-width: 1000px;
             padding: 0 5%;
         }
         .tab-btn {
             background: var(--card-bg);
             color: var(--text-color);
-            border: 1px solid var(--accent-color);
-            padding: 10px 20px;
-            border-radius: 20px;
+            border: 1px solid var(--border-glow);
+            padding: 12px 24px;
+            border-radius: 30px;
             cursor: pointer;
             font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .tab-btn img {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             object-fit: contain;
         }
+        .tab-btn:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
         .tab-btn.active {
-            background: var(--accent-color);
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
             color: #111;
+            border-color: transparent;
+            box-shadow: 0 0 20px var(--accent-color);
         }
         .tab-content {
             display: none;
+            animation: fadeIn 0.5s ease;
         }
         .tab-content.active {
-            display: block;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .container {
             width: 90%;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 30px auto;
         }
+
+        /* 💎 کارتەکان بە ستایلی مۆدێرنی شووشەیی و نیۆن */
         .card {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 25px;
             text-align: center;
-            box-shadow: 0 0 10px rgba(0,255,153,.2);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
         }
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-color);
+            box-shadow: 0 12px 30px rgba(69, 243, 255, 0.2);
+        }
         .card h2 {
-            color: var(--accent-color);
+            color: var(--title-color);
+            font-size: 1.4rem;
             margin-top: 10px;
         }
         .service-img {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 10px auto;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 15px auto;
             display: block;
             object-fit: contain;
-            border-radius: 8px;
+            filter: drop-shadow(0 0 8px var(--accent-color));
         }
         .price {
-            color: gold;
-            font-size: 22px;
+            color: #ffd700;
+            font-size: 24px;
             margin: 15px 0;
             font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         input, select {
-            padding: 10px;
-            width: 80%;
-            max-width: 300px;
+            padding: 12px;
+            width: 100%;
             background: var(--input-bg);
-            border: 1px solid #555;
-            color: var(--text-color);
-            border-radius: 5px;
-            margin-bottom: 10px;
-            text-align: inherit;
+            border: 1px solid var(--border-glow);
+            color: var(--title-color);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+        input:focus, select:focus {
+            border-color: var(--accent-color);
         }
         .card button {
-            background: var(--accent-color);
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
             color: #000;
             border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-size: 17px;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-size: 16px;
             cursor: pointer;
             font-weight: bold;
-            transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(69, 243, 255, 0.3);
         }
         .card button:hover {
-            background: var(--accent-hover);
-            transform: scale(1.05);
+            box-shadow: 0 0 25px var(--accent-color);
+            transform: scale(1.03);
         }
         a {
             color: var(--accent-color);
@@ -211,9 +259,8 @@
             background: var(--accent-color);
             color: #111;
             font-size: 24px;
-            font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 0 15px rgba(0,255,153,.6);
+            box-shadow: 0 0 15px var(--accent-color);
             z-index: 999;
         }
 
@@ -224,16 +271,15 @@
             left: 20px;
             background: var(--notification-bg);
             color: #000;
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            padding: 15px 25px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
             z-index: 1000;
             display: flex;
             align-items: center;
             gap: 10px;
             font-weight: bold;
             transform: translateY(150%);
-            transition: transform 0.5s ease-in-out;
         }
         #live-toast.show {
             transform: translateY(0);
@@ -242,10 +288,11 @@
         /* Live Ticker Bar */
         .ticker-wrap {
             width: 100%;
-            background: #252525;
-            padding: 6px 0;
+            background: rgba(255,255,255,0.02);
+            padding: 8px 0;
             overflow: hidden;
-            border-bottom: 2px solid var(--accent-color);
+            border-bottom: 1px solid var(--border-glow);
+            backdrop-filter: blur(5px);
         }
         .ticker {
             display: flex;
@@ -267,37 +314,40 @@
             100% { transform: translate3d(-100%, 0, 0); }
         }
 
-        /* 🛠️ چاککردنی تەواوی شوێنی بۆتەکە لە سوچی چەپی خوارەوە بۆ ئەوەی تێکەڵ نەبێت */
+        /* 🛠️ جێگیرکردنی تەواوی بۆتەکە لە لای چەپ */
         #ai-chat-container {
             position: fixed;
             bottom: 90px;
             left: 20px;
-            width: 320px;
-            background: var(--card-bg);
+            width: 330px;
+            background: #151a21;
             border: 2px solid var(--accent-color);
-            border-radius: 12px;
+            border-radius: 20px;
             display: none;
             z-index: 999999;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
             flex-direction: column;
+            overflow: hidden;
         }
         #ai-chat-btn {
             position: fixed;
             bottom: 20px;
-            left: 20px; /* گۆڕینی لای بۆتەکە بۆ سوچی چەپ بە ڕەهایی */
+            left: 20px;
             width: 60px;
             height: 60px;
             border: none;
             border-radius: 50%;
-            background: gold;
-            color: #111;
+            background: #ffd700;
             font-size: 28px;
             cursor: pointer;
             z-index: 999999;
-            box-shadow: 0 0 20px rgba(255,215,0,0.7);
+            box-shadow: 0 0 25px rgba(255,215,0,0.6);
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        #ai-chat-btn:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -315,11 +365,10 @@
         </div>
     </div>
 
-    <!-- Live Market Ticker -->
     <div class="ticker-wrap">
         <div class="ticker">
             <div class="ticker-item">USD/IQD Market Rate: <span id="ticker-rate">150,000 IQD</span></div>
-            <div class="ticker-item">PUBG UC Status: <span style="color: #00ff99;">Stable 🟢</span></div>
+            <div class="ticker-item">PUBG UC Status: <span style="color: #45f3ff;">Stable 🟢</span></div>
             <div class="ticker-item">Store Update: <span style="color: gold;">Auto-Sync Active 🔄</span></div>
         </div>
     </div>
@@ -342,22 +391,19 @@
             <p id="signupMsg"></p>
         </div>
 
-        <div id="ownersSection">
-            <h3 data-key="owners">خاوەنەکان</h3>
-            <p>👤 MUHAMAD MARIWAN AZEZ</p>
-            <p>👤 BAREZ ABAS</p>
-            <p>👤 AKAY PUBG</p>
-            <p>👤 AHMAD CHOMANI</p>
+        <div id="ownersSection" style="margin-top: 20px;">
+            <h3 data-key="owners" style="color: gold; margin-bottom: 5px;">خاوەنەکان</h3>
+            <p>👤 MUHAMAD MARIWAN AZEZ | 👤 BAREZ ABAS | 👤 AKAY PUBG | 👤 AHMAD CHOMANI</p>
         </div>
     </header>
 
     <div class="container" id="storeContent" style="display:none;">
         
         <!-- حاسیبەی نرخەکان -->
-        <div class="card" style="max-width: 500px; margin: 0 auto 20px;">
+        <div class="card" style="max-width: 600px; margin: 0 auto 30px; grid-column: 1/-1;">
             <h2 data-key="calcTitle">🧮 حاسیبەی خێرای یوسی</h2>
-            <p style="margin-bottom: 10px;" data-key="calcDesc">بڕی یوسی بنووسە بۆ زانینی نرخەکەی:</p>
-            <input type="number" id="calcInput" placeholder="بۆ نموونە: 325" oninput="calculateUCPrice()" style="width: 90%; font-size: 16px;"><br>
+            <p style="margin-bottom: 15px;" data-key="calcDesc">بڕی یوسی بنووسە بۆ زانینی نرخەکەی:</p>
+            <input type="number" id="calcInput" placeholder="بۆ نموونە: 325" oninput="calculateUCPrice()" style="max-width: 400px; text-align: center;"><br>
             <div id="calcResult" class="price" style="font-weight: bold; margin: 10px 0;">0 IQD</div>
         </div>
 
@@ -377,155 +423,108 @@
 
         <!-- PUBG TAB -->
         <div id="pubg-tab" class="tab-content active">
-            <h1 data-key="pubgTitle">🎮 خزمەتگوزارییەکانی یوسی پۆبجی</h1>
             <div class="card service-item"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" class="service-img" alt="UC"><h2>60 UC</h2><p class="price" data-base-usd="1.00">1,500 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%2060%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
             <div class="card service-item"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" class="service-img" alt="UC"><h2>325 UC</h2><p class="price" data-base-usd="5.35">8,000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%20325%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
             <div class="card service-item"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" class="service-img" alt="UC"><h2>660 UC</h2><p class="price" data-base-usd="10.70">16,000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%20660%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
             <div class="card service-item"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" class="service-img" alt="UC"><h2>1800 UC</h2><p class="price" data-base-usd="26.70">40,000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%201800%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" class="service-img" alt="UC"><h2>3850 UC</h2><p class="price" data-base-usd="56.70">85,000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%203850%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" class="service-img" alt="UC"><h2>3850 UC</h2><p class="price" data-base-usd="5.70">85,000 IQD</p><a href="https://wa.me/9647751513431?text=Hello,%20I%20want%20to%20buy%203850%20UC" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
             
-            <!-- فۆرمی داواکاری و پارەدانی پێشکەوتوو -->
-            <div class="card" style="max-width: 500px; margin: 20px auto; border: 2px solid #555;">
+            <!-- فۆرمی داواکاری پێشکەوتوو -->
+            <div class="card" style="grid-column: 1 / -1; max-width: 600px; margin: 20px auto;">
                 <h2 data-key="orderNow">🛒 فۆرمی داواکاری و پارەدان</h2>
-                <p style="font-size: 14px; color: #aaa; margin-bottom: 15px;">تکایە دوای ناردنی زانیارییەکان، سکرینشۆتی پسوڵەکە لە واتسئاپ بنێرە.</p>
-                
-                <input type="text" id="pubgId" placeholder="PUBG ID (یاخود لینکی ئەکاونت)"><br>
-                <input type="text" id="orderName" placeholder="ناوی سیانی کڕیار"><br>
-                
+                <p style="font-size: 13px; color: #aaa; margin-bottom: 15px;">زانیارییەکان پڕبکەرەوە و پسوڵەکە بە واتسئاپ بنێرە.</p>
+                <input type="text" id="pubgId" placeholder="PUBG ID (یاخود لینکی ئەکاونت)">
+                <input type="text" id="orderName" placeholder="ناوی سیانی کڕیار">
                 <select id="ucAmount">
                     <option value="60 UC">60 UC</option>
                     <option value="325 UC">325 UC</option>
                     <option value="660 UC">660 UC</option>
                     <option value="1800 UC">1800 UC</option>
                     <option value="3850 UC">3850 UC</option>
-                </select><br>
-
-                <label style="display:block; margin: 10px 0 5px 0; font-weight:bold; color:var(--accent-color);">ڕێگای پارەدان هەڵبژێره:</label>
+                </select>
                 <select id="paymentMethod" onchange="showPaymentDetails(this.value)">
-                    <option value="">-- دیاریبکە --</option>
+                    <option value="">-- ڕێگای پارەدان هەڵبژێره --</option>
                     <option value="FastPay">FastPay (فاست بەی)</option>
                     <option value="FIB">FIB (بانکی یەکەمی عێراقی)</option>
                     <option value="ZainCash">Zain Cash (زەین کاش)</option>
-                    <option value="QiCard">Qi Card (ماستەركارت)</option>
-                </select><br>
-
-                <div id="paymentDetailsBox" style="display:none; background:#2c2c2c; padding:15px; border-radius:8px; margin:15px auto; width:80%; text-align:center; border: 1px dashed gold;">
+                </select>
+                <div id="paymentDetailsBox" style="display:none; background:rgba(0,0,0,0.3); padding:15px; border-radius:10px; margin:15px 0; border: 1px dashed var(--accent-color);">
                     <p id="paymentInstruction" style="color:gold; font-weight:bold;"></p>
-                    <p style="font-size:13px; color:#cfcfcf; margin-top:5px;">⚠️ تکایە دوای ناردنی پارەکە، سکرینشۆتی پسوڵەکە لە واتسئاپ بنێرە.</p>
                 </div>
-
-                <button onclick="sendOrderWithPayment()" style="background: var(--accent-color); width: 80%; margin-top: 10px;" data-key="sendOrder">پشتڕاستکردنەوە و ناردن بە واتسئاپ</button>
+                <button onclick="sendOrderWithPayment()" style="width: 100%;" data-key="sendOrder">پشتڕاستکردنەوە و ناردن بە واتسئاپ</button>
             </div>
         </div>
 
         <!-- GIFT CARDS TAB -->
         <div id="cards-tab" class="tab-content">
-            <h1 data-key="cardsTitle">💳 کارتەکانی دیاری (Gift Cards)</h1>
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/831/831378.png" class="service-img" alt="iTunes"><h2>iTunes Card $10</h2><p class="price" data-base-usd="10.35">15,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20iTunes%20Card%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/300/300208.png" class="service-img" alt="Google"><h2>Google Play $10</h2><p class="price" data-base-usd="10.35">15,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Google%20Play%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/808/808506.png" class="service-img" alt="Razer"><h2>Razer Gold $10</h2><p class="price" data-base-usd="10.00">15,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Razer%20Gold%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/588/588258.png" class="service-img" alt="PSN"><h2>PlayStation Card $10</h2><p class="price" data-base-usd="10.20">15,250 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20PlayStation%20Card%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/220/220223.png" class="service-img" alt="Steam"><h2>Steam Wallet $10</h2><p class="price" data-base-usd="10.35">15,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Steam%20Wallet%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/588/588295.png" class="service-img" alt="Xbox"><h2>Xbox Gift Card $10</h2><p class="price" data-base-usd="10.00">15,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Xbox%20Gift%20Card%2010$" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
         <!-- SUBSCRIPTIONS TAB -->
         <div id="subs-tab" class="tab-content">
-            <h1 data-key="subsTitle">📺 بەشداری شاشەکان (Subscriptions)</h1>
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/5977/5977590.png" class="service-img" alt="Netflix"><h2>Netflix 1 Profile</h2><p class="price" data-base-usd="3.00">4,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Netflix%201%20Profile" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
             <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/1179/1179120.png" class="service-img" alt="Shahid"><h2>Shahid VIP Premium</h2><p class="price" data-base-usd="3.70">5,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Shahid%20VIP" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="service-img" alt="YouTube"><h2>YouTube Premium</h2><p class="price" data-base-usd="2.35">3,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20YouTube%20Premium" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/174/174872.png" class="service-img" alt="Spotify"><h2>Spotify Premium</h2><p class="price" data-base-usd="2.00">3,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Spotify%20Premium" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
         <!-- OTHER GAMES TAB -->
         <div id="games-tab" class="tab-content">
-            <h1 data-key="gamesTitle">🎲 یارییەکانی تر</h1>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/1413/1413406.png" class="service-img" alt="Ludo"><h2>Ludo Star 100M Coins</h2><p class="price" data-base-usd="3.00">4,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Ludo%20Star%20100M%20Coins" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/1413/1413406.png" class="service-img" alt="Ludo"><h2>Ludo Star 500 Diamonds</h2><p class="price" data-base-usd="4.35">6,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Ludo%20Star%20500%20Diamonds" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/9406/9406790.png" class="service-img" alt="FreeFire"><h2>Free Fire 210 Diamonds</h2><p class="price" data-base-usd="2.85">4,250 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Free%20Fire%20210%20Diamonds" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/9406/9406790.png" class="service-img" alt="MLBB"><h2>Mobile Legends 277 Dia</h2><p class="price" data-base-usd="5.00">7,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Mobile%20Legends%20Diamonds" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/9406/9406790.png" class="service-img" alt="CoC"><h2>Clash of Clans Gold Pass</h2><p class="price" data-base-usd="6.00">9,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Clash%20of%20Clans%20Gold%20Pass" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/1413/1413406.png" class="service-img" alt="Ludo"><h2>Ludo Star 100M</h2><p class="price" data-base-usd="3.00">4,500 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%20Ludo%20Star%20100M" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
         <!-- INSTAGRAM TAB -->
         <div id="instagram-tab" class="tab-content">
-            <h1 data-key="instaTitle">📸 خزمەتگوزارییەکانی ئینستاگرام</h1>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="service-img" alt="Instagram"><h2>5K Followers (Insta)</h2><p class="price" data-base-usd="13.35">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Instagram%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="service-img" alt="Instagram"><h2>10K Followers (Insta)</h2><p class="price" data-base-usd="26.70">40,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20Instagram%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="service-img" alt="Instagram"><h2>1K Likes (Instagram)</h2><p class="price" data-base-usd="1.35">2,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%201K%20Instagram%20Likes" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="service-img" alt="Instagram"><h2>5K Followers</h2><p class="price" data-base-usd="13.35">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
         <!-- TIKTOK TAB -->
         <div id="tiktok-tab" class="tab-content">
-            <h1 data-key="tiktokTitle">🎵 خزمەتگوزارییەکانی تیکتۆک</h1>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046124.png" class="service-img" alt="TikTok"><h2>5K Followers (TikTok)</h2><p class="price" data-base-usd="13.35">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20TikTok%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046124.png" class="service-img" alt="TikTok"><h2>10K Views (TikTok)</h2><p class="price" data-base-usd="6.70">10,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%2010K%20TikTok%20Views" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046124.png" class="service-img" alt="TikTok"><h2>1K Likes (TikTok)</h2><p class="price" data-base-usd="2.00">3,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%201K%20TikTok%20Likes" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046124.png" class="service-img" alt="TikTok"><h2>5K Followers</h2><p class="price" data-base-usd="13.35">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20TikTok%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
         <!-- SOCIAL MEDIA TAB -->
         <div id="social-tab" class="tab-content">
-            <h1 data-key="socialTitle">🌐 تۆڕە کۆمەڵایەتییەکانی تر</h1>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="service-img" alt="YouTube"><h2>5K Subscribers (YT)</h2><p class="price" data-base-usd="20.00">30,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20YouTube%20Subscribers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384053.png" class="service-img" alt="Facebook"><h2>5K Followers (FB)</h2><p class="price" data-base-usd="13.35">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Facebook%20Followers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" class="service-img" alt="Telegram"><h2>5K Telegram Members</h2><p class="price" data-base-usd="13.35">20,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Telegram%20Members" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
-            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" class="service-img" alt="Telegram"><h2>1K Telegram Views</h2><p class="price" data-base-usd="0.70">1,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%201K%20Telegram%20Post%20Views" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
+            <div class="card service-item"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="service-img" alt="YouTube"><h2>5K Subs (YT)</h2><p class="price" data-base-usd="20.00">30,000 IQD</p><a href="https://wa.me/9647751513431?text=I%20want%205K%20Subscribers" target="_blank"><button data-key="buyNow">بکڕە</button></a></div>
         </div>
 
-        <div class="card" style="margin-top: 30px;">
+        <!-- فووتەر و زانیاری گشتی بە شێوازی مۆدێرن -->
+        <div class="card" style="grid-column: 1/-1; margin-top:30px;">
             <h2 data-key="payments">💳 ڕێگاکانی پێدانی پارە</h2>
-            <p>Qi Card | FastPay | FIB Bank | Cash</p>
+            <p style="margin-top:10px;">FastPay | FIB Bank | Zain Cash | Qi Card</p>
         </div>
 
-        <div class="card">
+        <div class="card" style="grid-column: 1/-1;">
             <h2 data-key="followUs">🌐 فۆڵۆمان بکەن</h2>
-            <p><a href="https://www.facebook.com/share/1RaePme8hR/" target="_blank">📘 Facebook Page</a></p>
-            <p><a href="https://www.facebook.com/groups/314942885710513/" target="_blank">👥 Facebook Group</a></p>
-        </div>
-
-        <div class="card">
-            <h2 data-key="aboutTitle">دەربارەی ئێمە</h2>
-            <p data-key="aboutDesc">کوردستان ستۆر باشترینە بۆ خزمەتگوزاری یوسی و سۆشیاڵ میدیا.</p>
-        </div>
-        
-        <div class="card">
-            <h2 data-key="reviewsTitle">⭐ پێداچوونەوەی کڕیاران</h2>
-            <p>⭐⭐⭐⭐⭐ "Fast delivery!"</p>
-            <p>⭐⭐⭐⭐⭐ "Trusted seller."</p>
-        </div>
-
-        <div class="card">
-            <h2 data-key="statusTitle">🟢 دۆخ</h2>
-            <p style="color:#00ff99; font-weight: bold;" data-key="statusDesc">ئێمە ٢٤ کاتژمێر ئۆنلاینین</p>
+            <p style="margin-top:10px;">
+                <a href="https://www.facebook.com/share/1RaePme8hR/" target="_blank">📘 Facebook Page</a> | 
+                <a href="https://www.facebook.com/groups/314942885710513/" target="_blank">👥 Facebook Group</a>
+            </p>
         </div>
     </div>
 
-    <!-- 🛠️ بۆکسی چاتی نوێ کەرەوە لە لای چەپی خوارەوە بە تەواوی جێگیرە -->
+    <!-- 🤖 بۆکسی چاتی ژیری دەستکرد لە چەپ -->
     <div id="ai-chat-container">
-        <div style="background:var(--accent-color); color:#000; padding:12px; font-weight:bold; text-align:center; border-radius:10px 10px 0 0; font-size:14px; display:flex; justify-content:space-between; align-items:center;">
+        <div style="background:var(--accent-color); color:#000; padding:15px; font-weight:bold; text-align:center; font-size:14px; display:flex; justify-content:space-between; align-items:center;">
             <span>🤖 یاریدەدەری کوردستان ستۆر</span>
-            <button onclick="toggleAIChat()" style="background:none; border:none; font-size:16px; cursor:pointer; color:#000; font-weight:bold;">✕</button>
+            <button onclick="toggleAIChat()" style="background:none; border:none; font-size:18px; cursor:pointer; font-weight:bold;">✕</button>
         </div>
-        <div id="chat-logs" style="height:250px; overflow-y:auto; padding:12px; font-size:13px; display:flex; flex-direction:column; gap:10px; text-align:right; background:#1e1e1e;">
-            <div style="background:#333; padding:10px; border-radius:8px; align-self:flex-start; max-width:85%; line-height:1.4;">سڵاو! من یاریدەدەری زیرەکی کوردستان ستۆرم 🔥. چۆن دەتوانم یارمەتیت بدەم؟ پرسیار بکە لە نرخەکان، شێوازی کڕین یان خاوەنەکانی سایتەکە.</div>
+        <div id="chat-logs" style="height:250px; overflow-y:auto; padding:15px; font-size:13px; display:flex; flex-direction:column; gap:10px; background:#0f1319; text-align:right;">
+            <div style="background:#1f2833; color:#fff; padding:10px; border-radius:12px; align-self:flex-start; max-width:85%; line-height:1.5;">سڵاو! من یاریدەدەری کوردستان ستۆرم 🔥. چۆن دەتوانم یارمەتیت بدەم؟ دەتوانیت پرسیار لە نرخەکان، فاستبەی یان شێوازی کڕین بکەیت.</div>
         </div>
-        <div style="display:flex; padding:8px; background:#111; border-radius:0 0 12px 12px; border-top:1px solid #333;">
-            <input type="text" id="chat-input" placeholder="پرسیارەکەت بنووسە..." style="width:75%; margin:0; padding:10px; border-radius:6px; font-size:13px; border:1px solid #444; outline:none; background:#222; color:#fff;">
-            <button onclick="localAIResponse()" id="send-btn" style="width:23%; margin-right:2%; padding:10px; background:var(--accent-color); color:#000; border:none; border-radius:6px; font-size:13px; cursor:pointer; font-weight:bold;">ناردن</button>
+        <div style="display:flex; padding:10px; background:#151a21; border-top:1px solid rgba(255,255,255,0.05);">
+            <input type="text" id="chat-input" placeholder="پرسیارەکەت بنووسە..." style="margin:0; padding:10px; border-radius:30px;">
+            <button onclick="localAIResponse()" style="width:25%; margin-right:5px; background:var(--accent-color); color:#000; border-radius:30px; font-weight:bold; border:none; cursor:pointer;">ناردن</button>
         </div>
     </div>
 
-    <!-- دوگمەی خڕی بۆت لە سوچی چەپ لە سەرەوەی کۆنتێنەرەکە -->
     <button id="ai-chat-btn" onclick="toggleAIChat()">🤖</button>
+    <button id="topBtn" onclick="topFunction()">⬆</button>
 
-    <!-- Live Toast Area -->
     <div id="live-toast">
         <span id="toast-icon">🛒</span>
         <span id="toast-text">کڕیارێک خزمەتگوزارییەکی کڕی!</span>
     </div>
-
-    <button id="topBtn" onclick="topFunction()">⬆</button>
 
     <script>
         let currentCurrency = "IQD";
@@ -612,22 +611,15 @@
         function showPaymentDetails(method) {
             const box = document.getElementById("paymentDetailsBox");
             const instruction = document.getElementById("paymentInstruction");
-            
-            if(method === "") {
-                box.style.display = "none";
-                return;
-            }
-            
+            if(method === "") { box.style.display = "none"; return; }
             box.style.display = "block";
             
             if(method === "FastPay") {
-                instruction.innerHTML = "ژمارەی فاست بەی: <br><span style='font-size:20px; color:#fff;'>07751513431</span>";
+                instruction.innerHTML = "ژمارەی فاست بەی: <br><span style='font-size:20px; color:gold;'>07751513431</span>";
             } else if(method === "FIB") {
-                instruction.innerHTML = "ژمارەی حیسابی FIB: <br><span style='font-size:18px; color:#fff;'>9647751513431</span>";
+                instruction.innerHTML = "حیسابی FIB: <br><span style='font-size:18px; color:gold;'>9647751513431</span>";
             } else if(method === "ZainCash") {
-                instruction.innerHTML = "ژمارەی زەین کاش: <br><span style='font-size:20px; color:#fff;'>078XXXXXXXX</span>";
-            } else if(method === "QiCard") {
-                instruction.innerHTML = "ژمارەی کارتی Qi: <br><span style='font-size:18px; color:#fff;'>4391_XXXX_XXXX_XXXX</span>";
+                instruction.innerHTML = "ژمارەی زەین کاش: <br><span style='font-size:20px; color:gold;'>078XXXXXXXX</span>";
             }
         }
 
@@ -637,18 +629,14 @@
             const amount = document.getElementById("ucAmount").value;
             const method = document.getElementById("paymentMethod").value;
             
-            if(!pId || !name || !method) { 
-                alert("تکایە هەموو خانەکان پڕبکەرەوە و ڕێگای پارەدان هەڵبژێرە."); 
-                return; 
-            }
+            if(!pId || !name || !method) { alert("تکایە هەموو خانەکان پڕبکەرەوە."); return; }
             
             const text = `🚀 *داواکاری نوێ لە کوردستان ستۆر* 🚀%0A%0A` +
-                         `👤 *ناوی کڕیار:* ${name}%0A` +
-                         `🆔 *ئایدی / لینک:* ${pId}%0A` +
-                         `📦 *کاڵا / یوسی:* ${amount}%0A` +
-                         `💳 *ڕێگای پێدانی پارە:* ${method}%0A%0A` +
-                         `📸 _تکایە ئێستا وێنەی پسوڵەی ناردنی پارەکە لێرە بنێرە تاوەکو داواکارییەکەت چالاک بکرێت._`;
-                         
+                         `👤 *کڕیار:* ${name}%0A` +
+                         `🆔 *ئایدی:* ${pId}%0A` +
+                         `📦 *بڕ:* ${amount}%0A` +
+                         `💳 *ڕێگا:* ${method}%0A%0A` +
+                         `📸 _تکایە وێنەی پسوڵەکە لێرە بنێرە._`;
             window.open(`https://wa.me/9647751513431?text=${text}`, '_blank');
         }
 
@@ -657,102 +645,58 @@
             chatBox.style.display = chatBox.style.display === "none" ? "flex" : "none";
         }
 
-        // ==========================================
-        // 🤖 🛠️ سیستەمی هۆشمەندی و پێشکەوتووی بۆتەکە
-        // ==========================================
         function localAIResponse() {
             const inputField = document.getElementById("chat-input");
             const logs = document.getElementById("chat-logs");
             const userText = inputField.value.trim().toLowerCase();
-            
             if(!userText) return;
             
-            logs.innerHTML += `<div style="background:var(--accent-color); color:#000; padding:10px; border-radius:8px; align-self:flex-end; max-width:85%; word-wrap:break-word; margin-bottom:5px; line-height:1.4;">${userText}</div>`;
+            logs.innerHTML += `<div style="background:var(--accent-color); color:#000; padding:10px; border-radius:12px; align-self:flex-end; max-width:85%;">${userText}</div>`;
             inputField.value = "";
             logs.scrollTop = logs.scrollHeight;
 
-            let botReply = "ببوورە تێنەگەیشتم 🧐. من تەنها دەتوانم وەڵامی پرسیارەکانی پەیوەست بە نرخ، شێوازی کڕین، فاستبەی و خاوەنەکانی سایت بدەمەوە. تکایە وشەیەکی ڕوونتر بەکاربهێنە.";
+            let botReply = "ببوورە، تێنەگەیشتم 🧐. دەتوانیت پرسیار لە نرخ، شێوازی کڕین یان خاوەنەکان بکەیت بە ڕوونی.";
 
-            // بەهێزکردنی ناسینەوەی وشەکان بۆ زیادکردنی شارەزایی بۆتەکە
-            if (userText.includes("سڵاو") || userText.includes("slaw") || userText.includes("سلام") || userText.includes("marhaba")) {
-                botReply = "سڵاو لە تۆش کڕیاری هێژا! زۆر بەخێربێیت بۆ کوردستان ستۆر 🔥. چۆن دەتوانم لە کڕینی یوسی یان خزمەتگوزارییەکانی تر یارمەتیت بدەم؟";
-            } 
-            else if (userText.includes("نرخ") || userText.includes("نرخی یوسی") || userText.includes("بۆچەندە") || userText.includes("uc price") || userText.includes("یوسی بە چەندە")) {
-                botReply = "نرخەکانمان زۆر گونجاون و بەم شێوەیەیە:<br>• 60 یوسی: 1,500 دینار<br>• 325 یوسی: 8,000 دینار<br>• 660 یوسی: 16,000 دینار<br>• 1800 یوسی: 40,000 دینار<br>تەنانەت دەتوانیت لە حاسیبەی سەرەوەی سایتەکە هەر بڕێک کە بتەوێت بنووسیت بۆ زانینی نرخەکەی.";
-            } 
-            else if (userText.includes("چۆن بکڕم") || userText.includes("شێوازی کڕین") || userText.includes("کڕین") || userText.includes("how to buy") || userText.includes("طريقة الشراء")) {
-                botReply = "کڕین لای ئێمە زۆر ئاسانە! تەنها بڕۆ خوارەوە بۆ بەشی 'فۆرمی داواکاری'، ئایدی پۆبجی و ناوت بنووسە، ڕێگای پارەدان هەڵبژێرە و دوگمەی واتسئاپ دابگرە تا پەیامەکەمان بۆ بنێردرێت.";
-            } 
-            else if (userText.includes("خاوەن") || userText.includes("ستاف") || userText.includes("کێیە") || userText.includes("خاوەنی سایت")) {
-                botReply = "ئەم سایتە بە فەرمی لەلایەن ئەم بەڕێزانەوە بەڕێوەدەبرێت:<br>👤 MUHAMAD MARIWAN AZEZ<br>👤 BAREZ ABAS<br>👤 AKAY PUBG<br>👤 AHMAD CHOMANI<br>هەموویان جێگای متمانەن و بە زووترین کات داواکارییەکانتان بۆ ڕادەپەڕێنن.";
-            } 
-            else if (userText.includes("فاست بەی") || userText.includes("fastpay") || userText.includes("پارە ناردن") || userText.includes("زەین کاش") || userText.includes("fib")) {
-                botReply = "ئێمە پارە لەسەر ئەم ژمارانە وەردەگرین:<br>💳 فاست بەی: 07751513431<br>💳 بانکی FIB: 9647751513431<br>دوای ناردنی پارەکە، تکایە سکرینشۆتی پسوڵەکە بۆ واتسئاپ بنێرە.";
-            } 
-            else if (userText.includes("متمانە") || userText.includes("ڕاستە") || userText.includes("دزین") || userText.includes("scam") || userText.includes("ئەمینە")) {
-                botReply = "کوردستان ستۆر ١٠٠٪ جێگای متمانەیە و خاوەنی چەندین ساڵ ئەزموونە! دەتوانیت لە بەشی خوارەوە 'پێداچوونەوەی کڕیاران' ببینی کە چەندە ڕازین. ئامانجمان تەنها ڕاستگۆییە.";
-            } 
-            else if (userText.includes("کێشە") || userText.includes("غەڵەت") || userText.includes("کار ناکات") || userText.includes("پشتیوانی")) {
-                botReply = "هیچ خەم مەخۆ دۆستی من! ئەگەر هەر کێشەیەکت لە ناردنی یوسی یان داواکارییەکانت هەیە، ڕاستەوخۆ لە واتسئاپ سکرینشۆت بنێرە، ستافەکەمان یەکسەر بۆت چاک دەکەن.";
-            } 
-            else if (userText.includes("ئینستا") || userText.includes("تیکتۆک") || userText.includes("فۆڵۆوەرس") || userText.includes("سۆشیاڵ")) {
-                botReply = "بەڵێ! ئێمە خزمەتگوزاری بەرزکردنەوەی فۆڵۆوەرسی ئینستاگرام و تیکتۆک، لایک، سه‌بسکرایبی یوتیوب و مەلەفی نێتفلیکسیشمان هەیە. دەتوانیت لە تابەکانی سەرەوە بیبینیت.";
+            if (userText.includes("سڵاو") || userText.includes("slaw") || userText.includes("سلام")) {
+                botReply = "سڵاو لە تۆش کڕیاری هێژا! زۆر بەخێربێیت بۆ کوردستان ستۆر 🔥. چۆن دەتوانم یارمەتیت بدەم؟";
+            } else if (userText.includes("نرخ") || userText.includes("نرخی یوسی") || userText.includes("uc price")) {
+                botReply = "نرخەکانمان هەمیشە گونجاوترینن:<br>• 60 یوسی: 1,500 د.ع<br>• 325 یوسی: 8,000 د.ع<br>• 660 یوسی: 16,000 د.ع<br>حاسیبەکەی سەرەوەش یارمەتیت دەدات بۆ هەر بڕێکی تر.";
+            } else if (userText.includes("چۆن بکڕم") || userText.includes("کڕین")) {
+                botReply = "زۆر ئاسانە! فۆرمی داواکاری خوارەوە پڕبکەرەوە و ڕێگای پارەدانەکە دیاریبکە، پاشان دوگمەی واتسئاپ دابگرە.";
+            } else if (userText.includes("خاوەن") || userText.includes("ستاف")) {
+                botReply = "ستافی بەڕێوەبردن پێکهاتووە لە:<br>👤 MUHAMAD MARIWAN AZEZ<br>👤 BAREZ ABAS<br>👤 AKAY PUBG<br>👤 AHMAD CHOMANI";
+            } else if (userText.includes("fastpay") || userText.includes("فاست بەی") || userText.includes("fib")) {
+                botReply = "ژمارەکانی ناردنی پارە:<br>💳 FastPay: 07751513431<br>💳 FIB Bank: 9647751513431";
             }
 
             setTimeout(() => {
-                logs.innerHTML += `<div style="background:#333; padding:10px; border-radius:8px; align-self:flex-start; max-width:85%; line-height:1.4;">🤖 ${botReply}</div>`;
+                logs.innerHTML += `<div style="background:#1f2833; padding:10px; border-radius:12px; align-self:flex-start; max-width:85%;">🤖 ${botReply}</div>`;
                 logs.scrollTop = logs.scrollHeight;
             }, 400);
         }
 
-        document.getElementById("chat-input").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                localAIResponse();
-            }
-        });
+        document.getElementById("chat-input").addEventListener("keypress", function(e) { if (e.key === "Enter") localAIResponse(); });
 
         function signup() {
             const user = document.getElementById("username").value.trim();
-            if(user) {
-                localStorage.setItem("username", user);
-                document.getElementById("signupMsg").innerText = "تۆماربوون سەرکەوتوو بوو! ئێستا لۆگین بکە.";
-                document.getElementById("loginMsg").innerText = "";
-            } else {
-                alert("تکایە ناو بنووسە بۆ تۆماربوون.");
-            }
+            if(user) { localStorage.setItem("username", user); document.getElementById("signupMsg").innerText = "تۆماربوون سەرکەوتوو بوو! لۆگین بکە."; }
         }
 
         function login() {
             const user = document.getElementById("username").value.trim();
-            if(user) {
-                localStorage.setItem("username", user); 
-                localStorage.setItem("loggedIn", "true");
-                checkAuth();
-            } else {
-                const savedUser = localStorage.getItem("username");
-                if (savedUser) {
-                    localStorage.setItem("loggedIn", "true");
-                    checkAuth();
-                } else {
-                    document.getElementById("loginMsg").innerText = "تکایە ناو بنووسە بۆ چوونەژوورەوە.";
-                }
-            }
+            if(user) { localStorage.setItem("username", user); localStorage.setItem("loggedIn", "true"); checkAuth(); }
         }
 
-        function logout() {
-            localStorage.removeItem("loggedIn");
-            checkAuth();
-        }
+        function logout() { localStorage.removeItem("loggedIn"); checkAuth(); }
 
         function checkAuth() {
             const isLoggedIn = localStorage.getItem("loggedIn");
             if (isLoggedIn) {
-                const savedName = localStorage.getItem("username") || "User";
                 document.getElementById("authSection").style.display = "none";
                 document.getElementById("storeContent").style.display = "block";
                 document.getElementById("logoutBtn").style.display = "block";
                 document.getElementById("welcome").style.display = "block";
-                document.getElementById("welcome").innerText = "بەخێربێیت، " + savedName;
+                document.getElementById("welcome").innerText = "بەخێربێیت، " + (localStorage.getItem("username") || "User");
             } else {
                 document.getElementById("authSection").style.display = "block";
                 document.getElementById("storeContent").style.display = "none";
@@ -761,155 +705,24 @@
             }
         }
 
-        const cities = ["سلێمانی", "هەولێر", "دهۆک", "کەرکوک", "هەڵەبجە", "ڕانیە", "کۆیە", "زاخۆ"];
-        const realServices = ["325 UC", "660 UC", "Ludo Coins", "Netflix Profile", "TikTok Followers", "1800 UC", "Google Play Card"];
+        const cities = ["سلێمانی", "هەولێر", "دهۆک", "کەرکوک", "ڕانیە"];
+        const realServices = ["325 UC", "660 UC", "Netflix Profile", "TikTok Followers"];
 
         function showLivePurchase() {
             const randomCity = cities[Math.floor(Math.random() * cities.length)];
             const randomService = realServices[Math.floor(Math.random() * realServices.length)];
             const toast = document.getElementById("live-toast");
-            const toastText = document.getElementById("toast-text");
-            let currentLang = localStorage.getItem("selectedLang") || "ku";
-            
-            if (currentLang === "en") {
-                toastText.innerText = `🔥 Someone from ${randomCity} just bought ${randomService}!`;
-            } else if (currentLang === "ar") {
-                toastText.innerText = `🔥 شخص من ${randomCity} اشترى للتو ${randomService}!`;
-            } else {
-                toastText.innerText = `🔥 کڕیارێک لە ${randomCity} ئێستا ${randomService}ی کڕی!`;
-            }
+            document.getElementById("toast-text").innerText = `🔥 کڕیارێک لە ${randomCity} ئێستا ${randomService}ی کڕی!`;
             toast.classList.add("show");
             setTimeout(() => { toast.classList.remove("show"); }, 4000);
         }
 
         window.onscroll = function() {
             const btn = document.getElementById("topBtn");
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                btn.style.display = "block";
-            } else {
-                btn.style.display = "none";
-            }
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) btn.style.display = "block";
+            else btn.style.display = "none";
         };
-
-        function topFunction() {
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-
-        const translations = {
-            ku: {
-                title: "کوردستان ستۆر",
-                subtitle: "فرۆشگای یوسی پۆبجی و سۆشیاڵ میدیا",
-                logout: "چوونەدەرەوە",
-                authTitle: "👤 دروستکردنی ئەکاونت / چوونەژوورەوە",
-                signupBtn: "تۆماربوون",
-                loginBtn: "چوونەژوورەوە",
-                owners: "خاوەنەکان",
-                pubgTitle: "🎮 خزمەتگوزارییەکانی یوسی پۆبجی",
-                cardsTitle: "💳 کارتەکانی دیاری (Gift Cards)",
-                subsTitle: "📺 بەشداری شاشەکان (Subscriptions)",
-                gamesTitle: "🎲 یارییەکانی تر",
-                instaTitle: "📸 خزمەتگوزارییەکانی ئینستاگرام",
-                tiktokTitle: "🎵 خزمەتگوزارییەکانی تیکتۆک",
-                socialTitle: "🌐 تۆڕە کۆمەڵایەتییەکانی تر",
-                buyNow: "بکڕە",
-                orderNow: "🛒 فۆرمی داواکاری و پارەدان",
-                sendOrder: "پشتڕاستکردنەوە و ناردن بە واتسئاپ",
-                payments: "💳 ڕێگاکانی پێدانی پارە",
-                followUs: "🌐 فۆڵۆمان بکەن",
-                aboutTitle: "دەربارەی ئێمە",
-                aboutDesc: "کوردستان ستۆر باشترینە بۆ خزمەتگوزاری یوسی و گەشەپێدانی سۆشیاڵ میدیا.",
-                reviewsTitle: "⭐ پێداچوونەوەی کڕیاران",
-                statusTitle: "🟢 دۆخ",
-                statusDesc: "ئێمە ٢٤ کاتژمێر ئۆنلاینین",
-                searchPlace: "گەڕان بۆ خزمەتگوزارییەکان...",
-                calcTitle: "🧮 حاسیبەی خێرای یوسی",
-                calcDesc: "بڕی یوسی بنووسە بۆ زانینی نرخەکەی:",
-                calcPlace: "بۆ نموونە: 325"
-            },
-            en: {
-                title: "KURDISTAN STORE",
-                subtitle: "PUBG UC & Social Media Shop",
-                logout: "Logout",
-                authTitle: "👤 Sign Up / Login",
-                signupBtn: "Sign Up",
-                loginBtn: "Login",
-                owners: "Owners",
-                pubgTitle: "🎮 PUBG UC Services",
-                cardsTitle: "💳 Gift Cards",
-                subsTitle: "📺 Subscriptions",
-                gamesTitle: "🎲 Other Games",
-                instaTitle: "📸 Instagram Services",
-                tiktokTitle: "🎵 TikTok Services",
-                socialTitle: "🌐 Other Social Media",
-                buyNow: "BUY NOW",
-                orderNow: "🛒 Order & Payment Form",
-                sendOrder: "Confirm & Send via WhatsApp",
-                payments: "💳 Payment Methods",
-                followUs: "🌐 Follow Us",
-                aboutTitle: "About Us",
-                aboutDesc: "KURDISTAN STORE is the best shop for PUBG UC and Social Media boosting.",
-                reviewsTitle: "⭐ Customer Reviews",
-                statusTitle: "🟢 Status",
-                statusDesc: "We are Online 24/7",
-                searchPlace: "Search for services...",
-                calcTitle: "🧮 Quick UC Calculator",
-                calcDesc: "Enter UC amount to see the price:",
-                calcPlace: "e.g., 325"
-            },
-            ar: {
-                title: "متجر كردستان",
-                subtitle: "متجر شدات ببجي وخدمات التواصل الاجتماعي",
-                logout: "تسجيل الخروج",
-                authTitle: "👤 إنشاء حساب / تسجيل الدخول",
-                signupBtn: "إنشاء حساب",
-                loginBtn: "تسجيل الدخول",
-                owners: "المالكين",
-                pubgTitle: "🎮 خدمات شدات ببجي",
-                cardsTitle: "💳 بطاقات الهدايا",
-                subsTitle: "📺 الاشتراكات",
-                gamesTitle: "🎲 ألعاب أخرى",
-                instaTitle: "📸 خدمات إنستغرام",
-                tiktokTitle: "🎵 خدمات تيك توك",
-                socialTitle: "🌐 وسائل التواصل الاجتماعي الأخرى",
-                buyNow: "شراء الآن",
-                orderNow: "🛒 استمارة الطلب والدفع",
-                sendOrder: "تأكيد وإرسال عبر الواتساب",
-                payments: "💳 طرق الدفع",
-                followUs: "🌐 تابعنا",
-                aboutTitle: "من نحن",
-                aboutDesc: "متجر كردستان هو الأفضل لخدمات شدات ببجي ودعم الحسابات.",
-                reviewsTitle: "⭐ آراء العملاء",
-                statusTitle: "🟢 الحالة",
-                statusDesc: "نحن متواجدون 24/7",
-                searchPlace: "ابحث عن الخدمات...",
-                calcTitle: "🧮 حاسبة شدات ببجي السريعة",
-                calcDesc: "أدخل كمية الشدات لمعرفة السعر:",
-                calcPlace: "مثال: 325"
-            }
-        };
-
-        function changeLanguage(lang) {
-            localStorage.setItem("selectedLang", lang);
-            const htmlTag = document.documentElement;
-            
-            if (lang === "en") {
-                htmlTag.setAttribute("dir", "ltr");
-                htmlTag.setAttribute("lang", "en");
-            } else {
-                htmlTag.setAttribute("dir", "rtl");
-                htmlTag.setAttribute("lang", lang);
-            }
-
-            document.querySelectorAll("[data-key]").forEach(elem => {
-                const key = elem.getAttribute("data-key");
-                if (translations[lang][key]) {
-                    elem.innerText = translations[lang][key];
-                }
-            });
-
-            document.getElementById("searchBox").placeholder = translations[lang]["searchPlace"];
-            document.getElementById("calcInput").placeholder = translations[lang]["calcPlace"];
-        }
+        function topFunction() { window.scrollTo({top: 0, behavior: 'smooth'}); }
 
         checkAuth();
         setInterval(updateMarketRates, 8000); 
