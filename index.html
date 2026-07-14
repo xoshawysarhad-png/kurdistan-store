@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KURDISTAN STORE - سۆشیاڵ میدیا</title>
+    <title>سەکۆی بازرگانی کۆسمەتیک و سۆشیاڵ میدیا</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;500;700&display=swap" rel="stylesheet">
@@ -154,7 +154,7 @@
             box-shadow: 0 0 15px rgba(255,255,255,0.5);
         }
 
-        /* بەشی جۆری خزمەتگوزاری ناوخۆیی (لایک، فۆڵۆو...) */
+        /* بەشی جۆری خزمەتگوزاری ناوخۆیی */
         .sub-tabs {
             display: flex;
             justify-content: center;
@@ -237,7 +237,7 @@
             font-weight: bold;
             margin-bottom: 15px;
         }
-        .card a button {
+        .card button {
             width: 100%;
             padding: 10px;
             border-radius: 20px;
@@ -247,9 +247,63 @@
             font-weight: bold;
             cursor: pointer;
         }
-        .card a button:hover {
+        .card button:hover {
             background: var(--accent-color);
             color: #000;
+        }
+
+        /* بەشی حاسیبەی خێرا */
+        .calculator-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .calc-grid {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .calc-grid > div {
+            flex: 1;
+            min-width: 200px;
+        }
+        .calc-result {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        /* مۆدێل / فۆرمی کڕینی خێرا */
+        .order-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: #1f2833;
+            border: 1px solid var(--accent-color);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #fff;
         }
 
         /* دوگمەی لۆگئاوت */
@@ -269,13 +323,13 @@
 <body>
 
     <header>
-        <h1>کوردستان ستۆر - سۆشیاڵ میدیا</h1>
-        <p>خێراترین سەکۆ بۆ بەرزکردنەوەی ئەکاونتەکانت</p>
+        <h1>✨ سروشتی تۆ & کوردستان ستۆر</h1>
+        <p>خێراترین سەکۆ بۆ بازرگانی کۆسمەتیک، خزمەتگوزاری پێست و سۆشیاڵ میدیا</p>
         <div id="welcome" style="display:none; color:var(--accent-color); font-size:18px; margin-top:10px; font-weight:bold;"></div>
         <button id="logoutBtn" class="logout-btn" onclick="logout()">چوونەدەرەوە</button>
     </header>
 
-    <!-- بەشی لۆگین و ئەکاونت دروستکردن (تەنها ئەمە دیار دەبێت لە سەرەتادا) -->
+    <!-- بەشی لۆگین و ئەکاونت دروستکردن -->
     <div class="auth-box" id="authSection">
         <div class="auth-tabs">
             <div class="auth-tab active" id="tabLogin" onclick="switchAuth('login')">چوونەژوورەوە</div>
@@ -291,7 +345,7 @@
         </div>
     </div>
 
-    <!-- تەواوی خزمەتگوزارییەکان (شاردراوەتەوە تا لۆگین نەکرێت) -->
+    <!-- تەواوی خزمەتگوزارییەکان (تەنها دوای لۆگین دیار دەبێت) -->
     <div class="container" id="storeContent" style="display:none;">
         
         <!-- تابە سەرەکییەکانی پلاتفۆرمەکان -->
@@ -303,7 +357,7 @@
             <button class="platform-btn" onclick="openPlatform(event, 'telegram')"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="">Telegram</button>
         </div>
 
-        <!-- ================= TIKTOK PLATFORM ================= -->
+        <!-- ================= TIKTOK ================= -->
         <div id="tiktok" class="tab-content active">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'tiktok', 'views')">ڤیوو (Views)</button>
@@ -317,7 +371,7 @@
             <div id="tiktok-comments" class="sub-content"></div>
         </div>
 
-        <!-- ================= INSTAGRAM PLATFORM ================= -->
+        <!-- ================= INSTAGRAM ================= -->
         <div id="instagram" class="tab-content">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'instagram', 'views')">ڤیوو (Views)</button>
@@ -331,7 +385,7 @@
             <div id="instagram-comments" class="sub-content"></div>
         </div>
 
-        <!-- ================= FACEBOOK PLATFORM ================= -->
+        <!-- ================= FACEBOOK ================= -->
         <div id="facebook" class="tab-content">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'facebook', 'views')">ڤیوو (Views)</button>
@@ -345,7 +399,7 @@
             <div id="facebook-comments" class="sub-content"></div>
         </div>
 
-        <!-- ================= YOUTUBE PLATFORM ================= -->
+        <!-- ================= YOUTUBE ================= -->
         <div id="youtube" class="tab-content">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'youtube', 'views')">ڤیوو (Views)</button>
@@ -359,7 +413,7 @@
             <div id="youtube-comments" class="sub-content"></div>
         </div>
 
-        <!-- ================= TELEGRAM PLATFORM ================= -->
+        <!-- ================= TELEGRAM ================= -->
         <div id="telegram" class="tab-content">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'telegram', 'views')">ڤیوو (Views)</button>
@@ -373,6 +427,51 @@
             <div id="telegram-comments" class="sub-content"></div>
         </div>
 
+        <!-- ================= بەشی حاسیبەی خێرا ================= -->
+        <div class="calculator-section">
+            <h2 style="color:var(--title-color); margin-bottom:15px; font-size:1.4rem;">🧮 حاسیبەی خێرا بۆ خملاندنی نرخ</h2>
+            <div class="calc-grid">
+                <div>
+                    <label>جۆری تۆڕ</label>
+                    <select id="calcPlatform">
+                        <option value="450">TikTok / Instagram (هەرزان)</option>
+                        <option value="600">Facebook / Telegram (ناوەند)</option>
+                        <option value="800">YouTube (پریمیۆم)</option>
+                    </select>
+                </div>
+                <div>
+                    <label>بڕی پێویست (بە ژمارە بنووسە - بۆ نموونە 10000)</label>
+                    <input type="number" id="calcAmount" value="5000" oninput="calculatePrice()">
+                </div>
+            </div>
+            <div class="calc-result" id="calcResult">کۆیی گشتی خەمڵێندراو: 2,250 د.ع</div>
+        </div>
+    </div>
+
+    <!-- مۆدێل / فۆرمی داواکاری خێرا -->
+    <div class="order-modal" id="orderModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeOrderModal()">&times;</span>
+            <h3 style="margin-bottom: 1.5rem; color:var(--title-color);" id="modalTitle">تۆمارکردنی داواکاری</h3>
+            <form id="whatsappForm" onsubmit="sendToWhatsapp(event)">
+                <input type="hidden" id="orderItemName">
+                <input type="hidden" id="orderItemPrice">
+                
+                <div>
+                    <label style="color:#fff; display:block; margin-bottom:5px;">ناوی تەواو</label>
+                    <input type="text" id="clientName" required placeholder="ناوی سێانی بنووسە">
+                </div>
+                <div>
+                    <label style="color:#fff; display:block; margin-bottom:5px;">ژمارەی مۆبایل</label>
+                    <input type="tel" id="clientPhone" required placeholder="0750XXXXXXX">
+                </div>
+                <div>
+                    <label style="color:#fff; display:block; margin-bottom:5px;">لینکی ئەکاونت یان پۆست</label>
+                    <input type="url" id="clientLink" required placeholder="https://...">
+                </div>
+                <button type="submit" class="btn" style="background: #25D366; color: #fff;">ناردنی داواکاری بۆ واتسئاپ 💬</button>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -395,7 +494,7 @@
             document.getElementById("authBtn").innerText = mode === 'signup' ? 'تۆماربوون' : 'بچۆ ژوورەوە';
         }
 
-        // بەڕێوەبردنی لۆگین و تۆماربوون لە ڕێگەی LocalStorage
+        // بەڕێوەبردنی لۆگین و تۆماربوون
         function handleAuth() {
             const u = document.getElementById("username").value;
             const e = document.getElementById("email").value;
@@ -433,7 +532,7 @@
             document.getElementById("password").value = "";
         }
 
-        // گۆڕینی نێوان پلاتفۆرمە سەرەکییەکان
+        // گۆڕینی پلاتفۆرمەکان
         function openPlatform(evt, platformName) {
             const contents = document.getElementsByClassName("tab-content");
             for (let i = 0; i < contents.length; i++) contents[i].classList.remove("active");
@@ -445,7 +544,7 @@
             evt.currentTarget.classList.add("active");
         }
 
-        // گۆڕینی نێوان بەشە ناوخۆییەکان (Views, Likes...)
+        // گۆڕینی بەشە ناوخۆییەکان
         function openSubTab(evt, platform, subType) {
             const parent = document.getElementById(platform);
             const contents = parent.getElementsByClassName("sub-content");
@@ -458,7 +557,52 @@
             evt.currentTarget.classList.add("active");
         }
 
-        // دروستکردنی ئۆتۆماتیکی کارتەکان لە 5K تا 100K بە پلەبەندی 5K بۆ 5K
+        // بەڕێوەبردنی فۆرمی مۆدێلی داواکاری خێرا
+        function openOrderModal(name, price) {
+            document.getElementById("orderItemName").value = name;
+            document.getElementById("orderItemPrice").value = price;
+            document.getElementById("modalTitle").innerText = `داواکردنی: ${name} (${price})`;
+            document.getElementById("orderModal").style.display = "flex";
+        }
+
+        function closeOrderModal() {
+            document.getElementById("orderModal").style.display = "none";
+            document.getElementById("whatsappForm").reset();
+        }
+
+        // ناردنی داواکاری بۆ واتسئاپ
+        function sendToWhatsapp(event) {
+            event.preventDefault();
+            const itemName = document.getElementById("orderItemName").value;
+            const itemPrice = document.getElementById("orderItemPrice").value;
+            const clientName = document.getElementById("clientName").value;
+            const clientPhone = document.getElementById("clientPhone").value;
+            const clientLink = document.getElementById("clientLink").value;
+
+            // ژمارەی مۆبایلی فەرمی خاوەن ماڵپەڕ
+            const myWhatsappNumber = "9647751513431"; 
+
+            const text = `سڵاو کاک ژیار، داواکارییەکی نوێم هەیە لە ماڵپەڕەکەتەوە:\n\n` +
+                         `📦 پاکێج: ${itemName}\n` +
+                         `💰 نرخ: ${itemPrice}\n` +
+                         `👤 ناوی کڕیار: ${clientName}\n` +
+                         `📞 تەلەفۆن: ${clientPhone}\n` +
+                         `🔗 لینک: ${clientLink}`;
+
+            const encodedText = encodeURIComponent(text);
+            window.open(`https://wa.me/${myWhatsappNumber}?text=${encodedText}`, '_blank');
+            closeOrderModal();
+        }
+
+        // سیستمی حاسیبەی خێرا
+        function calculatePrice() {
+            const rate = parseFloat(document.getElementById("calcPlatform").value);
+            const amount = parseInt(document.getElementById("calcAmount").value) || 0;
+            const total = (amount / 1000) * rate;
+            document.getElementById("calcResult").innerText = `کۆیی گشتی خەمڵێندراو: ${Math.round(total).toLocaleString()} د.ع`;
+        }
+
+        // دروستکردنی ئۆتۆماتیکی کارتەکان (5K تا 100K بە پلەبەندی 5K)
         function generateAllServices() {
             const platforms = ['tiktok', 'instagram', 'facebook', 'youtube', 'telegram'];
             const subTypes = ['views', 'likes', 'followers', 'comments'];
@@ -469,21 +613,20 @@
                     if (!container) return;
                     
                     let htmlContent = '';
-                    // دروستکردنی پاکێجەکان لە 5K, 10K, 15K... تا 100K
+                    let basePriceFactor = p === 'youtube' ? 800 : (p === 'facebook' || p === 'telegram' ? 600 : 450);
+
                     for (let amount = 5; amount <= 100; amount += 5) {
-                        let priceText = (amount * 450).toLocaleString() + " د.ع"; // دانانی نرخێکی گریمانەیی ڕێکخراو
+                        let calcPrice = amount * basePriceFactor;
+                        let priceText = calcPrice.toLocaleString() + " د.ع";
                         let typeNameKurdish = s === 'views' ? 'ڤیوو' : s === 'likes' ? 'لایک' : s === 'followers' ? 'فۆڵۆو' : 'کۆمێنت';
                         let title = `${amount}K ${typeNameKurdish} ${p.toUpperCase()}`;
-                        let whatsappMsg = encodeURIComponent(`سڵاو، دەمەوێت ئەم پاکێجە بکڕم:\n📦 خزمەتگوزاری: ${title}\n💰 نرخ: ${priceText}`);
 
                         htmlContent += `
                             <div class="card">
                                 <img src="${logos[p]}" alt="${p}">
                                 <h3>${amount}K ${typeNameKurdish}</h3>
                                 <div class="price">${priceText}</div>
-                                <a href="https://wa.me/9647751513431?text=${whatsappMsg}" target="_blank">
-                                    <button>ئێستا بکڕە</button>
-                                </a>
+                                <button onclick="openOrderModal('${title}', '${priceText}')">ئێستا بکڕە</button>
                             </div>
                         `;
                     }
@@ -492,8 +635,10 @@
             });
         }
 
-        // کارپێکردنی ڕاستەوخۆی دروستکەری بەشەکان لە کاتی کردنەوەی پەڕەکە
-        window.onload = generateAllServices;
+        window.onload = function() {
+            generateAllServices();
+            calculatePrice();
+        };
     </script>
 </body>
 </html>
