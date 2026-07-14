@@ -3,468 +3,497 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سەکۆی بازرگانی کۆسمەتیک و پێست</title>
+    <title>KURDISTAN STORE - سۆشیاڵ میدیا</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;500;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary: #d4a373;
-            --secondary: #faedcd;
-            --dark: #1f2937;
-            --light: #fefae0;
-            --white: #ffffff;
-            --gray: #9ca3af;
+            --bg-color: #0b0c10;
+            --card-bg: rgba(31, 40, 51, 0.6);
+            --text-color: #c5c6c7;
+            --title-color: #fff;
+            --accent-color: #45f3ff;
+            --accent-hover: #00bfff;
+            --input-bg: #1f2833;
+            --header-bg: linear-gradient(135deg, #0b0c10, #1f2833);
+            --border-glow: rgba(69, 243, 255, 0.2);
         }
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
+            font-family: 'Noto Kufi Arabic', Arial, sans-serif;
+            transition: all 0.25s ease;
         }
         body {
-            background-color: #f8f9fa;
-            color: var(--dark);
+            background: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
         }
         header {
-            background-color: var(--white);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            background: var(--header-bg);
+            text-align: center;
+            padding: 30px 20px;
+            border-bottom: 1px solid var(--border-glow);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
         }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        header h1 {
+            color: var(--title-color);
+            font-size: 2.2rem;
+            text-shadow: 0 0 10px var(--accent-color);
+            margin-bottom: 10px;
         }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary);
+        header p {
+            color: #aaa;
+            font-size: 1rem;
         }
-        .auth-status {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .btn-logout {
-            background-color: #ef4444;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            display: none;
-        }
+        
         .container {
+            width: 90%;
             max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            margin: 30px auto;
         }
+
+        /* بەشی ئەکاونت */
         .auth-box {
-            background: var(--white);
+            background: var(--card-bg);
+            border: 1px solid var(--accent-color);
             max-width: 450px;
-            margin: 4rem auto;
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(69, 243, 255, 0.1);
+            backdrop-filter: blur(15px);
         }
-        .tabs {
+        .auth-tabs {
             display: flex;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--input-bg);
         }
-        .tab {
+        .auth-tab {
             flex: 1;
             text-align: center;
-            padding: 0.75rem;
+            padding: 10px;
             cursor: pointer;
             font-weight: bold;
-            color: var(--gray);
+            color: #888;
         }
-        .tab.active {
-            color: var(--primary);
-            border-bottom: 2px solid var(--primary);
-            margin-bottom: -2px;
-        }
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
+        .auth-tab.active {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
         }
         input, select {
             width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #dee2e6;
-            border-radius: 6px;
-            font-size: 1rem;
+            padding: 12px 20px;
+            background: var(--input-bg);
+            border: 1px solid var(--border-glow);
+            color: var(--title-color);
+            border-radius: 30px;
+            margin-bottom: 15px;
             outline: none;
+            font-size: 15px;
         }
         input:focus, select:focus {
-            border-color: var(--primary);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--border-glow);
         }
         .btn {
             width: 100%;
-            padding: 0.75rem;
-            background-color: var(--primary);
-            color: var(--white);
+            padding: 12px;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+            color: #000;
             border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
+            border-radius: 30px;
             font-weight: bold;
-            transition: background 0.2s;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(69, 243, 255, 0.2);
         }
         .btn:hover {
-            background-color: #c69363;
+            box-shadow: 0 0 25px var(--accent-color);
+            transform: scale(1.02);
         }
-        .msg {
-            margin-top: 1rem;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #ef4444;
-        }
-        .search-filter {
-            background: var(--white);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+
+        /* دوگمەی سەرەکی پلاتفۆرمەکان */
+        .platform-tabs {
             display: flex;
-            gap: 1rem;
             flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
         }
-        .search-filter input, .search-filter select {
-            flex: 1;
-            min-width: 200px;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-        .card {
-            background: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .card-img {
-            height: 200px;
-            background-color: var(--secondary);
+        .platform-btn {
+            background: var(--card-bg);
+            color: var(--title-color);
+            border: 1px solid var(--border-glow);
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
             display: flex;
             align-items: center;
+            gap: 10px;
+            font-size: 15px;
+        }
+        .platform-btn img {
+            width: 25px;
+            height: 25px;
+            object-fit: contain;
+        }
+        .platform-btn:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+        .platform-btn.active {
+            background: var(--title-color);
+            color: #000;
+            border-color: transparent;
+            box-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
+
+        /* بەشی جۆری خزمەتگوزاری ناوخۆیی (لایک، فۆڵۆو...) */
+        .sub-tabs {
+            display: flex;
             justify-content: center;
-            color: var(--primary);
-            font-size: 3rem;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.03);
+            padding: 8px;
+            border-radius: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .card-body {
-            padding: 1.5rem;
+        .sub-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
         }
-        .card-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-        .card-text {
-            color: #6b7280;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            height: 40px;
-            overflow: hidden;
-        }
-        .price {
-            font-size: 1.25rem;
+        .sub-btn.active {
+            background: var(--accent-color);
+            color: #000;
             font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 1rem;
         }
-        /* بەشی داواکاری خێرا */
-        .order-modal {
+
+        /* جێگیرکردنی کارتەکان */
+        .tab-content {
             display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
         }
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            max-width: 500px;
-            width: 90%;
+        .tab-content.active {
+            display: block;
+        }
+        .sub-content {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            animation: fadeIn 0.4s ease;
+        }
+        .sub-content.active {
+            display: grid;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
             position: relative;
         }
-        .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 1.5rem;
+        .card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(69, 243, 255, 0.1);
+        }
+        .card img {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 15px;
+            display: block;
+            object-fit: contain;
+        }
+        .card h3 {
+            color: var(--title-color);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+        .price {
+            color: #ffd700;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .card a button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 20px;
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            font-weight: bold;
             cursor: pointer;
+        }
+        .card a button:hover {
+            background: var(--accent-color);
+            color: #000;
+        }
+
+        /* دوگمەی لۆگئاوت */
+        .logout-btn {
+            background: #ff4d4d;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="nav-container">
-            <div class="logo">✨ سروشتی تۆ</div>
-            <div class="auth-status">
-                <span id="welcome" style="display: none; font-weight: 500;"></span>
-                <button id="logoutBtn" class="btn-logout" onclick="logout()">چوونەدەرەوە</button>
-            </div>
-        </div>
+        <h1>کوردستان ستۆر - سۆشیاڵ میدیا</h1>
+        <p>خێراترین سەکۆ بۆ بەرزکردنەوەی ئەکاونتەکانت</p>
+        <div id="welcome" style="display:none; color:var(--accent-color); font-size:18px; margin-top:10px; font-weight:bold;"></div>
+        <button id="logoutBtn" class="logout-btn" onclick="logout()">چوونەدەرەوە</button>
     </header>
 
+    <!-- بەشی لۆگین و ئەکاونت دروستکردن (تەنها ئەمە دیار دەبێت لە سەرەتادا) -->
     <div class="auth-box" id="authSection">
-        <div class="tabs">
-            <div class="tab active" id="loginTab" onclick="switchTab('login')">چوونە ژوورەوە</div>
-            <div class="tab" id="signupTab" onclick="switchTab('signup')">دروستکردنی ئەکاونت</div>
+        <div class="auth-tabs">
+            <div class="auth-tab active" id="tabLogin" onclick="switchAuth('login')">چوونەژوورەوە</div>
+            <div class="auth-tab" id="tabSignup" onclick="switchAuth('signup')">تۆماربوون</div>
         </div>
-
-        <div id="loginForm">
-            <div class="form-group">
-                <label>ئیمەیڵ</label>
-                <input type="email" id="email" placeholder="example@gmail.com">
-            </div>
-            <div class="form-group">
-                <label>وشەی تێپەڕبوون (Password)</label>
-                <input type="password" id="password" placeholder="******">
-            </div>
-            <button class="btn" onclick="login()">بچۆ ژوورەوە</button>
-            <div class="msg" id="loginMsg"></div>
-        </div>
-
-        <div id="signupForm" style="display: none;">
-            <div class="form-group">
-                <label>ناوی بەکارهێنەر</label>
-                <input type="text" id="username" placeholder="ناو">
-            </div>
-            <div class="form-group">
-                <label>ئیمەیڵ</label>
-                <input type="email" id="emailSignup" placeholder="example@gmail.com">
-            </div>
-            <div class="form-group">
-                <label>وشەی تێپەڕبوون</label>
-                <input type="password" id="passwordSignup" placeholder="******">
-            </div>
-            <button class="btn" onclick="signup()">تۆمارکردن</button>
-            <div class="msg" id="signupMsg" style="color: green;"></div>
-        </div>
-    </div>
-
-    <div class="container" id="storeContent" style="display: none;">
         
-        <div class="search-filter">
-            <input type="text" id="searchBar" onkeyup="filterItems()" placeholder="بۆچی دەگەڕێیت؟ ناوی بەرهەم یان خزمەتگوزاری بنووسە...">
-            <select id="categoryFilter" onchange="filterItems()">
-                <option value="all">هەموو بەشەکان</option>
-                <option value="product">بەرهەمەکان (فرۆشتن)</option>
-                <option value="service">خزمەتگوزارییەکان (سەردان و چارەسەر)</option>
-            </select>
-        </div>
-
-        <div class="grid" id="itemsGrid">
-            <div class="card item-box" data-type="product" data-name="کرێمی سروشتی شێدارکەرەوە">
-                <div class="card-img">🧴</div>
-                <div class="card-body">
-                    <h3 class="card-title">کرێمی سروشتی شێدارکەرەوە</h3>
-                    <p class="card-text">بۆ گەشانەوە و قووڵ شێدارکردنەوەی پێستی وشک و هەستیار.</p>
-                    <div class="price">25,000 د.ع</div>
-                    <button class="btn" onclick="openOrderModal('کرێمی سروشتی شێدارکەرەوە', '25,000 د.ع')">ئێستا داوا بکە</button>
-                </div>
-            </div>
-
-            <div class="card item-box" data-type="product" data-name="سیرومی ڤیتامین C">
-                <div class="card-img">🧪</div>
-                <div class="card-body">
-                    <h3 class="card-title">سیرومی ڤیتامین C</h3>
-                    <p class="card-text">دژە چرچولۆچ و ڕوونکەرەوەی پەڵەی ڕووخسار بە چڕی باڵا.</p>
-                    <div class="price">32,000 د.ع</div>
-                    <button class="btn" onclick="openOrderModal('سیرومی ڤیتامین C', '32,000 د.ع')">ئێستا داوا بکە</button>
-                </div>
-            </div>
-
-            <div class="card item-box" data-type="service" data-name="پاککردنەوەی قووڵی پێست (Hydrafacial)">
-                <div class="card-img">💆‍♀️</div>
-                <div class="card-body">
-                    <h3 class="card-title">پاککردنەوەی پێست (Hydrafacial)</h3>
-                    <p class="card-text">خزمەتگوزاری کلینیک بۆ پاککردنەوەی کونیەلەکانی پێست و لادانی پێستی مردوو.</p>
-                    <div class="price">45,000 د.ع</div>
-                    <button class="btn" onclick="openOrderModal('خزمەتگوزاری Hydrafacial', '45,000 د.ع')">بڕینی نۆرە (حجز)</button>
-                </div>
-            </div>
-
-            <div class="card item-box" data-type="service" data-name="پشکنین و چارەسەری زیپکە">
-                <div class="card-img">🩺</div>
-                <div class="card-body">
-                    <h3 class="card-title">پشکنین و چارەسەری زیپکە</h3>
-                    <p class="card-text">ڕاوێژکاری ڕاستەوخۆ لەگەڵ پزیشکی پسپۆڕ بۆ دیاریکردنی هۆکار و چارەسەر.</p>
-                    <div class="price">20,000 د.ع</div>
-                    <button class="btn" onclick="openOrderModal('پشکنینی زیپکەی پێست', '20,000 د.ع')">بڕینی نۆرە (حجز)</button>
-                </div>
-            </div>
+        <div id="authFields">
+            <input type="text" id="username" placeholder="ناوی بەکارهێنەر" style="display:none;">
+            <input type="email" id="email" placeholder="ئیمەیڵ">
+            <input type="password" id="password" placeholder="وشەی تێپەڕبوون">
+            <button class="btn" id="authBtn" onclick="handleAuth()">بچۆ ژوورەوە</button>
+            <p id="authMsg" style="text-align:center; margin-top:10px; color:#ff4d4d; font-size:14px;"></p>
         </div>
     </div>
 
-    <div class="order-modal" id="orderModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeOrderModal()">&times;</span>
-            <h3 style="margin-bottom: 1.5rem;" id="modalTitle">تۆمارکردنی داواکاری</h3>
-            <form id="whatsappForm" onsubmit="sendToWhatsapp(event)">
-                <input type="hidden" id="orderItemName">
-                <input type="hidden" id="orderItemPrice">
-                
-                <div class="form-group">
-                    <label>ناوی تەواو</label>
-                    <input type="text" id="clientName" required placeholder="ناوی سیانی">
-                </div>
-                <div class="form-group">
-                    <label>ژمارەی مۆبایل</label>
-                    <input type="tel" id="clientPhone" required placeholder="0750XXXXXXX">
-                </div>
-                <div class="form-group">
-                    <label>ناونیشان (بۆ بەرهەم) یان کاتی گونجاو (بۆ خزمەتگوزاری)</label>
-                    <input type="text" id="clientAddress" required placeholder="شار - گەڕەک یان ڕێکەوت">
-                </div>
-                <button type="submit" class="btn" style="background-color: #25D366;">ناردن لە ڕێگەی واتسئاپ 💬</button>
-            </form>
+    <!-- تەواوی خزمەتگوزارییەکان (شاردراوەتەوە تا لۆگین نەکرێت) -->
+    <div class="container" id="storeContent" style="display:none;">
+        
+        <!-- تابە سەرەکییەکانی پلاتفۆرمەکان -->
+        <div class="platform-tabs">
+            <button class="platform-btn active" onclick="openPlatform(event, 'tiktok')"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046124.png" alt="">TikTok</button>
+            <button class="platform-btn" onclick="openPlatform(event, 'instagram')"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="">Instagram</button>
+            <button class="platform-btn" onclick="openPlatform(event, 'facebook')"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="">Facebook</button>
+            <button class="platform-btn" onclick="openPlatform(event, 'youtube')"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="">YouTube</button>
+            <button class="platform-btn" onclick="openPlatform(event, 'telegram')"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="">Telegram</button>
         </div>
+
+        <!-- ================= TIKTOK PLATFORM ================= -->
+        <div id="tiktok" class="tab-content active">
+            <div class="sub-tabs">
+                <button class="sub-btn active" onclick="openSubTab(event, 'tiktok', 'views')">ڤیوو (Views)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'tiktok', 'likes')">لایک (Likes)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'tiktok', 'followers')">فۆڵۆو (Followers)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'tiktok', 'comments')">کۆمێنت (Comments)</button>
+            </div>
+            <div id="tiktok-views" class="sub-content active"></div>
+            <div id="tiktok-likes" class="sub-content"></div>
+            <div id="tiktok-followers" class="sub-content"></div>
+            <div id="tiktok-comments" class="sub-content"></div>
+        </div>
+
+        <!-- ================= INSTAGRAM PLATFORM ================= -->
+        <div id="instagram" class="tab-content">
+            <div class="sub-tabs">
+                <button class="sub-btn active" onclick="openSubTab(event, 'instagram', 'views')">ڤیوو (Views)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'instagram', 'likes')">لایک (Likes)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'instagram', 'followers')">فۆڵۆو (Followers)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'instagram', 'comments')">کۆمێنت (Comments)</button>
+            </div>
+            <div id="instagram-views" class="sub-content active"></div>
+            <div id="instagram-likes" class="sub-content"></div>
+            <div id="instagram-followers" class="sub-content"></div>
+            <div id="instagram-comments" class="sub-content"></div>
+        </div>
+
+        <!-- ================= FACEBOOK PLATFORM ================= -->
+        <div id="facebook" class="tab-content">
+            <div class="sub-tabs">
+                <button class="sub-btn active" onclick="openSubTab(event, 'facebook', 'views')">ڤیوو (Views)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'facebook', 'likes')">لایک (Likes)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'facebook', 'followers')">فۆڵۆو (Followers)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'facebook', 'comments')">کۆمێنت (Comments)</button>
+            </div>
+            <div id="facebook-views" class="sub-content active"></div>
+            <div id="facebook-likes" class="sub-content"></div>
+            <div id="facebook-followers" class="sub-content"></div>
+            <div id="facebook-comments" class="sub-content"></div>
+        </div>
+
+        <!-- ================= YOUTUBE PLATFORM ================= -->
+        <div id="youtube" class="tab-content">
+            <div class="sub-tabs">
+                <button class="sub-btn active" onclick="openSubTab(event, 'youtube', 'views')">ڤیوو (Views)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'youtube', 'likes')">لایک (Likes)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'youtube', 'followers')">فۆڵۆو (Followers)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'youtube', 'comments')">کۆمێنت (Comments)</button>
+            </div>
+            <div id="youtube-views" class="sub-content active"></div>
+            <div id="youtube-likes" class="sub-content"></div>
+            <div id="youtube-followers" class="sub-content"></div>
+            <div id="youtube-comments" class="sub-content"></div>
+        </div>
+
+        <!-- ================= TELEGRAM PLATFORM ================= -->
+        <div id="telegram" class="tab-content">
+            <div class="sub-tabs">
+                <button class="sub-btn active" onclick="openSubTab(event, 'telegram', 'views')">ڤیوو (Views)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'telegram', 'likes')">لایک (Likes)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'telegram', 'followers')">فۆڵۆو (Followers)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'telegram', 'comments')">کۆمێنت (Comments)</button>
+            </div>
+            <div id="telegram-views" class="sub-content active"></div>
+            <div id="telegram-likes" class="sub-content"></div>
+            <div id="telegram-followers" class="sub-content"></div>
+            <div id="telegram-comments" class="sub-content"></div>
+        </div>
+
     </div>
 
     <script>
-        // گۆڕینی نێوان تابەکانی چوونەژوورەوە و دروستکردنی ئەکاونت
-        function switchTab(type) {
-            if(type === 'login') {
-                document.getElementById("loginForm").style.display = "block";
-                document.getElementById("signupForm").style.display = "none";
-                document.getElementById("loginTab").classList.add("active");
-                document.getElementById("signupTab").classList.remove("active");
-            } else {
-                document.getElementById("loginForm").style.display = "none";
-                document.getElementById("signupForm").style.display = "block";
-                document.getElementById("loginTab").classList.remove("active");
-                document.getElementById("signupTab").classList.add("active");
-            }
+        let currentMode = 'login';
+        const logos = {
+            tiktok: "https://cdn-icons-png.flaticon.com/512/3046/3046124.png",
+            instagram: "https://cdn-icons-png.flaticon.com/512/2111/2111463.png",
+            facebook: "https://cdn-icons-png.flaticon.com/512/733/733547.png",
+            youtube: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png",
+            telegram: "https://cdn-icons-png.flaticon.com/512/2111/2111646.png"
+        };
+
+        // گۆڕینی دۆخی لۆگین و تۆماربوون
+        function switchAuth(mode) {
+            currentMode = mode;
+            document.getElementById("authMsg").innerText = "";
+            document.getElementById("tabLogin").classList.toggle("active", mode === 'login');
+            document.getElementById("tabSignup").classList.toggle("active", mode === 'signup');
+            document.getElementById("username").style.display = mode === 'signup' ? 'block' : 'none';
+            document.getElementById("authBtn").innerText = mode === 'signup' ? 'تۆماربوون' : 'بچۆ ژوورەوە';
         }
 
-        // کرداری دروستکردنی ئەکاونت
-        function signup() {
+        // بەڕێوەبردنی لۆگین و تۆماربوون لە ڕێگەی LocalStorage
+        function handleAuth() {
             const u = document.getElementById("username").value;
-            const e = document.getElementById("emailSignup").value;
-            const p = document.getElementById("passwordSignup").value;
-            if(!u || !e || !p) {
-                document.getElementById("signupMsg").style.color = "#ef4444";
-                document.getElementById("signupMsg").innerText = "تکایە هەموو زانیارییەکان بنووسە";
-                return;
-            }
-            localStorage.setItem("user", JSON.stringify({username: u, email: e, password: p}));
-            document.getElementById("signupMsg").style.color = "green";
-            document.getElementById("signupMsg").innerText = "ئەکاونتەکەت بە سەرکەوتوویی دروستکرا! ئێستا بچۆ بەشی چوونەژوورەوە.";
-            setTimeout(() => { switchTab('login'); }, 1500);
-        }
-
-        // کرداری چوونەژوورەوە
-        function login() {
             const e = document.getElementById("email").value;
             const p = document.getElementById("password").value;
-            const saved = JSON.parse(localStorage.getItem("user"));
-            
-            if(saved && saved.email === e && saved.password === p) {
-                document.getElementById("authSection").style.display = "none";
-                document.getElementById("welcome").innerText = `👤 بەخێربێیت، ${saved.username}`;
-                document.getElementById("welcome").style.display = "block";
-                document.getElementById("logoutBtn").style.display = "block";
-                
-                // لێرەدا تەواوی خزمەتگوزارییەکان پیشان دەدرێن دوای لۆگین
-                document.getElementById("storeContent").style.display = "block";
+            const msg = document.getElementById("authMsg");
+
+            if (currentMode === 'signup') {
+                if (!u || !e || !p) { msg.innerText = "تکایە هەموو خانەکان پڕبکەرەوە!"; return; }
+                localStorage.setItem("storedUser", JSON.stringify({username: u, email: e, password: p}));
+                msg.style.color = "lightgreen";
+                msg.innerText = "ئەکاونت دروستکرا! ئێستا لۆگین بکە.";
+                switchAuth('login');
             } else {
-                document.getElementById("loginMsg").innerText = "ئیمەیڵ یان وشەی تێپەڕبوون هەڵەیە یان ئەکاونتت نییە!";
-            }
-        }
-
-        // کرداری چوونەدەرەوە
-        function logout() {
-            document.getElementById("welcome").style.display = "none";
-            document.getElementById("logoutBtn").style.display = "none";
-            
-            // شاردنەوەی بەشەکان دوای چوونەدەرەوە
-            document.getElementById("storeContent").style.display = "none";
-            document.getElementById("authSection").style.display = "block";
-            
-            document.getElementById("email").value = "";
-            document.getElementById("password").value = "";
-            document.getElementById("loginMsg").innerText = "";
-        }
-
-        // فلتەرکردنی بەرهەمەکان و گەڕان
-        function filterItems() {
-            const searchText = document.getElementById("searchBar").value.toLowerCase();
-            const category = document.getElementById("categoryFilter").value;
-            const items = document.getElementsByClassName("item-box");
-
-            for (let item of items) {
-                const name = item.getAttribute("data-name").toLowerCase();
-                const type = item.getAttribute("data-type");
-                
-                const matchesSearch = name.includes(searchText);
-                const matchesCategory = (category === "all" || type === category);
-
-                if (matchesSearch && matchesCategory) {
-                    item.style.display = "block";
+                if (!e || !p) { msg.innerText = "تکایە ئیمەیڵ و وشەی تێپەڕبوون بنووسە!"; return; }
+                const saved = JSON.parse(localStorage.getItem("storedUser"));
+                if (saved && saved.email === e && saved.password === p) {
+                    document.getElementById("authSection").style.display = "none";
+                    document.getElementById("welcome").innerText = `👤 بەخێربێیت، ${saved.username}`;
+                    document.getElementById("welcome").style.display = "block";
+                    document.getElementById("logoutBtn").style.display = "inline-block";
+                    document.getElementById("storeContent").style.display = "block";
                 } else {
-                    item.style.display = "none";
+                    msg.style.color = "#ff4d4d";
+                    msg.innerText = "زانیارییەکان هەڵەن یان ئەکاونتت نییە!";
                 }
             }
         }
 
-        // بەڕێوەبردنی مۆدێلی داواکاری
-        function openOrderModal(name, price) {
-            document.getElementById("orderItemName").value = name;
-            document.getElementById("orderItemPrice").value = price;
-            document.getElementById("modalTitle").innerText = `داواکردنی: ${name} (${price})`;
-            document.getElementById("orderModal").style.display = "flex";
+        function logout() {
+            document.getElementById("storeContent").style.display = "none";
+            document.getElementById("welcome").style.display = "none";
+            document.getElementById("logoutBtn").style.display = "none";
+            document.getElementById("authSection").style.display = "block";
+            document.getElementById("email").value = "";
+            document.getElementById("password").value = "";
         }
 
-        function closeOrderModal() {
-            document.getElementById("orderModal").style.display = "none";
-            document.getElementById("whatsappForm").reset();
-        }
-
-        // ناردنی زانیارییەکان بۆ واتسئاپ
-        function sendToWhatsapp(event) {
-            event.preventDefault();
-            const itemName = document.getElementById("orderItemName").value;
-            const itemPrice = document.getElementById("orderItemPrice").value;
-            const clientName = document.getElementById("clientName").value;
-            const clientPhone = document.getElementById("clientPhone").value;
-            const clientAddress = document.getElementById("clientAddress").value;
-
-            // ژمارەی مۆبایلی خۆت لێرە دابنێ (بە کۆدی نێودەوڵەتی بێ سفر)
-            const myWhatsappNumber = "9647500000000"; 
-
-            const text = `سڵاو، داواکاری نوێ هەیە لە ماڵپەڕەوە:\n\n` +
-                         `📦 بەرهەم/خزمەتگوزاری: ${itemName}\n` +
-                         `💰 نرخ: ${itemPrice}\n` +
-                         `👤 ناوی کڕیار: ${clientName}\n` +
-                         `📞 ژمارەی مۆبایل: ${clientPhone}\n` +
-                         `📍 ناونیشان/کات: ${clientAddress}`;
-
-            const encodedText = encodeURIComponent(text);
-            const whatsappUrl = `https://wa.me/${myWhatsappNumber}?text=${encodedText}`;
+        // گۆڕینی نێوان پلاتفۆرمە سەرەکییەکان
+        function openPlatform(evt, platformName) {
+            const contents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < contents.length; i++) contents[i].classList.remove("active");
             
-            window.open(whatsappUrl, '_blank');
-            closeOrderModal();
+            const btns = document.getElementsByClassName("platform-btn");
+            for (let i = 0; i < btns.length; i++) btns[i].classList.remove("active");
+
+            document.getElementById(platformName).classList.add("active");
+            evt.currentTarget.classList.add("active");
         }
+
+        // گۆڕینی نێوان بەشە ناوخۆییەکان (Views, Likes...)
+        function openSubTab(evt, platform, subType) {
+            const parent = document.getElementById(platform);
+            const contents = parent.getElementsByClassName("sub-content");
+            for (let i = 0; i < contents.length; i++) contents[i].classList.remove("active");
+
+            const btns = parent.getElementsByClassName("sub-btn");
+            for (let i = 0; i < btns.length; i++) btns[i].classList.remove("active");
+
+            document.getElementById(`${platform}-${subType}`).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // دروستکردنی ئۆتۆماتیکی کارتەکان لە 5K تا 100K بە پلەبەندی 5K بۆ 5K
+        function generateAllServices() {
+            const platforms = ['tiktok', 'instagram', 'facebook', 'youtube', 'telegram'];
+            const subTypes = ['views', 'likes', 'followers', 'comments'];
+
+            platforms.forEach(p => {
+                subTypes.forEach(s => {
+                    const container = document.getElementById(`${p}-${s}`);
+                    if (!container) return;
+                    
+                    let htmlContent = '';
+                    // دروستکردنی پاکێجەکان لە 5K, 10K, 15K... تا 100K
+                    for (let amount = 5; amount <= 100; amount += 5) {
+                        let priceText = (amount * 450).toLocaleString() + " د.ع"; // دانانی نرخێکی گریمانەیی ڕێکخراو
+                        let typeNameKurdish = s === 'views' ? 'ڤیوو' : s === 'likes' ? 'لایک' : s === 'followers' ? 'فۆڵۆو' : 'کۆمێنت';
+                        let title = `${amount}K ${typeNameKurdish} ${p.toUpperCase()}`;
+                        let whatsappMsg = encodeURIComponent(`سڵاو، دەمەوێت ئەم پاکێجە بکڕم:\n📦 خزمەتگوزاری: ${title}\n💰 نرخ: ${priceText}`);
+
+                        htmlContent += `
+                            <div class="card">
+                                <img src="${logos[p]}" alt="${p}">
+                                <h3>${amount}K ${typeNameKurdish}</h3>
+                                <div class="price">${priceText}</div>
+                                <a href="https://wa.me/9647751513431?text=${whatsappMsg}" target="_blank">
+                                    <button>ئێستا بکڕە</button>
+                                </a>
+                            </div>
+                        `;
+                    }
+                    container.innerHTML = htmlContent;
+                });
+            });
+        }
+
+        // کارپێکردنی ڕاستەوخۆی دروستکەری بەشەکان لە کاتی کردنەوەی پەڕەکە
+        window.onload = generateAllServices;
     </script>
 </body>
 </html>
