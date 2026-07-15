@@ -1,0 +1,17 @@
+{
+  "name": "Kurdistan Store",
+  "short_name": "K-Store",
+  "description": "کوردستان ستۆر بۆ خزمەتگوزارییەکانی سۆشیاڵ میدیا و یوسی پۆبجی",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0b0c10",
+  "theme-color": "#0b0c10",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
