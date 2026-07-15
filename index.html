@@ -323,6 +323,59 @@
             margin-top: 10px;
             display: none;
         }
+
+        /* ستایلی نۆتفیکەیشنە لایڤەکان */
+        .live-notif {
+            position: fixed;
+            bottom: -100px;
+            background: rgba(31, 40, 51, 0.95);
+            border: 1.5px solid var(--accent-color);
+            border-radius: 15px;
+            padding: 12px 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(69, 243, 255, 0.2);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(10px);
+            max-width: 320px;
+            width: 90%;
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .live-notif.active {
+            bottom: 25px;
+            opacity: 1;
+        }
+        #notif-left {
+            left: 20px;
+        }
+        #notif-right {
+            right: 20px;
+        }
+        .notif-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .notif-text {
+            font-size: 13px;
+            color: #fff;
+            line-height: 1.5;
+        }
+        .notif-title {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .notif-time {
+            font-size: 11px;
+            color: #888;
+            display: block;
+            margin-top: 2px;
+        }
     </style>
 </head>
 <body>
@@ -358,6 +411,7 @@
         
         <div class="platform-tabs">
             <button class="platform-btn active" onclick="openPlatform(event, 'pubg')"><img src="https://images.uncyc.org/commons/5/57/Pubg-logo.png" alt="" style="border-radius:50%">PUBG Mobile</button>
+            <button class="platform-btn" onclick="openPlatform(event, 'snapchat')"><img src="https://assets.snapchat.com/web/marketing/web/ghost/snapchat-ghost-yellow.svg" alt="">Snapchat</button>
             <button class="platform-btn" onclick="openPlatform(event, 'tiktok')"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046124.png" alt="">TikTok</button>
             <button class="platform-btn" onclick="openPlatform(event, 'instagram')"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="">Instagram</button>
             <button class="platform-btn" onclick="openPlatform(event, 'facebook')"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="">Facebook</button>
@@ -378,6 +432,15 @@
                 <div class="card"><img src="https://images.uncyc.org/commons/5/57/Pubg-logo.png" alt=""><h3>3850 UC</h3><div class="price">60,000 د.ع</div><button onclick="openOrderModal('3850 UC PUBG', '60,000 د.ع')">ئێستا بکڕە</button></div>
                 <div class="card"><img src="https://images.uncyc.org/commons/5/57/Pubg-logo.png" alt=""><h3>8100 UC</h3><div class="price">115,000 د.ع</div><button onclick="openOrderModal('8100 UC PUBG', '115,000 د.ع')">ئێستا بکڕە</button></div>
             </div>
+        </div>
+
+        <!-- ================= SNAPCHAT ================= -->
+        <div id="snapchat" class="tab-content">
+            <div class="sub-tabs">
+                <button class="sub-btn active" onclick="openSubTab(event, 'snapchat', 'views')">بینەری ستۆری (Views)</button>
+                <button class="sub-btn" onclick="openSubTab(event, 'snapchat', 'followers')">سەبسکرایب/فۆڵۆوەر (Followers)</button>
+            </div>
+            <div id="snapchat-views" class="sub-content active"></div><div id="snapchat-followers" class="sub-content"></div>
         </div>
 
         <!-- ================= SOCIAL MEDIA PLUGINS ================= -->
@@ -478,15 +541,58 @@
         </div>
     </div>
 
+    <!-- پێکهاتەی نۆتفیکەیشنە لایڤەکان (لای ڕاست و لای چەپ) -->
+    <div class="live-notif" id="notif-left">
+        <img src="" class="notif-img" id="notif-img-left">
+        <div class="notif-text">
+            <span class="notif-title" id="notif-title-left">خزمەتگوزاری نوێ</span>
+            <div id="notif-desc-left">بەکارهێنەرێک داواکارییەکی نوێی تۆمارکرد.</div>
+            <span class="notif-time">ئێستا</span>
+        </div>
+    </div>
+
+    <div class="live-notif" id="notif-right">
+        <img src="" class="notif-img" id="notif-img-right">
+        <div class="notif-text">
+            <span class="notif-title" id="notif-title-right">خزمەتگوزاری نوێ</span>
+            <div id="notif-desc-right">کڕیارێکی نوێ پەیوەندی کرد.</div>
+            <span class="notif-time">پێش کەمێک</span>
+        </div>
+    </div>
+
     <script>
         let currentMode = 'login';
+        let notifIntervals = []; // بۆ ڕاگرتن و دەستپێکردنەوەی لایڤ نۆتفیکەیشنەکان دوای لۆگین
+
         const logos = {
+            snapchat: "https://assets.snapchat.com/web/marketing/web/ghost/snapchat-ghost-yellow.svg",
             tiktok: "https://cdn-icons-png.flaticon.com/512/3046/3046124.png",
             instagram: "https://cdn-icons-png.flaticon.com/512/2111/2111463.png",
             facebook: "https://cdn-icons-png.flaticon.com/512/733/733547.png",
             youtube: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png",
             telegram: "https://cdn-icons-png.flaticon.com/512/2111/2111646.png"
         };
+
+        const kurdishCities = ["هەولێر", "سلێمانی", "دهۆک", "کەرکووک", "زاخۆ", "هەڵەبجە", "ڕانیە", "کۆیە", "گەرمیان", "سۆران"];
+        const buyerNames = [
+            "ئەحمەد", "کاروان", "لانە", "دیار", "ئاراس", "ڕێبین", "ژینۆ", "هێمن", "میران", "سۆما", 
+            "شوان", "ڕێباز", "پێشەوا", "ساڕا", "توانا", "محەمەد", "سۆران", "دانا", "شیلان", "ئاسۆ"
+        ];
+        
+        const liveServices = [
+            { name: "60 UC PUBG Mobile", img: "https://images.uncyc.org/commons/5/57/Pubg-logo.png" },
+            { name: "325 UC PUBG Mobile", img: "https://images.uncyc.org/commons/5/57/Pubg-logo.png" },
+            { name: "660 UC PUBG Mobile", img: "https://images.uncyc.org/commons/5/57/Pubg-logo.png" },
+            { name: "1800 UC PUBG Mobile", img: "https://images.uncyc.org/commons/5/57/Pubg-logo.png" },
+            { name: "Snapchat Views 15K", img: "https://assets.snapchat.com/web/marketing/web/ghost/snapchat-ghost-yellow.svg" },
+            { name: "Snapchat Followers 5K", img: "https://assets.snapchat.com/web/marketing/web/ghost/snapchat-ghost-yellow.svg" },
+            { name: "TikTok Followers 10K", img: "https://cdn-icons-png.flaticon.com/512/3046/3046124.png" },
+            { name: "Instagram Likes 25K", img: "https://cdn-icons-png.flaticon.com/512/2111/2111463.png" },
+            { name: "TikTok Views 50K", img: "https://cdn-icons-png.flaticon.com/512/3046/3046124.png" },
+            { name: "Facebook Followers 5K", img: "https://cdn-icons-png.flaticon.com/512/733/733547.png" },
+            { name: "YouTube Views 20K", img: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png" },
+            { name: "Telegram Followers 10K", img: "https://cdn-icons-png.flaticon.com/512/2111/2111646.png" }
+        ];
 
         function switchAuth(mode) {
             currentMode = mode;
@@ -518,6 +624,9 @@
                     document.getElementById("welcome").style.display = "block";
                     document.getElementById("logoutBtn").style.display = "inline-block";
                     document.getElementById("storeContent").style.display = "block";
+                    
+                    // چالاککردنی سیستەمی لایڤ نۆتفیکەیشن دوای لۆگینی سەرکەوتوو
+                    startLiveNotifications();
                 } else {
                     msg.style.color = "#ff4d4d";
                     msg.innerText = "زانیارییەکان هەڵەن!";
@@ -530,6 +639,9 @@
             document.getElementById("welcome").style.display = "none";
             document.getElementById("logoutBtn").style.display = "none";
             document.getElementById("authSection").style.display = "block";
+            
+            // ڕاگرتنی نۆتفیکەیشنەکان دوای چوونەدەرەوە
+            stopLiveNotifications();
         }
 
         function openPlatform(evt, platformName) {
@@ -590,22 +702,78 @@
             closeOrderModal();
         }
 
-        function generateAllServices() {
-            const platforms = ['tiktok', 'instagram', 'facebook', 'youtube', 'telegram'];
-            const subTypes = ['views', 'likes', 'followers', 'comments'];
+        // لۆجیکی پیشاندانی لایڤ نۆتفیکەیشنەکان
+        function showNotification(side) {
+            const randomCity = kurdishCities[Math.floor(Math.random() * kurdishCities.length)];
+            const randomName = buyerNames[Math.floor(Math.random() * buyerNames.length)];
+            const randomService = liveServices[Math.floor(Math.random() * liveServices.length)];
+            const randomSec = Math.floor(Math.random() * 45) + 5;
 
+            const imgElem = document.getElementById(`notif-img-${side}`);
+            const titleElem = document.getElementById(`notif-title-${side}`);
+            const descElem = document.getElementById(`notif-desc-${side}`);
+            const notifBox = document.getElementById(`notif-${side}`);
+
+            imgElem.src = randomService.img;
+            titleElem.innerText = `کڕینێکی سەرکەوتوو 🎉`;
+            descElem.innerHTML = `بەکارهێنەر <b>${randomName}</b> لە شاری <b>${randomCity}</b><br>پاکێجی <b>${randomService.name}</b> کڕی.`;
+            
+            notifBox.classList.add("active");
+
+            // نۆتفیکەیشنەکە دوای 5 چرکە ون دەبێتەوە
+            setTimeout(() => {
+                notifBox.classList.remove("active");
+            }, 5000);
+        }
+
+        function startLiveNotifications() {
+            // یەکەم نۆتفیکەیشن دوای 3 چرکە لە لای چەپەوە دێت
+            setTimeout(() => showNotification('left'), 3000);
+
+            // دووەم نۆتفیکەیشن دوای 7 چرکە لە لای ڕاستەوە دێت بۆ ئەوەی بەیەکەوە نەبن و جیاواز دەرکەون
+            setTimeout(() => showNotification('right'), 7000);
+
+            // دووبارەبوونەوەی پڕۆسەکە بە شێوەیەکی ناڕێکخراو لە نێوان 12 بۆ 20 چرکە جارێک بۆ هەردوو لا
+            const intervalLeft = setInterval(() => {
+                showNotification('left');
+            }, 14000);
+
+            const intervalRight = setInterval(() => {
+                showNotification('right');
+            }, 18000);
+
+            notifIntervals.push(intervalLeft, intervalRight);
+        }
+
+        function stopLiveNotifications() {
+            notifIntervals.forEach(id => clearInterval(id));
+            notifIntervals = [];
+            document.getElementById("notif-left").classList.remove("active");
+            document.getElementById("notif-right").classList.remove("active");
+        }
+
+        function generateAllServices() {
+            const platforms = ['snapchat', 'tiktok', 'instagram', 'facebook', 'youtube', 'telegram'];
+            
             platforms.forEach(p => {
+                let subTypes = [];
+                if (p === 'snapchat') {
+                    subTypes = ['views', 'followers'];
+                } else {
+                    subTypes = ['views', 'likes', 'followers', 'comments'];
+                }
+
                 subTypes.forEach(s => {
                     const container = document.getElementById(`${p}-${s}`);
                     if (!container) return;
                     
                     let htmlContent = '';
-                    let basePriceFactor = p === 'youtube' ? 800 : (p === 'facebook' || p === 'telegram' ? 600 : 450);
+                    let basePriceFactor = p === 'youtube' ? 800 : (p === 'facebook' || p === 'telegram' || p === 'snapchat' ? 600 : 450);
 
                     for (let amount = 5; amount <= 100; amount += 5) {
                         let calcPrice = amount * basePriceFactor;
                         let priceText = calcPrice.toLocaleString() + " د.ع";
-                        let typeNameKurdish = s === 'views' ? 'ڤیوو' : s === 'likes' ? 'لایک' : s === 'followers' ? 'فۆڵۆو' : 'کۆمێنت';
+                        let typeNameKurdish = s === 'views' ? 'ڤیوو' : s === 'likes' ? 'لایک' : s === 'followers' ? 'فۆڵۆو/سەبسکرایب' : 'کۆمێنت';
                         let title = `${amount}K ${typeNameKurdish} ${p.toUpperCase()}`;
 
                         htmlContent += `
