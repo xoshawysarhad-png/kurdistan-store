@@ -207,9 +207,10 @@
             background: rgba(255,255,255,0.03);
             padding: 8px;
             border-radius: 30px;
-            max-width: 600px;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            overflow-x: auto;
         }
         .sub-btn {
             flex: 1;
@@ -221,6 +222,7 @@
             cursor: pointer;
             font-weight: 500;
             font-size: 14px;
+            white-space: nowrap;
         }
         .sub-btn.active {
             background: var(--accent-color);
@@ -520,7 +522,7 @@
             <div id="snapchat-views" class="sub-content active"></div><div id="snapchat-followers" class="sub-content"></div>
         </div>
 
-        <!-- ================= SOCIAL MEDIA PLUGINS ================= -->
+        <!-- ================= TIKTOK ================= -->
         <div id="tiktok" class="tab-content">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'tiktok', 'views')">ڤیوو (Views)</button>
@@ -531,6 +533,7 @@
             <div id="tiktok-views" class="sub-content active"></div><div id="tiktok-likes" class="sub-content"></div><div id="tiktok-followers" class="sub-content"></div><div id="tiktok-comments" class="sub-content"></div>
         </div>
 
+        <!-- ================= INSTAGRAM ================= -->
         <div id="instagram" class="tab-content">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'instagram', 'views')">ڤیوو (Views)</button>
@@ -541,6 +544,7 @@
             <div id="instagram-views" class="sub-content active"></div><div id="instagram-likes" class="sub-content"></div><div id="instagram-followers" class="sub-content"></div><div id="instagram-comments" class="sub-content"></div>
         </div>
 
+        <!-- ================= FACEBOOK ================= -->
         <div id="facebook" class="tab-content">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'facebook', 'views')">ڤیوو (Views)</button>
@@ -551,6 +555,7 @@
             <div id="facebook-views" class="sub-content active"></div><div id="facebook-likes" class="sub-content"></div><div id="facebook-followers" class="sub-content"></div><div id="facebook-comments" class="sub-content"></div>
         </div>
 
+        <!-- ================= YOUTUBE ================= -->
         <div id="youtube" class="tab-content">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'youtube', 'views')">ڤیوو (Views)</button>
@@ -561,6 +566,7 @@
             <div id="youtube-views" class="sub-content active"></div><div id="youtube-likes" class="sub-content"></div><div id="youtube-followers" class="sub-content"></div><div id="youtube-comments" class="sub-content"></div>
         </div>
 
+        <!-- ================= TELEGRAM ================= -->
         <div id="telegram" class="tab-content">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'telegram', 'views')">ڤیوو (Views)</button>
@@ -664,92 +670,174 @@
 
     <script>
         let currentMode = 'login';
-        let notifIntervals = []; // بۆ ڕاگرتن و دەستپێکردنەوەی لایڤ نۆتفیکەیشنەکان دوای لۆگین
+        let notifIntervals = [];
 
-        // لێرە پڵەگینەکان پڕدەکرێنەوە
+        // ================= داتای فراوانکراو بەپێی نرخە جیهانییەکان =================
         const subServicesData = {
             snapchat: {
                 views: [
-                    { name: "5,000 Snapchat Views", price: "4,000 د.ع" },
-                    { name: "10,000 Snapchat Views", price: "7,500 د.ع" },
-                    { name: "25,000 Snapchat Views", price: "18,000 د.ع" }
+                    { name: "5,000 Snapchat Views", price: "2,500 د.ع" },
+                    { name: "10,000 Snapchat Views", price: "4,500 د.ع" },
+                    { name: "25,000 Snapchat Views", price: "10,000 د.ع" },
+                    { name: "50,000 Snapchat Views", price: "18,500 د.ع" },
+                    { name: "100,000 Snapchat Views", price: "34,000 د.ع" }
                 ],
                 followers: [
-                    { name: "1,000 Snapchat Followers", price: "5,000 د.ع" },
-                    { name: "5,000 Snapchat Followers", price: "22,000 د.ع" }
+                    { name: "5,000 Snapchat Followers", price: "12,000 د.ع" },
+                    { name: "10,000 Snapchat Followers", price: "22,000 د.ع" },
+                    { name: "25,000 Snapchat Followers", price: "50,000 د.ع" },
+                    { name: "50,000 Snapchat Followers", price: "92,000 د.ع" },
+                    { name: "100,000 Snapchat Followers", price: "175,000 د.ع" }
                 ]
             },
             tiktok: {
                 views: [
-                    { name: "10,000 TikTok Views", price: "1,000 د.ع" },
-                    { name: "50,000 TikTok Views", price: "4,000 د.ع" }
+                    { name: "5,000 TikTok Views", price: "500 د.ع" },
+                    { name: "10,000 TikTok Views", price: "750 د.ع" },
+                    { name: "25,000 TikTok Views", price: "1,500 د.ع" },
+                    { name: "50,000 TikTok Views", price: "2,750 د.ع" },
+                    { name: "100,000 TikTok Views", price: "5,000 د.ع" }
                 ],
                 likes: [
-                    { name: "1,000 TikTok Likes", price: "1,500 د.ع" },
-                    { name: "5,000 TikTok Likes", price: "6,000 د.ع" }
+                    { name: "5,000 TikTok Likes", price: "4,500 د.ع" },
+                    { name: "10,000 TikTok Likes", price: "8,000 د.ع" },
+                    { name: "25,000 TikTok Likes", price: "19,000 د.ع" },
+                    { name: "50,000 TikTok Likes", price: "36,000 د.ع" },
+                    { name: "100,000 TikTok Likes", price: "68,000 د.ع" }
                 ],
                 followers: [
-                    { name: "1,000 TikTok Followers", price: "3,000 د.ع" },
-                    { name: "5,000 TikTok Followers", price: "14,000 د.ع" }
+                    { name: "5,000 TikTok Followers", price: "12,500 د.ع" },
+                    { name: "10,000 TikTok Followers", price: "24,000 د.ع" },
+                    { name: "25,000 TikTok Followers", price: "58,000 د.ع" },
+                    { name: "50,000 TikTok Followers", price: "110,000 د.ع" },
+                    { name: "100,000 TikTok Followers", price: "210,000 د.ع" }
                 ],
                 comments: [
-                    { name: "100 TikTok Comments", price: "2,000 د.ع" }
+                    { name: "5,000 TikTok Comments", price: "15,000 د.ع" },
+                    { name: "10,000 TikTok Comments", price: "28,000 د.ع" },
+                    { name: "25,000 TikTok Comments", price: "65,000 د.ع" },
+                    { name: "50,000 TikTok Comments", price: "120,000 د.ع" },
+                    { name: "100,000 TikTok Comments", price: "230,000 د.ع" }
                 ]
             },
             instagram: {
                 views: [
-                    { name: "10,000 Instagram Views", price: "1,000 د.ع" }
+                    { name: "5,000 Instagram Views", price: "500 د.ع" },
+                    { name: "10,000 Instagram Views", price: "750 د.ع" },
+                    { name: "25,000 Instagram Views", price: "1,500 د.ع" },
+                    { name: "50,000 Instagram Views", price: "2,500 د.ع" },
+                    { name: "100,000 Instagram Views", price: "4,500 د.ع" }
                 ],
                 likes: [
-                    { name: "1,000 Instagram Likes", price: "1,250 د.ع" }
+                    { name: "5,000 Instagram Likes", price: "3,000 د.ع" },
+                    { name: "10,000 Instagram Likes", price: "5,500 د.ع" },
+                    { name: "25,000 Instagram Likes", price: "12,500 د.ع" },
+                    { name: "50,000 Instagram Likes", price: "24,000 د.ع" },
+                    { name: "100,000 Instagram Likes", price: "45,000 د.ع" }
                 ],
                 followers: [
-                    { name: "1,000 Instagram Followers", price: "2,500 د.ع" }
+                    { name: "5,000 Instagram Followers", price: "9,000 د.ع" },
+                    { name: "10,000 Instagram Followers", price: "17,000 د.ع" },
+                    { name: "25,000 Instagram Followers", price: "40,000 د.ع" },
+                    { name: "50,000 Instagram Followers", price: "75,000 د.ع" },
+                    { name: "100,000 Instagram Followers", price: "140,000 د.ع" }
                 ],
                 comments: [
-                    { name: "100 Instagram Comments", price: "2,000 د.ع" }
+                    { name: "5,000 Instagram Comments", price: "16,000 د.ع" },
+                    { name: "10,000 Instagram Comments", price: "30,000 د.ع" },
+                    { name: "25,000 Instagram Comments", price: "70,000 د.ع" },
+                    { name: "50,000 Instagram Comments", price: "135,000 د.ع" },
+                    { name: "100,000 Instagram Comments", price: "250,000 د.ع" }
                 ]
             },
             facebook: {
                 views: [
-                    { name: "10,000 Facebook Views", price: "1,500 د.ع" }
+                    { name: "5,000 Facebook Views", price: "1,000 د.ع" },
+                    { name: "10,000 Facebook Views", price: "1,800 د.ع" },
+                    { name: "25,000 Facebook Views", price: "4,000 د.ع" },
+                    { name: "50,000 Facebook Views", price: "7,500 د.ع" },
+                    { name: "100,000 Facebook Views", price: "14,000 د.ع" }
                 ],
                 likes: [
-                    { name: "1,000 Facebook Likes", price: "2,000 د.ع" }
+                    { name: "5,000 Facebook Likes", price: "6,000 د.ع" },
+                    { name: "10,000 Facebook Likes", price: "11,000 د.ع" },
+                    { name: "25,000 Facebook Likes", price: "26,000 د.ع" },
+                    { name: "50,000 Facebook Likes", price: "50,000 د.ع" },
+                    { name: "100,000 Facebook Likes", price: "95,000 د.ع" }
                 ],
                 followers: [
-                    { name: "1,000 Facebook Followers", price: "3,500 د.ع" }
+                    { name: "5,000 Facebook Followers", price: "11,000 د.ع" },
+                    { name: "10,000 Facebook Followers", price: "20,000 د.ع" },
+                    { name: "25,000 Facebook Followers", price: "48,000 د.ع" },
+                    { name: "50,000 Facebook Followers", price: "90,000 د.ع" },
+                    { name: "100,000 Facebook Followers", price: "175,000 د.ع" }
                 ],
                 comments: [
-                    { name: "100 Facebook Comments", price: "2,500 د.ع" }
+                    { name: "5,000 Facebook Comments", price: "18,000 د.ع" },
+                    { name: "10,000 Facebook Comments", price: "34,000 د.ع" },
+                    { name: "25,000 Facebook Comments", price: "80,000 د.ع" },
+                    { name: "50,000 Facebook Comments", price: "150,000 د.ع" },
+                    { name: "100,000 Facebook Comments", price: "285,000 د.ع" }
                 ]
             },
             youtube: {
                 views: [
-                    { name: "5,000 YouTube Views", price: "8,000 د.ع" }
+                    { name: "5,000 YouTube Views", price: "8,000 د.ع" },
+                    { name: "10,000 YouTube Views", price: "15,000 د.ع" },
+                    { name: "25,000 YouTube Views", price: "35,000 د.ع" },
+                    { name: "50,000 YouTube Views", price: "68,000 د.ع" },
+                    { name: "100,000 YouTube Views", price: "130,000 د.ع" }
                 ],
                 likes: [
-                    { name: "1,000 YouTube Likes", price: "3,000 د.ع" }
+                    { name: "5,000 YouTube Likes", price: "10,000 د.ع" },
+                    { name: "10,000 YouTube Likes", price: "18,000 د.ع" },
+                    { name: "25,000 YouTube Likes", price: "42,000 د.ع" },
+                    { name: "50,000 YouTube Likes", price: "80,000 د.ع" },
+                    { name: "100,000 YouTube Likes", price: "155,000 د.ع" }
                 ],
                 followers: [
-                    { name: "1,000 YouTube Subscribers", price: "15,000 د.ع" }
+                    { name: "5,000 YouTube Subscribers", price: "48,000 د.ع" },
+                    { name: "10,000 YouTube Subscribers", price: "90,000 د.ع" },
+                    { name: "25,000 YouTube Subscribers", price: "215,000 د.ع" },
+                    { name: "50,000 YouTube Subscribers", price: "420,000 د.ع" },
+                    { name: "100,000 YouTube Subscribers", price: "800,000 د.ع" }
                 ],
                 comments: [
-                    { name: "100 YouTube Comments", price: "4,000 د.ع" }
+                    { name: "5,000 YouTube Comments", price: "25,000 د.ع" },
+                    { name: "10,000 YouTube Comments", price: "48,000 د.ع" },
+                    { name: "25,000 YouTube Comments", price: "115,000 د.ع" },
+                    { name: "50,000 YouTube Comments", price: "220,000 د.ع" },
+                    { name: "100,000 YouTube Comments", price: "425,000 د.ع" }
                 ]
             },
             telegram: {
                 views: [
-                    { name: "5,000 Telegram Views", price: "1,000 د.ع" }
+                    { name: "5,000 Telegram Views", price: "800 د.ع" },
+                    { name: "10,000 Telegram Views", price: "1,400 د.ع" },
+                    { name: "25,000 Telegram Views", price: "3,200 د.ع" },
+                    { name: "50,000 Telegram Views", price: "6,000 د.ع" },
+                    { name: "100,000 Telegram Views", price: "11,500 د.ع" }
                 ],
                 likes: [
-                    { name: "500 Telegram Reactions", price: "1,500 د.ع" }
+                    { name: "5,000 Telegram Reactions", price: "2,500 د.ع" },
+                    { name: "10,000 Telegram Reactions", price: "4,500 د.ع" },
+                    { name: "25,000 Telegram Reactions", price: "10,500 د.ع" },
+                    { name: "50,000 Telegram Reactions", price: "20,000 د.ع" },
+                    { name: "100,000 Telegram Reactions", price: "38,000 د.ع" }
                 ],
                 followers: [
-                    { name: "1,000 Telegram Members", price: "3,000 د.ع" }
+                    { name: "5,000 Telegram Members", price: "8,500 د.ع" },
+                    { name: "10,000 Telegram Members", price: "16,000 د.ع" },
+                    { name: "25,000 Telegram Members", price: "38,000 د.ع" },
+                    { name: "50,000 Telegram Members", price: "72,000 د.ع" },
+                    { name: "100,000 Telegram Members", price: "138,000 د.ع" }
                 ],
                 comments: [
-                    { name: "50 Telegram Comments", price: "2,000 د.ع" }
+                    { name: "5,000 Telegram Comments", price: "15,000 د.ع" },
+                    { name: "10,000 Telegram Comments", price: "28,000 د.ع" },
+                    { name: "25,000 Telegram Comments", price: "65,000 د.ع" },
+                    { name: "50,000 Telegram Comments", price: "120,000 د.ع" },
+                    { name: "100,000 Telegram Comments", price: "230,000 د.ع" }
                 ]
             }
         };
@@ -774,14 +862,14 @@
             { name: "325 UC PUBG Mobile", img: "https://images.uncyc.org/commons/5/57/Pubg-logo.png" },
             { name: "660 UC PUBG Mobile", img: "https://images.uncyc.org/commons/5/57/Pubg-logo.png" },
             { name: "1800 UC PUBG Mobile", img: "https://images.uncyc.org/commons/5/57/Pubg-logo.png" },
-            { name: "Snapchat Views 15K", img: "https://assets.snapchat.com/web/marketing/web/ghost/snapchat-ghost-yellow.svg" },
-            { name: "Snapchat Followers 5K", img: "https://assets.snapchat.com/web/marketing/web/ghost/snapchat-ghost-yellow.svg" },
-            { name: "TikTok Followers 10K", img: "https://cdn-icons-png.flaticon.com/512/3046/3046124.png" },
-            { name: "Instagram Likes 25K", img: "https://cdn-icons-png.flaticon.com/512/2111/2111463.png" },
-            { name: "TikTok Views 50K", img: "https://cdn-icons-png.flaticon.com/512/3046/3046124.png" },
-            { name: "Facebook Followers 5K", img: "https://cdn-icons-png.flaticon.com/512/733/733547.png" },
-            { name: "YouTube Views 20K", img: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png" },
-            { name: "Telegram Followers 10K", img: "https://cdn-icons-png.flaticon.com/512/2111/2111646.png" }
+            { name: "Snapchat Views 50K", img: "https://assets.snapchat.com/web/marketing/web/ghost/snapchat-ghost-yellow.svg" },
+            { name: "Snapchat Followers 10K", img: "https://assets.snapchat.com/web/marketing/web/ghost/snapchat-ghost-yellow.svg" },
+            { name: "TikTok Followers 25K", img: "https://cdn-icons-png.flaticon.com/512/3046/3046124.png" },
+            { name: "Instagram Likes 100K", img: "https://cdn-icons-png.flaticon.com/512/2111/2111463.png" },
+            { name: "TikTok Views 100K", img: "https://cdn-icons-png.flaticon.com/512/3046/3046124.png" },
+            { name: "Facebook Followers 50K", img: "https://cdn-icons-png.flaticon.com/512/733/733547.png" },
+            { name: "YouTube Views 25K", img: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png" },
+            { name: "Telegram Followers 100K", img: "https://cdn-icons-png.flaticon.com/512/2111/2111646.png" }
         ];
 
         // دروستکردنی کاردەکان بۆ پلاتفۆرمە جیاوازەکان بە شێوەی دینامیکی
@@ -940,7 +1028,6 @@
             const clientLink = document.getElementById("clientLink").value;
             const selectedAdmin = document.getElementById("adminSelect").value;
 
-            // ژمارەی فەرمی واتسئاپ لێرە جێگیر کراوە
             const myWhatsappNumber = "9647751513431"; 
 
             const text = `سڵاو بەڕێز ${selectedAdmin}، من داواکارییەکم هەیە لە ماڵپەڕی کوردستان ستۆرەوە:\n\n` +
@@ -950,16 +1037,6 @@
                          `📞 تەلەفۆن: ${clientPhone}\n` +
                          `🔗 ئایدی/لینک: ${clientLink}\n` +
                          `👤 ئاڕاستەکراوە بۆ بەڕێوبەر: ${selectedAdmin}`;
-
-            // ناردنی ئۆردەر بۆ Webhook ی Google Sheets لە داهاتوودا (لێرەدا ئامادەکراوە)
-            /*
-            fetch('تۆڕی_بەستنەوەی_فۆڕم_لێرە_دابنێ', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ itemName, itemPrice, clientName, clientPhone, clientLink, selectedAdmin })
-            });
-            */
 
             window.open(`https://wa.me/${myWhatsappNumber}?text=${encodeURIComponent(text)}`, '_blank');
             closeOrderModal();
@@ -990,14 +1067,12 @@
         function startLiveNotifications() {
             stopLiveNotifications(); 
 
-            // نۆتفیکەیشنی لای چەپ دوای ٥ چرکە پیشان دەدات و پاشان هەموو ١٨ چرکەیەک دووبارە دەبێتەوە
             const leftTimeout = setTimeout(() => {
                 showNotification('left');
                 const leftInterval = setInterval(() => showNotification('left'), 18000);
                 notifIntervals.push(leftInterval);
             }, 5000);
 
-            // نۆتفیکەیشنی لای ڕاست دوای ١٢ چرکە پیشان دەدات و پاشان هەموو ٢٢ چرکەیەک دووبارە دەبێتەوە
             const rightTimeout = setTimeout(() => {
                 showNotification('right');
                 const rightInterval = setInterval(() => showNotification('right'), 22000);
@@ -1014,7 +1089,6 @@
             document.getElementById("notif-right").classList.remove("active");
         }
 
-        // پڕکردنەوەی سەرجەم بەشەکان لە کاتی باربوونی ماڵپەڕدا
         window.onload = () => {
             loadPlatformServices();
         };
