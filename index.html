@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- ================= SEO Meta Tags ================= -->
     <title>سەکۆی فەرمی کوردستان ستۆر - باشترین خزمەتگوزاری بازرگانی سۆشیاڵ میدیا</title>
     <meta name="description" content="کوردستان ستۆر باشترین و خێراترین سەکۆیە بۆ کڕینی خزمەتگوزارییەکانی سۆشیاڵ میدیا (فۆڵۆوەر، لایک، بینەر) و بارگاوی کردنەوەی خێرا و ڕاستەوخۆی یوسی پۆبجی (PUBG UC).">
     <meta name="keywords" content="کوردستان ستۆر, بارگاوی کردنەوەی یوسی, کڕینی لایک, کڕینی فۆڵۆوەر, پۆبجی مۆبایل, Kurdistan Store, PUBG UC, FastPay, Zain Cash">
@@ -14,8 +13,7 @@
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#0b0c10">
 
-    <!-- ================= PWA Web App Manifest ================= -->
-    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIkN1cmRpc3RhbiBTdG9yZSIsCiAgInNob3J0X25hbWUiOiAiS3VyZGlzdGFuIFN0b3JlIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwYjBjMTAiLAogICJ0aGVtZV9jb2xvciI6ICIjMGIwYzEwIiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiaHR0cHM6Ly9jZG4taWNvbnMtcG5nLmZsYXRpY29uLmNvbS81MTIvMzE0My8zMTQzMjgxLnBuZyIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfQogIF0KfQ==">
+    <link rel="manifest" href="manifest.json">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -464,7 +462,6 @@
         <button id="logoutBtn" class="logout-btn" onclick="logout()">چوونەدەرەوە</button>
     </header>
 
-    <!-- بەشی لۆگین و ئەکاونت -->
     <div class="auth-box" id="authSection">
         <div class="auth-tabs">
             <div class="auth-tab active" id="tabLogin" onclick="switchAuth('login')">چوونەژوورەوە</div>
@@ -480,10 +477,8 @@
         </div>
     </div>
 
-    <!-- گشت خزمەتگوزارییەکان دوای لۆگین -->
     <div class="container" id="storeContent" style="display:none;">
         
-        <!-- ================= بەشی گەڕانی خێرا ================= -->
         <div class="search-container">
             <input type="text" id="quickSearchInput" oninput="filterServices()" placeholder="🔍 بە خێرایی لێرەدا بگەڕێ بۆ پاکێجەکەت...">
         </div>
@@ -498,7 +493,6 @@
             <button class="platform-btn" onclick="openPlatform(event, 'telegram')"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="">Telegram</button>
         </div>
 
-        <!-- ================= PUBG MOBILE ================= -->
         <div id="pubg" class="tab-content active">
             <div class="sub-tabs">
                 <button class="sub-btn active">بارگاوی کردنەوەی خێرا (UC)</button>
@@ -513,7 +507,6 @@
             </div>
         </div>
 
-        <!-- ================= SNAPCHAT ================= -->
         <div id="snapchat" class="tab-content">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'snapchat', 'views')">بینەری ستۆری (Views)</button>
@@ -522,7 +515,6 @@
             <div id="snapchat-views" class="sub-content active"></div><div id="snapchat-followers" class="sub-content"></div>
         </div>
 
-        <!-- ================= TIKTOK ================= -->
         <div id="tiktok" class="tab-content">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'tiktok', 'views')">ڤیوو (Views)</button>
@@ -533,7 +525,6 @@
             <div id="tiktok-views" class="sub-content active"></div><div id="tiktok-likes" class="sub-content"></div><div id="tiktok-followers" class="sub-content"></div><div id="tiktok-comments" class="sub-content"></div>
         </div>
 
-        <!-- ================= INSTAGRAM ================= -->
         <div id="instagram" class="tab-content">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'instagram', 'views')">ڤیوو (Views)</button>
@@ -544,7 +535,6 @@
             <div id="instagram-views" class="sub-content active"></div><div id="instagram-likes" class="sub-content"></div><div id="instagram-followers" class="sub-content"></div><div id="instagram-comments" class="sub-content"></div>
         </div>
 
-        <!-- ================= FACEBOOK ================= -->
         <div id="facebook" class="tab-content">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'facebook', 'views')">ڤیوو (Views)</button>
@@ -555,7 +545,6 @@
             <div id="facebook-views" class="sub-content active"></div><div id="facebook-likes" class="sub-content"></div><div id="facebook-followers" class="sub-content"></div><div id="facebook-comments" class="sub-content"></div>
         </div>
 
-        <!-- ================= YOUTUBE ================= -->
         <div id="youtube" class="tab-content">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'youtube', 'views')">ڤیوو (Views)</button>
@@ -566,7 +555,6 @@
             <div id="youtube-views" class="sub-content active"></div><div id="youtube-likes" class="sub-content"></div><div id="youtube-followers" class="sub-content"></div><div id="youtube-comments" class="sub-content"></div>
         </div>
 
-        <!-- ================= TELEGRAM ================= -->
         <div id="telegram" class="tab-content">
             <div class="sub-tabs">
                 <button class="sub-btn active" onclick="openSubTab(event, 'telegram', 'views')">ڤیوو (Views)</button>
@@ -577,7 +565,6 @@
             <div id="telegram-views" class="sub-content active"></div><div id="telegram-likes" class="sub-content"></div><div id="telegram-followers" class="sub-content"></div><div id="telegram-comments" class="sub-content"></div>
         </div>
 
-        <!-- ================= بەشی ڕاوبۆچوونی بەکارهێنەران (Reviews) ================= -->
         <div class="reviews-section">
             <h3 class="reviews-title">💬 ڕاوبۆچوونی کڕیارانی دەستڕەنگینمان</h3>
             <div class="reviews-list" id="reviewsList">
@@ -602,7 +589,6 @@
             </form>
         </div>
 
-        <!-- ================= بەشی پارەدان ================= -->
         <div class="payment-methods">
             <h2 style="color:#ffd700;">💳 ڕێگاکانی ناردنی پارە بۆ بەڕێوبەران</h2>
             <p style="font-size:14px; color:#aaa; margin-top:5px;">دەتوانیت لەڕێگەی یەکێک لەم جزدانانەوە پارە بۆ داواکارییەکەت بنێریت:</p>
@@ -614,10 +600,9 @@
         </div>
     </div>
 
-    <!-- مۆدێل / فۆرمی ئۆردەر -->
     <div class="order-modal" id="orderModal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeOrderModal()">&times;</span>
+            <span class="close-modal" onclick="closeOrderModal()">×</span>
             <h3 style="margin-bottom: 1.5rem; color:var(--title-color);" id="modalTitle">تۆمارکردنی داواکاری</h3>
             <form id="whatsappForm" onsubmit="sendToWhatsapp(event)">
                 <input type="hidden" id="orderItemName">
@@ -649,7 +634,6 @@
         </div>
     </div>
 
-    <!-- پێکهاتەی نۆتفیکەیشنە لایڤەکان (لای ڕاست و لای چەپ) -->
     <div class="live-notif" id="notif-left">
         <img src="" class="notif-img" id="notif-img-left">
         <div class="notif-text">
@@ -713,385 +697,20 @@
                     { name: "100,000 TikTok Followers", price: "210,000 د.ع" }
                 ],
                 comments: [
-                    { name: "5,000 TikTok Comments", price: "15,000 د.ع" },
-                    { name: "10,000 TikTok Comments", price: "28,000 د.ع" },
-                    { name: "25,000 TikTok Comments", price: "65,000 د.ع" },
-                    { name: "50,000 TikTok Comments", price: "120,000 د.ع" },
-                    { name: "100,000 TikTok Comments", price: "230,000 د.ع" }
-                ]
-            },
-            instagram: {
-                views: [
-                    { name: "5,000 Instagram Views", price: "500 د.ع" },
-                    { name: "10,000 Instagram Views", price: "750 د.ع" },
-                    { name: "25,000 Instagram Views", price: "1,500 د.ع" },
-                    { name: "50,000 Instagram Views", price: "2,500 د.ع" },
-                    { name: "100,000 Instagram Views", price: "4,500 د.ع" }
-                ],
-                likes: [
-                    { name: "5,000 Instagram Likes", price: "3,000 د.ع" },
-                    { name: "10,000 Instagram Likes", price: "5,500 د.ع" },
-                    { name: "25,000 Instagram Likes", price: "12,500 د.ع" },
-                    { name: "50,000 Instagram Likes", price: "24,000 د.ع" },
-                    { name: "100,000 Instagram Likes", price: "45,000 د.ع" }
-                ],
-                followers: [
-                    { name: "5,000 Instagram Followers", price: "9,000 د.ع" },
-                    { name: "10,000 Instagram Followers", price: "17,000 د.ع" },
-                    { name: "25,000 Instagram Followers", price: "40,000 د.ع" },
-                    { name: "50,000 Instagram Followers", price: "75,000 د.ع" },
-                    { name: "100,000 Instagram Followers", price: "140,000 د.ع" }
-                ],
-                comments: [
-                    { name: "5,000 Instagram Comments", price: "16,000 د.ع" },
-                    { name: "10,000 Instagram Comments", price: "30,000 د.ع" },
-                    { name: "25,000 Instagram Comments", price: "70,000 د.ع" },
-                    { name: "50,000 Instagram Comments", price: "135,000 د.ع" },
-                    { name: "100,000 Instagram Comments", price: "250,000 د.ع" }
-                ]
-            },
-            facebook: {
-                views: [
-                    { name: "5,000 Facebook Views", price: "1,000 د.ع" },
-                    { name: "10,000 Facebook Views", price: "1,800 د.ع" },
-                    { name: "25,000 Facebook Views", price: "4,000 د.ع" },
-                    { name: "50,000 Facebook Views", price: "7,500 د.ع" },
-                    { name: "100,000 Facebook Views", price: "14,000 د.ع" }
-                ],
-                likes: [
-                    { name: "5,000 Facebook Likes", price: "6,000 د.ع" },
-                    { name: "10,000 Facebook Likes", price: "11,000 د.ع" },
-                    { name: "25,000 Facebook Likes", price: "26,000 د.ع" },
-                    { name: "50,000 Facebook Likes", price: "50,000 د.ع" },
-                    { name: "100,000 Facebook Likes", price: "95,000 د.ع" }
-                ],
-                followers: [
-                    { name: "5,000 Facebook Followers", price: "11,000 د.ع" },
-                    { name: "10,000 Facebook Followers", price: "20,000 د.ع" },
-                    { name: "25,000 Facebook Followers", price: "48,000 د.ع" },
-                    { name: "50,000 Facebook Followers", price: "90,000 د.ع" },
-                    { name: "100,000 Facebook Followers", price: "175,000 د.ع" }
-                ],
-                comments: [
-                    { name: "5,000 Facebook Comments", price: "18,000 د.ع" },
-                    { name: "10,000 Facebook Comments", price: "34,000 د.ع" },
-                    { name: "25,000 Facebook Comments", price: "80,000 د.ع" },
-                    { name: "50,000 Facebook Comments", price: "150,000 د.ع" },
-                    { name: "100,000 Facebook Comments", price: "285,000 د.ع" }
-                ]
-            },
-            youtube: {
-                views: [
-                    { name: "5,000 YouTube Views", price: "8,000 د.ع" },
-                    { name: "10,000 YouTube Views", price: "15,000 د.ع" },
-                    { name: "25,000 YouTube Views", price: "35,000 د.ع" },
-                    { name: "50,000 YouTube Views", price: "68,000 د.ع" },
-                    { name: "100,000 YouTube Views", price: "130,000 د.ع" }
-                ],
-                likes: [
-                    { name: "5,000 YouTube Likes", price: "10,000 د.ع" },
-                    { name: "10,000 YouTube Likes", price: "18,000 د.ع" },
-                    { name: "25,000 YouTube Likes", price: "42,000 د.ع" },
-                    { name: "50,000 YouTube Likes", price: "80,000 د.ع" },
-                    { name: "100,000 YouTube Likes", price: "155,000 د.ع" }
-                ],
-                followers: [
-                    { name: "5,000 YouTube Subscribers", price: "48,000 د.ع" },
-                    { name: "10,000 YouTube Subscribers", price: "90,000 د.ع" },
-                    { name: "25,000 YouTube Subscribers", price: "215,000 د.ع" },
-                    { name: "50,000 YouTube Subscribers", price: "420,000 د.ع" },
-                    { name: "100,000 YouTube Subscribers", price: "800,000 د.ع" }
-                ],
-                comments: [
-                    { name: "5,000 YouTube Comments", price: "25,000 د.ع" },
-                    { name: "10,000 YouTube Comments", price: "48,000 د.ع" },
-                    { name: "25,000 YouTube Comments", price: "115,000 د.ع" },
-                    { name: "50,000 YouTube Comments", price: "220,000 د.ع" },
-                    { name: "100,000 YouTube Comments", price: "425,000 د.ع" }
-                ]
-            },
-            telegram: {
-                views: [
-                    { name: "5,000 Telegram Views", price: "800 د.ع" },
-                    { name: "10,000 Telegram Views", price: "1,400 د.ع" },
-                    { name: "25,000 Telegram Views", price: "3,200 د.ع" },
-                    { name: "50,000 Telegram Views", price: "6,000 د.ع" },
-                    { name: "100,000 Telegram Views", price: "11,500 د.ع" }
-                ],
-                likes: [
-                    { name: "5,000 Telegram Reactions", price: "2,500 د.ع" },
-                    { name: "10,000 Telegram Reactions", price: "4,500 د.ع" },
-                    { name: "25,000 Telegram Reactions", price: "10,500 د.ع" },
-                    { name: "50,000 Telegram Reactions", price: "20,000 د.ع" },
-                    { name: "100,000 Telegram Reactions", price: "38,000 د.ع" }
-                ],
-                followers: [
-                    { name: "5,000 Telegram Members", price: "8,500 د.ع" },
-                    { name: "10,000 Telegram Members", price: "16,000 د.ع" },
-                    { name: "25,000 Telegram Members", price: "38,000 د.ع" },
-                    { name: "50,000 Telegram Members", price: "72,000 د.ع" },
-                    { name: "100,000 Telegram Members", price: "138,000 د.ع" }
-                ],
-                comments: [
-                    { name: "5,000 Telegram Comments", price: "15,000 د.ع" },
-                    { name: "10,000 Telegram Comments", price: "28,000 د.ع" },
-                    { name: "25,000 Telegram Comments", price: "65,000 د.ع" },
-                    { name: "50,000 Telegram Comments", price: "120,000 د.ع" },
-                    { name: "100,000 Telegram Comments", price: "230,000 د.ع" }
+                    { name: "5,000 TikTok Comments", price: "15,000 د.ع" }
                 ]
             }
         };
+    </script>
 
-        const logos = {
-            snapchat: "https://assets.snapchat.com/web/marketing/web/ghost/snapchat-ghost-yellow.svg",
-            tiktok: "https://cdn-icons-png.flaticon.com/512/3046/3046124.png",
-            instagram: "https://cdn-icons-png.flaticon.com/512/2111/2111463.png",
-            facebook: "https://cdn-icons-png.flaticon.com/512/733/733547.png",
-            youtube: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png",
-            telegram: "https://cdn-icons-png.flaticon.com/512/2111/2111646.png"
-        };
-
-        const kurdishCities = ["هەولێر", "سلێمانی", "دهۆک", "کەرکووک", "زاخۆ", "هەڵەبجە", "ڕانیە", "کۆیە", "گەرمیان", "سۆران"];
-        const buyerNames = [
-            "ئەحمەد", "کاروان", "لانە", "دیار", "ئاراس", "ڕێبین", "ژینۆ", "هێمن", "میران", "سۆما", 
-            "شوان", "ڕێباز", "پێشەوا", "ساڕا", "توانا", "محەمەد", "سۆران", "دانا", "شیلان", "ئاسۆ"
-        ];
-        
-        const liveServices = [
-            { name: "60 UC PUBG Mobile", img: "https://images.uncyc.org/commons/5/57/Pubg-logo.png" },
-            { name: "325 UC PUBG Mobile", img: "https://images.uncyc.org/commons/5/57/Pubg-logo.png" },
-            { name: "660 UC PUBG Mobile", img: "https://images.uncyc.org/commons/5/57/Pubg-logo.png" },
-            { name: "1800 UC PUBG Mobile", img: "https://images.uncyc.org/commons/5/57/Pubg-logo.png" },
-            { name: "Snapchat Views 50K", img: "https://assets.snapchat.com/web/marketing/web/ghost/snapchat-ghost-yellow.svg" },
-            { name: "Snapchat Followers 10K", img: "https://assets.snapchat.com/web/marketing/web/ghost/snapchat-ghost-yellow.svg" },
-            { name: "TikTok Followers 25K", img: "https://cdn-icons-png.flaticon.com/512/3046/3046124.png" },
-            { name: "Instagram Likes 100K", img: "https://cdn-icons-png.flaticon.com/512/2111/2111463.png" },
-            { name: "TikTok Views 100K", img: "https://cdn-icons-png.flaticon.com/512/3046/3046124.png" },
-            { name: "Facebook Followers 50K", img: "https://cdn-icons-png.flaticon.com/512/733/733547.png" },
-            { name: "YouTube Views 25K", img: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png" },
-            { name: "Telegram Followers 100K", img: "https://cdn-icons-png.flaticon.com/512/2111/2111646.png" }
-        ];
-
-        // دروستکردنی کاردەکان بۆ پلاتفۆرمە جیاوازەکان بە شێوەی دینامیکی
-        function loadPlatformServices() {
-            for (let platform in subServicesData) {
-                for (let type in subServicesData[platform]) {
-                    const containerId = `${platform}-${type}`;
-                    const container = document.getElementById(containerId);
-                    if (container) {
-                        container.innerHTML = "";
-                        subServicesData[platform][type].forEach(service => {
-                            const card = document.createElement("div");
-                            card.className = "card";
-                            card.setAttribute("data-search", `${service.name} ${platform}`.toLowerCase());
-                            card.innerHTML = `
-                                <img src="${logos[platform]}" alt="${platform}">
-                                <h3>${service.name}</h3>
-                                <div class="price">${service.price}</div>
-                                <button onclick="openOrderModal('${service.name}', '${service.price}')">ئێستا بکڕە</button>
-                            `;
-                            container.appendChild(card);
-                        });
-                    }
-                }
-            }
-        }
-
-        // لۆجیکی فلتەرکردن و گەڕانی خێرا
-        function filterServices() {
-            const query = document.getElementById("quickSearchInput").value.toLowerCase().trim();
-            const cards = document.querySelectorAll(".card");
-            
-            cards.forEach(card => {
-                const searchTags = card.getAttribute("data-search") || "";
-                if (searchTags.includes(query)) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        }
-
-        // لۆجیکی زیادکردنی ڕاوبۆچوونی نوێ
-        function addReview(event) {
-            event.preventDefault();
-            const user = document.getElementById("reviewUser").value.trim();
-            const rating = document.getElementById("reviewRating").value;
-            const content = document.getElementById("reviewContent").value.trim();
-            const list = document.getElementById("reviewsList");
-
-            let stars = "";
-            for (let i = 0; i < rating; i++) stars += "⭐";
-
-            const item = document.createElement("div");
-            item.className = "review-item";
-            item.innerHTML = `
-                <div class="review-header"><span>${user}</span><span>${stars}</span></div>
-                <div class="review-text">${content}</div>
-            `;
-            list.appendChild(item);
-            list.scrollTop = list.scrollHeight;
-
-            document.getElementById("reviewForm").reset();
-        }
-
-        function switchAuth(mode) {
-            currentMode = mode;
-            document.getElementById("authMsg").innerText = "";
-            document.getElementById("tabLogin").classList.toggle("active", mode === 'login');
-            document.getElementById("tabSignup").classList.toggle("active", mode === 'signup');
-            document.getElementById("username").style.display = mode === 'signup' ? 'block' : 'none';
-            document.getElementById("authBtn").innerText = mode === 'signup' ? 'تۆماربوون' : 'بچۆ ژوورەوە';
-        }
-
-        function handleAuth() {
-            const u = document.getElementById("username").value;
-            const e = document.getElementById("email").value;
-            const p = document.getElementById("password").value;
-            const msg = document.getElementById("authMsg");
-
-            if (currentMode === 'signup') {
-                if (!u || !e || !p) { msg.innerText = "تکایە هەموو خانەکان پڕبکەرەوە!"; return; }
-                localStorage.setItem("storedUser", JSON.stringify({username: u, email: e, password: p}));
-                msg.style.color = "lightgreen";
-                msg.innerText = "ئەکاونت دروستکرا! ئێستا لۆگین بکە.";
-                switchAuth('login');
-            } else {
-                if (!e || !p) { msg.innerText = "تکایە ئیمەیڵ و وشەی تێپەڕبوون بنووسە!"; return; }
-                const saved = JSON.parse(localStorage.getItem("storedUser"));
-                if (saved && saved.email === e && saved.password === p) {
-                    document.getElementById("authSection").style.display = "none";
-                    document.getElementById("welcome").innerText = `👤 بەخێربێیت، ${saved.username}`;
-                    document.getElementById("welcome").style.display = "block";
-                    document.getElementById("logoutBtn").style.display = "inline-block";
-                    document.getElementById("storeContent").style.display = "block";
-                    
-                    // چالاککردنی سیستەمی لایڤ نۆتفیکەیشن دوای لۆگینی سەرکەوتوو
-                    startLiveNotifications();
-                } else {
-                    msg.style.color = "#ff4d4d";
-                    msg.innerText = "زانیارییەکان هەڵەن!";
-                }
-            }
-        }
-
-        function logout() {
-            document.getElementById("storeContent").style.display = "none";
-            document.getElementById("welcome").style.display = "none";
-            document.getElementById("logoutBtn").style.display = "none";
-            document.getElementById("authSection").style.display = "block";
-            
-            // ڕاگرتنی نۆتفیکەیشنەکان دوای چوونەدەرەوە
-            stopLiveNotifications();
-        }
-
-        function openPlatform(evt, platformName) {
-            const contents = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < contents.length; i++) contents[i].classList.remove("active");
-            
-            const btns = document.getElementsByClassName("platform-btn");
-            for (let i = 0; i < btns.length; i++) btns[i].classList.remove("active");
-
-            document.getElementById(platformName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
-
-        function openSubTab(evt, platform, subType) {
-            const parent = document.getElementById(platform);
-            const contents = parent.getElementsByClassName("sub-content");
-            for (let i = 0; i < contents.length; i++) contents[i].classList.remove("active");
-
-            const btns = parent.getElementsByClassName("sub-btn");
-            for (let i = 0; i < btns.length; i++) btns[i].classList.remove("active");
-
-            document.getElementById(`${platform}-${subType}`).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
-
-        function openOrderModal(name, price) {
-            document.getElementById("orderItemName").value = name;
-            document.getElementById("orderItemPrice").value = price;
-            document.getElementById("modalTitle").innerText = `داواکردنی: ${name} (${price})`;
-            document.getElementById("orderModal").style.display = "flex";
-        }
-
-        function closeOrderModal() {
-            document.getElementById("orderModal").style.display = "none";
-        }
-
-        function sendToWhatsapp(event) {
-            event.preventDefault();
-            const itemName = document.getElementById("orderItemName").value;
-            const itemPrice = document.getElementById("orderItemPrice").value;
-            const clientName = document.getElementById("clientName").value;
-            const clientPhone = document.getElementById("clientPhone").value;
-            const clientLink = document.getElementById("clientLink").value;
-            const selectedAdmin = document.getElementById("adminSelect").value;
-
-            const myWhatsappNumber = "9647751513431"; 
-
-            const text = `سڵاو بەڕێز ${selectedAdmin}، من داواکارییەکم هەیە لە ماڵپەڕی کوردستان ستۆرەوە:\n\n` +
-                         `📦 پاکێج: ${itemName}\n` +
-                         `💰 نرخ: ${itemPrice}\n` +
-                         `👤 ناوی کڕیار: ${clientName}\n` +
-                         `📞 تەلەفۆن: ${clientPhone}\n` +
-                         `🔗 ئایدی/لینک: ${clientLink}\n` +
-                         `👤 ئاڕاستەکراوە بۆ بەڕێوبەر: ${selectedAdmin}`;
-
-            window.open(`https://wa.me/${myWhatsappNumber}?text=${encodeURIComponent(text)}`, '_blank');
-            closeOrderModal();
-        }
-
-        // ================= لۆجیکی پیشاندانی لایڤ نۆتفیکەی کڕیاران =================
-        function showNotification(side) {
-            const randomName = buyerNames[Math.floor(Math.random() * buyerNames.length)];
-            const randomCity = kurdishCities[Math.floor(Math.random() * kurdishCities.length)];
-            const randomService = liveServices[Math.floor(Math.random() * liveServices.length)];
-
-            const imgEl = document.getElementById(`notif-img-${side}`);
-            const titleEl = document.getElementById(`notif-title-${side}`);
-            const descEl = document.getElementById(`notif-desc-${side}`);
-            const notifBox = document.getElementById(`notif-${side}`);
-
-            imgEl.src = randomService.img;
-            titleEl.innerText = `${randomName} لە (${randomCity})`;
-            descEl.innerText = `پاکێجی [${randomService.name}] بە سەرکەوتوویی کڕی!`;
-
-            notifBox.classList.add("active");
-
-            setTimeout(() => {
-                notifBox.classList.remove("active");
-            }, 6000);
-        }
-
-        function startLiveNotifications() {
-            stopLiveNotifications(); 
-
-            const leftTimeout = setTimeout(() => {
-                showNotification('left');
-                const leftInterval = setInterval(() => showNotification('left'), 18000);
-                notifIntervals.push(leftInterval);
-            }, 5000);
-
-            const rightTimeout = setTimeout(() => {
-                showNotification('right');
-                const rightInterval = setInterval(() => showNotification('right'), 22000);
-                notifIntervals.push(rightInterval);
-            }, 12000);
-
-            notifIntervals.push(leftTimeout, rightTimeout);
-        }
-
-        function stopLiveNotifications() {
-            notifIntervals.forEach(clearInterval);
-            notifIntervals = [];
-            document.getElementById("notif-left").classList.remove("active");
-            document.getElementById("notif-right").classList.remove("active");
-        }
-
-        window.onload = () => {
-            loadPlatformServices();
-        };
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('Service Worker Registered Successfully!', reg))
+            .catch(err => console.error('Service Worker Registration Failed:', err));
+        });
+      }
     </script>
 </body>
 </html>
