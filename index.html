@@ -695,7 +695,7 @@
 
         // پەیوەندی ژمارەی مۆبایلەکان بە ناوی بەڕێوبەرەکانەوە
         const adminPhones = {
-            "MUHAMAD MARIWAN AZEZ": "9647501234567", // ژمارەی ڕاستەقینە لێرە دابنێ
+            "MUHAMAD MARIWAN AZEZ": "9647501234567",
             "BAREZ ABAS": "9647501234567",
             "AKAY PUBGY": "9647501234567",
             "AHMAD CHOMANI": "9647501234567"
@@ -716,11 +716,13 @@
 
         // وێنەی خزمەتگوزارییەکان
         const images = {
+            pubg: "https://images.uncyc.org/commons/5/57/Pubg-logo.png",
             snapchat: "https://assets.snapchat.com/web/marketing/web/ghost/snapchat-ghost-yellow.svg",
             tiktok: "https://cdn-icons-png.flaticon.com/512/3046/3046124.png",
             facebook: "https://cdn-icons-png.flaticon.com/512/733/733547.png",
             instagram: "https://cdn-icons-png.flaticon.com/512/2111/2111463.png",
-            telegram: "https://cdn-icons-png.flaticon.com/512/2111/2111646.png"
+            telegram: "https://cdn-icons-png.flaticon.com/512/2111/2111646.png",
+            youtube: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
         };
 
         // داتای سەرەکی سەرجەم خزمەتگوزارییەکان بە پێوانەی 5K تا 100K
@@ -754,6 +756,20 @@
                 likes: generatePackages("Telegram", "Likes", 500, images.telegram),
                 followers: generatePackages("Telegram", "Followers", 2000, images.telegram),
                 comments: generatePackages("Telegram", "Comments", 3000, images.telegram)
+            },
+            youtube: {
+                views: generatePackages("YouTube", "Views", 300, images.youtube),
+                likes: generatePackages("YouTube", "Likes", 900, images.youtube),
+                followers: generatePackages("YouTube", "Followers", 2500, images.youtube),
+                comments: generatePackages("YouTube", "Comments", 3500, images.youtube)
+            }
+        };
+
+        // پشکنینی ئەوەی ئایا کڕیار پێشتر لۆگینی کردووە لەسەر ئەم وێبگەڕە؟
+        window.onload = function() {
+            const loggedInUser = localStorage.getItem("loggedInUser");
+            if (loggedInUser) {
+                showStore(loggedInUser);
             }
         };
 
@@ -770,7 +786,6 @@
             document.getElementById(platformId).classList.add("active");
             evt.currentTarget.classList.add("active");
 
-            // جێبەجێکردنی دابەشکاری یەکەم لکێنەر بۆ خزمەتگوزارییەکانی تر بێجگە لە پۆبجی
             if (platformId !== 'pubg') {
                 const firstSubBtn = document.querySelector(`#${platformId} .sub-btn`);
                 if (firstSubBtn) {
@@ -799,7 +814,6 @@
             const targetContainer = document.getElementById(containerId);
             targetContainer.classList.add("active");
 
-            // دروستکردنی کارتی خزمەتگوزارییەکان لە داتا گەشەپێدراوەکەوە
             const items = subServicesData[platformId][subType] || [];
             items.forEach(item => {
                 const card = document.createElement("div");
@@ -832,7 +846,7 @@
         // نۆتفیکەیشنە لایڤەکان بە کاتی خەیاڵی
         function showLiveNotification(side) {
             const names = ["Muhamad", "Barez", "Ahmad", "Karwan", "Soran", "Hejar", "Akay", "Darya", "Sana", "Yad"];
-            const platforms = ["TikTok", "Snapchat", "Instagram", "Facebook", "Telegram", "PUBG UC"];
+            const platforms = ["TikTok", "Snapchat", "Instagram", "Facebook", "Telegram", "YouTube", "PUBG UC"];
             const actions = ["لایک", "ڤیوو", "فۆڵۆوەر", "کۆمێنت", "بارگاوی کردنەوەی UC"];
             
             const randomName = names[Math.floor(Math.random() * names.length)];
@@ -866,6 +880,7 @@
             const tabSignup = document.getElementById("tabSignup");
             const usernameInput = document.getElementById("username");
             const authBtn = document.getElementById("authBtn");
+            document.getElementById("authMsg").innerText = "";
 
             if (mode === 'login') {
                 tabLogin.classList.add("active");
@@ -881,9 +896,9 @@
         }
 
         function handleAuth() {
-            const email = document.getElementById("email").value;
+            const email = document.getElementById("email").value.trim();
             const password = document.getElementById("password").value;
-            const username = document.getElementById("username").value;
+            const username = document.getElementById("username").value.trim();
             const msg = document.getElementById("authMsg");
 
             if (!email || !password || (currentMode === 'signup' && !username)) {
@@ -891,21 +906,44 @@
                 return;
             }
 
-            msg.innerText = "";
+            // وەرگرتنی سەرجەم بەکارهێنەرانی پاشەکەوتکراو
+            let users = JSON.parse(localStorage.getItem("usersList")) || {};
+
+            if (currentMode === 'signup') {
+                if (users[email]) {
+                    msg.innerText = "ئەم ئیمەیڵە پێشتر تۆمارکراوە!";
+                    return;
+                }
+                // پاشەکەوتکردنی کڕیاری نوێ
+                users[email] = { username: username, password: password };
+                localStorage.setItem("usersList", JSON.stringify(users));
+                localStorage.setItem("loggedInUser", username);
+                showStore(username);
+            } else {
+                // پڕۆسەی چوونەژوورەوە
+                if (users[email] && users[email].password === password) {
+                    localStorage.setItem("loggedInUser", users[email].username);
+                    showStore(users[email].username);
+                } else {
+                    msg.innerText = "ئیمەیڵ یان وشەی تێپەڕبوون هەڵەیە!";
+                }
+            }
+        }
+
+        function showStore(name) {
             document.getElementById("authSection").style.display = "none";
             document.getElementById("storeContent").style.display = "block";
             document.getElementById("logoutBtn").style.display = "inline-block";
             
-            const dispName = currentMode === 'signup' ? username : email.split('@')[0];
             const welcome = document.getElementById("welcome");
-            welcome.innerText = `👋 بەخێربێیت، ${dispName}`;
+            welcome.innerText = `👋 بەخێربێیت، ${name}`;
             welcome.style.display = "block";
 
-            // دەستپێکردنی نۆتفیکەیشنە لایڤەکان دوای چوونەژوورەوە
             startLiveNotifications();
         }
 
         function logout() {
+            localStorage.removeItem("loggedInUser");
             document.getElementById("storeContent").style.display = "none";
             document.getElementById("logoutBtn").style.display = "none";
             document.getElementById("welcome").style.display = "none";
@@ -913,15 +951,19 @@
             document.getElementById("email").value = "";
             document.getElementById("password").value = "";
             document.getElementById("username").value = "";
+            document.getElementById("authMsg").innerText = "";
             
             notifIntervals.forEach(clearInterval);
+            notifIntervals = [];
         }
 
         function startLiveNotifications() {
-            notifIntervals.push(setInterval(() => showLiveNotification('left'), 15000));
-            setTimeout(() => {
-                notifIntervals.push(setInterval(() => showLiveNotification('right'), 18000));
-            }, 5000);
+            if(notifIntervals.length === 0) {
+                notifIntervals.push(setInterval(() => showLiveNotification('left'), 15000));
+                setTimeout(() => {
+                    notifIntervals.push(setInterval(() => showLiveNotification('right'), 18000));
+                }, 5000);
+            }
         }
 
         // فۆرمی ئۆردەر / واتسئاپ
@@ -947,16 +989,7 @@
 
             const phone = adminPhones[admin] || "9647501234567";
 
-            const text = `سڵاو بەڕێز ${admin}، من دەمەوێت ئەم خزمەتگوزارییە بکڕم:
-            
-📦 خزمەتگوزاری: ${itemName}
-💵 نرخ: ${itemPrice}
-
-👤 ناوی کڕیار: ${clientName}
-📞 ژمارەی مۆبایل: ${clientPhone}
-🔗 ئایدی یان لکێنەر: ${clientLink}
-
-تکایە داواکارییەکەم جێبەجێ بکە.`;
+            const text = `سڵاو بەڕێز ${admin}، من دەمەوێت ئەم خزمەتگوزارییە بکڕم:\n\n📦 خزمەتگوزاری: ${itemName}\n💵 نرخ: ${itemPrice}\n\n👤 ناوی کڕیار: ${clientName}\n📞 ژمارەی مۆبایل: ${clientPhone}\n🔗 ئایدی یان لکێنەر: ${clientLink}\n\nتکایە داواکارییەکەم جێبەجێ بکە.`;
 
             const url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(text)}`;
             window.open(url, '_blank');
